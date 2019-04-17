@@ -34,7 +34,6 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 
-
 app.use(cors({
   credentials: true,
   origin: ['http://localhost:3000']
@@ -67,7 +66,6 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 
 
