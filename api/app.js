@@ -77,5 +77,12 @@ app.use('/api', userRoutes);
 const orderRoutes = require('./routes/orderRoutes');
 app.use('/order', orderRoutes);
 
+const productsRoutes = require('./routes/productsRoutes');
+app.use('/product', productsRoutes);
+
+const influencerRoutes = require('./routes/influencerRoutes');
+app.use('/influencer', influencerRoutes);
+
+
 
 module.exports = app;
