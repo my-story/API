@@ -8,7 +8,6 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-
 const session       = require('express-session');
 const passport      = require('passport');
 
@@ -74,6 +73,9 @@ app.use('/', index);
 
 const userRoutes = require('./routes/userRoutes');
 app.use('/api', userRoutes);
+
+const orderRoutes = require('./routes/orderRoutes');
+app.use('/order', orderRoutes);
 
 
 module.exports = app;
