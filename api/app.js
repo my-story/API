@@ -9,6 +9,16 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 
+const session       = require('express-session');
+const passport      = require('passport');
+
+const cors = require('cors');
+// require cors as our security package to enable our API to receive requests from our React app
+
+require('./config/passport-stuff')
+// require in the configuration code we put in config/passport-stuff.js
+
+
 
 mongoose
   .connect('mongodb://localhost/api', {useNewUrlParser: true})
@@ -37,7 +47,7 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-      
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -49,10 +59,22 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000']
+}));
+
 
 
 const index = require('./routes/index');
 app.use('/', index);
+
+const userRoutes = require('./routes/userRoutes');
+app.use('/api', userRoutes);
 
 
 module.exports = app;
