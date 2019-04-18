@@ -9,4 +9,4 @@ const rewardSchema = new Schema({
     // commission: 0.9%
 })
 
-module.exports = mongoose.model('', influencerSchema)
+module.exports = mongoose.model('Reward', influencerSchema)
