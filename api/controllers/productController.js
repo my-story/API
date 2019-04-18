@@ -16,3 +16,13 @@ module.exports.createProduct = (req,res,next)=>{
   })
   .catch((e)=>next(e))
 }
+
+module.exports.addPicture = (req,res,next) =>{
+  const id = req.params
+
+Product.findByIdAndUpdate(id, {picture : req.file.url}, {new:true})
+.then((user)=>{
+  res.status(201).json(user)
+})
+.catch((e)=>next(e))
+}
