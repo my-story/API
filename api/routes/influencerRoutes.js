@@ -50,14 +50,12 @@ router.post('/create',(req,res,next)=>{
 
 //Update a INfluencer for each infleuncer
 router.post('/edit/:id',(req,res,next)=>{
-  const id = req.params
 
-  Influencer.findByIdAndUpdate(id, {
+  Influencer.findByIdAndUpdate(req.params.id, {
     name:req.body.name,
-    picture: req.body.picture,
+    // picture: req.body.picture,
     description: req.body.description,
-
-
+    // category: req.body.category,
   })
   .then((user)=>{
     res.status(201).json(user)

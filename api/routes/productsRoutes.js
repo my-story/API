@@ -11,7 +11,7 @@ router.get('/all', productController.getAll);
 router.post('/create',productController.createProduct);
 
 //Add picture
-router.post('/upload/picture', productController.addPicture);
+router.post('/upload/picture',uploadCloud.single('picture'), productController.addPicture);
 
 
 module.exports = router;
