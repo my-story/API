@@ -90,6 +90,13 @@ app.use('/product', productsRoutes);
 const influencerRoutes = require('./routes/influencerRoutes');
 app.use('/influencer', influencerRoutes);
 
+const influencerRewardRoutes = require('./routes/influencerRewardRoutes');
+app.use('/influencer/rewards', influencerRewardRoutes);
+
+const reviewRoutes = require('./routes/reviewRoutes');
+app.use('/reviews', reviewRoutes);
+
+
 
 
 module.exports = app;
