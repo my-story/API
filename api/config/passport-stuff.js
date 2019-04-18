@@ -7,8 +7,6 @@ const User          = require('../models/User');
 // import the user model
 
 
-
-
 passport.serializeUser((loggedInUser, cb) => {
   cb(null, loggedInUser._id);
 });
