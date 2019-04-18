@@ -10,7 +10,7 @@ const logger       = require('morgan');
 const path         = require('path');
 const session       = require('express-session');
 const passport      = require('passport');
-
+// const MongoStore = require('connect-mongo')(session)
 const cors = require('cors');
 // require cors as our security package to enable our API to receive requests from our React app
 
@@ -63,6 +63,12 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
+app.use(session({
+  secret:"some secret goes here",
+  resave: true,
+  saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -85,6 +91,11 @@ app.use('/influencer', influencerRoutes);
 
 const influencerRewardRoutes = require('./routes/influencerRewardRoutes');
 app.use('/influencer/rewards', influencerRewardRoutes);
+
+const reviewRoutes = require('./routes/reviewRoutes');
+app.use('/reviews', reviewRoutes);
+
+
 
 
 module.exports = app;
