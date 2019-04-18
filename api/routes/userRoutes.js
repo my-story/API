@@ -13,7 +13,7 @@ router.post('/signup', (req, res, next) =>{
 
 
     // becomes annoying while testing, make sure you put it on after
-    // if(password.length < 5){
+    // if(password.length < 8){
     //     res.status(400).json({ message: 'Please make your password at least 6 characters long for security purposes.' });
     //     return;
     // }
@@ -100,6 +100,7 @@ router.post('/logout', (req, res, next) =>{
     req.logout();
     res.json({ message: 'Log out succes!'});
 })
+
 
 router.get('/loggedin', (req, res, next) =>{
     console.log('in logged in', req.body, req.params)
