@@ -3,7 +3,10 @@ const Schema   = mongoose.Schema;
 
 const influencerSchema = new Schema({
   name: String,
-  products : Array,
+  product : {
+    type: Schema.Types.ObjectId,
+    ref: "Product"
+  },
   images: Array,
   description: String,
   category: [{

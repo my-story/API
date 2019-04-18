@@ -10,7 +10,7 @@ const logger       = require('morgan');
 const path         = require('path');
 const session       = require('express-session');
 const passport      = require('passport');
-
+// const MongoStore = require('connect-mongo')(session)
 const cors = require('cors');
 // require cors as our security package to enable our API to receive requests from our React app
 
@@ -62,6 +62,18 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
+
+// app.use(session({
+//   secret: process.env.SECRET,
+//   resave: false,
+//   httpOnly: true,
+//   saveUninitialized: true,
+//   cookie: { httpOnly: true, maxAge: 2419200000 },
+//   store: new MongoStore({
+//     mongooseConnection: mongoose.connection,
+//     ttl: 24 * 60 * 60 // 1 day
+//   })
+// }));
 
 app.use(passport.initialize());
 app.use(passport.session());
