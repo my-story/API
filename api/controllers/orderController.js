@@ -1,4 +1,4 @@
-const Order = require('../models/order.model');
+const Order = require('../models/Order');
 const createError = require('http-errors');
 
 module.exports.createOrder = (req, res, next) => {
