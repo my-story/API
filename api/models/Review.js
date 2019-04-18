@@ -7,10 +7,6 @@ const mongoose = require('mongoose');
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Influencer'
       },
-      product: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
-      }],
       review: {
         type: String
       },
@@ -20,12 +16,10 @@ const mongoose = require('mongoose');
       video:{
         type: String
       },
-      photo:{
-        type: String
-      },
       voicenote:{
         type: String
       }
     }, {timestamps: true});
+
 const Review = mongoose.model("Review", reviewSchema);
 module.exports = Review;
