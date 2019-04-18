@@ -10,7 +10,7 @@ const logger       = require('morgan');
 const path         = require('path');
 const session       = require('express-session');
 const passport      = require('passport');
-
+// const MongoStore = require('connect-mongo')(session)
 const cors = require('cors');
 // require cors as our security package to enable our API to receive requests from our React app
 

@@ -10,8 +10,9 @@ const orderSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product'
   }],
-  cart: {
-    type: Boolean,
+  state: {
+    type: String,
+    default: "cart"
   },
   sold: {
     type: Boolean,
