@@ -12,7 +12,12 @@ const influencerSchema = new Schema({
   category: [{
     type: String,
     enum: ["Athlete","Musician","Tech","Artist"]
-  }]
+  }],
+  role: {
+    type: String,
+    enum:["Influencer","Admin"],
+    default: "Influencer",
+}
 }, {timestamps:true})
 
 module.exports = mongoose.model('Influencer', influencerSchema)

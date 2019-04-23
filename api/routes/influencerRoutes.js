@@ -6,41 +6,36 @@ const uploadCloud = require("../config/cloudinary");
 // const security = require('../middlewears/admin.mid')
 
 //middlewears 
-const isAuthenticated = (req, res, next) =>{
-  // do any checks you want to in here
+// const isAuthenticated = (req, res, next) =>{
+//   // do any checks you want to in here
 
-  // CHECK THE USER STORED IN SESSION FOR A CUSTOM VARIABLE
-  // you can do this however you want with whatever variables you set up
-  if (req.user.authenticated)
-      return next();
+//   // CHECK THE USER STORED IN SESSION FOR A CUSTOM VARIABLE
+//   // you can do this however you want with whatever variables you set up
+//   if (req.user.authenticated)
+//       return next();
 
-  // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
-  res.redirect('/');
-}
-
-// const isAdmin = (req,res,next)=> {
-    
-
-//   // if(req.headers)return res.redirect('/login')
-//   console.log("this is req", req.headers)
-
-//   // console.log("this is req.user", user)
-
-//   // if(req.user.admin) return next()
-//   // return res.redirect('/influencer/all')
+//   // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
+//   res.redirect('/');
 // }
+
+//Is Admin middlewear
+const isAdmin = (req, res, next) => {
+  if (!req.user) return res.redirect('/')
+  if (req.user.role === 'Admin') return next()
+  return res.redirect('/')
+}
 
 //Gtet all Influencers in Product Page
 router.get('/all',(req,res,next)=>{
   Influencer.find()
-  .then((user)=>{
-    res.status(200).json(user)
+  .then((influencer)=>{
+    res.status(200).json(influencer)
   })
   .catch((e)=>console.log(e))
 })
 
 //Create a Infleuncer for each infleuncer
-router.post('/create',(req,res,next)=>{
+router.post('/create', isAdmin, (req,res,next)=>{
   Influencer.create(req.body)
   .then((user)=>{
     res.status(201).json(user)
