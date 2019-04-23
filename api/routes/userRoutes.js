@@ -17,7 +17,7 @@ router.post('/signup', (req, res, next) =>{
     //     res.status(400).json({ message: 'Please make your password at least 6 characters long for security purposes.' });
     //     return;
     // }
-    console.log(username, password)
+
 
     User.findOne({ username }, (err, foundUser) =>{
 
