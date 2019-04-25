@@ -6,7 +6,7 @@ const productSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Influencer"
   },
-  name: String,
+  model: String,
   prize : Number,
   images: [],
   description: String,
