@@ -35,10 +35,16 @@ router.get('/all',(req,res,next)=>{
 })
 
 //Create a Infleuncer for each infleuncer
-router.post('/create', isAdmin, (req,res,next)=>{
-  Influencer.create(req.body)
+router.post('/create', (req,res,next)=>{
+  Influencer.create({
+    "name" : req.body.name,
+    "description" : req.body.description,
+    "category" : req.body.category,
+    "images" : req.body.images,
+  })
   .then((user)=>{
     res.status(201).json(user)
+    console.log(user)
   })
   .catch((e)=>console.log(e))
 })
