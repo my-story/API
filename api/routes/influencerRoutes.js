@@ -38,8 +38,8 @@ router.get('/all',(req,res,next)=>{
 router.post('/create', (req,res,next)=>{
   Influencer.create({
     "name" : req.body.name,
-    "description" : req.body.description,
-    "category" : req.body.category,
+    "review" : req.body.review,
+    "expertise" : req.body.expertise,
     "images" : req.body.images,
   })
   .then((user)=>{
