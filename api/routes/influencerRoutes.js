@@ -1,7 +1,6 @@
 const express = require('express');
 const router  = express.Router();
 const Influencer = require('../models/Influencer')
-const multer = require("multer");
 const uploadCloud = require("../config/cloudinary");
 // const security = require('../middlewears/admin.mid')
 
@@ -65,8 +64,8 @@ router.post('/edit/:id',(req,res,next)=>{
 })
 
 //Add pictures 
-router.post('/upload-picture/:id',uploadCloud.single('picture'),(req,res,next)=>{
-const id = req.params
+router.post('/upload-picture',uploadCloud.single('picture'),(req,res,next)=>{
+// const id = req.params
 
 Influencer.findByIdAndUpdate(id, {picture : req.file.url}, {new:true})
 .then((user)=>{
