@@ -15,6 +15,7 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
     "dotenv": "^6.0.0",
+    "email-validator": "^2.0.4",
     "express": "^4.16.3",
     "express-session": "^1.16.1",
     "hbs": "^4.0.1",
@@ -25,6 +26,7 @@
     "node-sass-middleware": "^0.11.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "password-validator": "^4.1.1",
     "serve-favicon": "^2.5.0",
     "session": "^0.1.0"
   },
