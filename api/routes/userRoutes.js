@@ -5,9 +5,21 @@ const User = require('../models/User');
 
 const bcrypt     = require('bcryptjs');
 const passport = require('passport');
-
+const validator = require("email-validator");
+const passwordValidator = require('password-validator');
 
 router.post('/signup', (req, res, next) =>{
+
+        const schema = new passwordValidator();
+         // Add properties to it
+        schema
+        .is().min(8)                                    // Minimum length 8
+        .is().max(30)                                  // Maximum length 100
+        .has().uppercase()                              // Must have uppercase letters
+        .has().lowercase()                              // Must have lowercase letters
+        .has().digits()                                 // Must have digits
+        .has().not().spaces()                           // Should not have spaces
+
     const username = req.body.username;
     const password = req.body.password;
 
@@ -41,25 +53,31 @@ router.post('/signup', (req, res, next) =>{
             password: hashPass
         });
 
+     if (!validator.validate(username)){
+        res.status(403).json({message: 'enter a valid email'});
+    } else if(!schema.validate(password)){
+        res.status(403).json({message:"Password needs: Uppercase, Lowercases, digits, minimum 8 letters"})
+    } else {
         aNewUser.save(err =>{
-            if (err) {
-                console.log('couldnt save');
-                res.status(400).json({ message: 'Saving user to database went wrong.' });
-                return;
-            }
-            req.login(aNewUser, (err) => {
-
-                console.log('tryna login')
-
                 if (err) {
-                    console.log('couldnt login')
-                    res.status(500).json({ message: 'Login after signup went bad.' });
+                    console.log('couldnt save');
+                    res.status(400).json({ message: 'Saving user to database went wrong.' });
                     return;
                 }
-
-                res.json(aNewUser);
+                req.login(aNewUser, (err) => {
+    
+                    console.log('tryna login')
+    
+                    if (err) {
+                        console.log('couldnt login')
+                        res.status(500).json({ message: 'Login after signup went bad.' });
+                        return;
+                    }
+    
+                    res.json(aNewUser);
+                });
             });
-        });
+    }
     });
 });
 
@@ -76,7 +94,7 @@ router.post('/login', (req, res, next) => {
             // "failureDetails" contains the error messages
             // from our logic in "LocalStrategy" { message: '...' }.
             console.log('------------ failure', failureDetails);
-            res.json(failureDetails);
+            res.json({message:"Incorrect found"});
             return;
         }
 
@@ -98,7 +116,7 @@ router.post('/login', (req, res, next) => {
 
 router.post('/logout', (req, res, next) =>{
     req.logout();
-    res.json({ message: 'Log out succes!'});
+    res.json({ message: 'Log out success!'});
 })
 
 
