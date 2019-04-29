@@ -2,7 +2,7 @@ const express    = require('express');
 const router     = express.Router();
 const User = require('../models/User');
 
-
+const createError = require('http-errors');
 const bcrypt     = require('bcryptjs');
 const passport = require('passport');
 const validator = require("email-validator");
@@ -84,30 +84,23 @@ router.post('/signup', (req, res, next) =>{
 
 
 router.post('/login', (req, res, next) => {
-    passport.authenticate('local', (err, theUser, failureDetails) => {
-        if (err) {
-            res.json({ message: 'Something went wrong authenticating user' });
-            return;
-        }
-
-        if (!theUser) {
+    passport.authenticate('local', (error, user, message) => {
+        if (error) {
+            next(error)
+        } else if (!user) {
             // "failureDetails" contains the error messages
             // from our logic in "LocalStrategy" { message: '...' }.
-            console.log('------------ failure', failureDetails);
-            res.json({message:"Incorrect found"});
-            return;
-        }
-
-        // save user in session
-        req.login(theUser, (err) => {
-            if (err) {
-                res.json({ message: 'Session save went bad.' });
-                return;
-            }
-
-            // We are now logged in (that's why we can also send req.user)
-            res.json(theUser);
+            next(createError(401, res.json(message)));
+        } else {
+            // save user in session
+           req.login(user, (error) => {
+            if (error) {
+                next(error)
+            }else {
+                res.status(201).json(user);
+             }
         });
+        }
     })(req, res, next);
 });
 
