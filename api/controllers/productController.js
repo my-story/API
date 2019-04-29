@@ -10,7 +10,14 @@ module.exports.getAll = (req,res,next)=>{
 }
 
 module.exports.createProduct = (req,res,next)=>{
-  Product.create(req.body)
+
+  Product.create({
+    "model": req.body.model,
+    "description": req.body.description,
+    "images":req.body.images,
+    "category": req.body.category,
+    "prize": req.body.prize,
+  })
   .then((p)=>{
     res.status(201).json(p)
   })

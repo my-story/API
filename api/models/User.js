@@ -6,9 +6,10 @@ const userSchema = new Schema({
     username: String,
     password: String,
     productsLiked: Array,
-    admin: {
-        type: Boolean,
-        default: true,
+    role: {
+        type: String,
+        enum:["User","Admin"],
+        default: "User",
     }
 })
 

@@ -7,12 +7,17 @@ const influencerSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Product"
   },
-  images: Array,
-  description: String,
-  category: [{
+  profilePic: Array,
+  review: String,
+  expertise: [{
     type: String,
     enum: ["Athlete","Musician","Tech","Artist"]
-  }]
+  }],
+  role: {
+    type: String,
+    enum:["Influencer","Admin"],
+    default: "Influencer",
+}
 }, {timestamps:true})
 
 module.exports = mongoose.model('Influencer', influencerSchema)
