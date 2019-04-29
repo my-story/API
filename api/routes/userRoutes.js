@@ -40,7 +40,7 @@ router.post('/signup', (req, res, next) =>{
         }
 
         if (foundUser) {
-            console.log('username taken')
+            console.log('Username taken')
             res.status(400).json({ message: 'Username taken. Choose another one.' });
             return;
         }
@@ -54,7 +54,7 @@ router.post('/signup', (req, res, next) =>{
         });
 
      if (!validator.validate(username)){
-        res.status(403).json({message: 'enter a valid email'});
+        res.status(403).json({message: 'Enter a valid email'});
     } else if(!schema.validate(password)){
         res.status(403).json({message:"Password needs: Uppercase, Lowercases, digits, minimum 8 letters"})
     } else {
