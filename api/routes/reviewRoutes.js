@@ -30,14 +30,13 @@ router.get('/details/:id', (req, res, next) =>{
 
 
 router.post('/new', (req, res, next) =>{
-    console.log(req.user, req.params)
     Review.create(req.body)
-    .then((response) =>{
-        res.json(response)
-    })
-    .catch((err) =>{
-        res.json(err);
-    })
+        .then((response) =>{
+            res.json(response)
+        })
+        .catch((err) =>{
+            res.json(err);
+        })
 })
 
 router.post('/edit/:id', (req, res, next) =>{

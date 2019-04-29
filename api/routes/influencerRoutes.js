@@ -46,15 +46,15 @@ router.post('/create', (req,res,next)=>{
     console.log(user)
   })
   .catch((e)=>console.log(e))
-})
+});
 
 //Update a INfluencer for each infleuncer
 router.post('/edit/:id',(req,res,next)=>{
 
   Influencer.findByIdAndUpdate(req.params.id, {
-    name:req.body.name,
+    "name":req.body.name,
     // picture: req.body.picture,
-    description: req.body.description,
+    "description": req.body.description
     // category: req.body.category,
   })
   .then((user)=>{
