@@ -7,7 +7,9 @@ const influencerSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Product"
   },
-  profilePic: Array,
+  profilePic: {
+    type: String,
+  },
   review: String,
   expertise: [{
     type: String,

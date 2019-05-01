@@ -1,13 +1,13 @@
 const express = require('express');
 const router  = express.Router();
 const productController = require('../controllers/productController')
-const multer = require("multer");
+const multer = require('multer');
 const uploadCloud = require("../config/cloudinary");
 
-//Gtet all Products in Product Page
+//Get all Products in Product Page
 router.get('/all', productController.getAll);
 
-//Create a Product for each infleuncer
+//Create a Product for each influencer
 router.post('/create',productController.createProduct);
 
 //Add picture
