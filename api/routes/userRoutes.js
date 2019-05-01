@@ -48,12 +48,14 @@ router.post(
 )
 
 router.get('/', (req, res, next) => {
-  console.log('===== user!!======')
-  console.log(req.user)
+//   console.log('===== user!!======')
+  
   if (req.user) {
       res.json({ user: req.user })
+      console.log(user)
   } else {
       res.json({ user: null })
+      console.log("No user")
   }
 })
 
