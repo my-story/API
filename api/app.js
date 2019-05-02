@@ -7,12 +7,14 @@ const favicon      = require('serve-favicon');
 // const hbs          = require('hbs');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose     = require('mongoose');
+const MongoClient = require('mongodb').MongoClient;
 const logger       = require('morgan');
 const path         = require('path');
 const session       = require('express-session');
 const passport      = require('passport');
 const User = require('./models/User');
 const MongoStore = require('connect-mongo')(session)
+const createError = require('http-errors');
 // const MongoStore = require('connect-mongo')(session)
 const cors = require('cors');
 
@@ -22,6 +24,27 @@ const cors = require('cors');
 // require in the configuration code we put in config/passport-stuff.js
 
 
+
+
+// (err, database) => {
+//   if (err) {
+//     console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+//     process.exit(1);
+//   }
+//   db = database;
+//   app.set('db', db);
+// }
+
+let db = '';
+
+MongoClient.connect('mongodb://localhost/trackDB', (err, database) => {
+  if (err) {
+    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+    process.exit(1);
+  }
+  db = database.db('api');
+  app.set('db',db );
+});
 
 mongoose
   .connect('mongodb://localhost/api', {useNewUrlParser: true})
@@ -102,6 +125,8 @@ app.use('/influencer/rewards', influencerRewardRoutes);
 const reviewRoutes = require('./routes/reviewRoutes');
 app.use('/reviews', reviewRoutes);
 
+const AudioRoutes = require('./routes/AudioRoutes');
+app.use('/audio', AudioRoutes);
 
 app.use((req, res, next) => {
   res.locals.session = req.user;
