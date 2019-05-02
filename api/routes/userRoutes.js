@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
-const passport = require('../config/passport')
+const passport = require('../config/passport');
 
 //Is Athenticated Middleware
 function isAuth(req, res, next) {
