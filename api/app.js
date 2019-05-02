@@ -69,7 +69,8 @@ app.use(session({
   secret:process.env.SECRET,
   store: new MongoStore({ url: 'mongodb://localhost/test-app' }),
   resave: false, 
-  saveUninitialized: false 
+  saveUninitialized: true,
+  cookie: { httpOnly: true, maxAge: 2419200000 },
 }));
 
 // app.use(session({ secret: 'anything' }));
