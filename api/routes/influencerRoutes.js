@@ -17,6 +17,7 @@ const uploadCloud = require("../config/cloudinary");
 //   res.redirect('/');
 // }
 
+let test = {}
 //Is Admin middlewear
 const isAdmin = (req, res, next) => {
   if (!req.user) return res.redirect('/')
@@ -42,8 +43,8 @@ router.post('/create', (req,res,next)=>{
     "images" : req.body.images,
   })
   .then((user)=>{
+    test = user._id
     res.status(201).json(user)
-    console.log(user)
   })
   .catch((e)=>console.log(e))
 });
@@ -64,10 +65,9 @@ router.post('/edit/:id',(req,res,next)=>{
 })
 
 //Add pictures 
-router.post('/upload-picture',uploadCloud.single('picture'),(req,res,next)=>{
+router.post('/upload/photo',uploadCloud.single('picture'),(req,res,next)=>{
 // const id = req.params
-
-Influencer.findByIdAndUpdate(id, {picture : req.file.url}, {new:true})
+Influencer.findByIdAndUpdate(test, {profilePic : req.file.url}, {new:true})
 .then((user)=>{
   res.status(201).json(user)
 })
