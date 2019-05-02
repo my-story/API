@@ -3,6 +3,18 @@ const router = express.Router()
 const User = require('../models/User')
 const passport = require('../config/passport')
 
+//Is Athenticated Middleware
+function isAuth(req, res, next) {
+    console.log(req.isAuthenticated());
+    if (req.isAuthenticated()) {
+  
+      next();
+    } else {
+      res.status(401).json({ message: "No te has logueado" });
+    }
+  }
+
+  
 router.post('/', (req, res) => {
     console.log('user signup');
     // console.log('req.session', req.session);
@@ -34,30 +46,27 @@ router.post('/', (req, res) => {
 router.post(
   '/login',
   function (req, res, next) {
-      console.log('logging in');
+    //   console.log('logging in');
       next()
   },
   passport.authenticate('local'),
-  (req, res) => {
-      console.log('logged in', req.user);
+  (req, res,next) => {
+    //   console.log('logged in', req.user);
       var userInfo = {
           id: req.user._id,
           username: req.user.username
       };
-      res.send(userInfo);
+      res.send(userInfo)
+      res.status(200).json(req.user)
   }
 )
 
-router.get('/', (req, res, next) => {
+router.get('/private', (req, res, next) => {
 //   console.log('===== user!!======')
   
-  if (req.user) {
-      res.json({ user: req.user })
-      console.log(user)
-  } else {
-      res.json({ user: null })
-      console.log("No user")
-  }
+res.status(200).json(req.user)
+console.log(req.user)
+
 })
 
 router.post('/logout', (req, res) => {
