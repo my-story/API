@@ -62,10 +62,11 @@ router.post(
 )
 
 router.get('/private', (req, res, next) => {
-//   console.log('===== user!!======')
-  
-res.status(200).json(req.user)
-console.log(req.user)
+console.log('===== user!!======')
+console.log(req.session.username);
+res.send(req.session)
+res.status(200).json(req.session)
+
 
 })
 
