@@ -3,6 +3,10 @@ const express    = require('express');
 const router     = express.Router();
 const Review   = require('../models/Review');
 const uploadCloud = require("../config/cloudinary");
+
+
+let test = {}
+
 router.get('/all', (req, res, next) =>{
     console.log('in reviews',req.user, req.params)
 
@@ -30,14 +34,20 @@ router.get('/details/:id', (req, res, next) =>{
 
 
 router.post('/new', (req, res, next) =>{
+    console.log("el req" + req)
     Review.create(req.body)
         .then((response) =>{
+            test = response._id
+            console.log(response)
             res.json(response)
         })
         .catch((err) =>{
             res.json(err);
         })
 })
+
+
+
 
 router.post('/edit/:id', (req, res, next) =>{
     // console.log('reqs',req.params, req.body, req.user)
@@ -56,7 +66,6 @@ router.post('/edit/:id', (req, res, next) =>{
     })
 })
 
-let test = {};
 
 router.post('/upload/voicenote',uploadCloud.single('video'),(req,res,next)=>{
     // const id = req.params
