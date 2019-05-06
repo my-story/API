@@ -2,7 +2,7 @@
 const express    = require('express');
 const router     = express.Router();
 const Review   = require('../models/Review');
-
+const uploadCloud = require("../config/cloudinary");
 router.get('/all', (req, res, next) =>{
     console.log('in reviews',req.user, req.params)
 
@@ -55,5 +55,17 @@ router.post('/edit/:id', (req, res, next) =>{
         res.json(err)
     })
 })
+
+let test = {};
+
+router.post('/upload/voicenote',uploadCloud.single('video'),(req,res,next)=>{
+    // const id = req.params
+    Review.findByIdAndUpdate(test,{voicenote : req.file.url}, {new:true})
+    .then((review)=>{
+        console.log(review)
+      res.status(201).json(review)
+    })
+    .catch((e)=>next(e))
+    })
 
 module.exports = router;
