@@ -3,14 +3,18 @@ const express    = require('express');
 const router     = express.Router();
 const Review   = require('../models/Review');
 const uploadCloud = require("../config/cloudinary");
-router.get('/all', (req, res, next) =>{
-    console.log('in reviews',req.user, req.params)
 
-    Review.find({})//.findById(req.params.restID)
-        .then((reviews) =>{
-            console.log(reviews)
-            console.log('in here ')
-            res.json({reviews})
+
+let test = {}
+
+router.get('/specific/:id', (req, res, next) =>{
+    let {id} = req.params
+
+    Review.find({influencer: id})//.findById(req.params.restID)
+        .populate('influencer')
+        .then((re) =>{
+            console.log(re)
+            res.json(re)
             //res.json({ allCustomers: customersForThisRest})
     })
     .catch((err) =>{
@@ -32,12 +36,17 @@ router.get('/details/:id', (req, res, next) =>{
 router.post('/new', (req, res, next) =>{
     Review.create(req.body)
         .then((response) =>{
+            test = response._id
+            console.log(req.body)
             res.json(response)
         })
         .catch((err) =>{
             res.json(err);
         })
 })
+
+
+
 
 router.post('/edit/:id', (req, res, next) =>{
     // console.log('reqs',req.params, req.body, req.user)
@@ -56,16 +65,17 @@ router.post('/edit/:id', (req, res, next) =>{
     })
 })
 
-let test = {};
 
-router.post('/upload/voicenote',uploadCloud.single('video'),(req,res,next)=>{
-    // const id = req.params
+router.post('/upload/voicenote',uploadCloud.single('voicenote'),(req,res,next)=>{
+
     Review.findByIdAndUpdate(test,{voicenote : req.file.url}, {new:true})
     .then((review)=>{
         console.log(review)
       res.status(201).json(review)
     })
-    .catch((e)=>next(e))
+    .catch((e)=>{
+        console.log("es el storage" + e.storage)
+    next(e)})
     })
 
 module.exports = router;
