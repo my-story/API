@@ -35,16 +35,6 @@ const cors = require('cors');
 //   app.set('db', db);
 // }
 
-let db = '';
-
-MongoClient.connect('mongodb://localhost/api', (err, database) => {
-  if (err) {
-    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
-    process.exit(1);
-  }
-  db = database.db('api');
-  app.set('db',db );
-});
 
 mongoose
   .connect('mongodb://localhost/api', {useNewUrlParser: true})
@@ -90,15 +80,30 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 app.use(session({
   secret:process.env.SECRET,
-  store: new MongoStore({ url: 'mongodb://localhost/test-app' }),
   resave: false, 
   saveUninitialized: true,
-  cookie: { httpOnly: true, maxAge: 2419200000 },
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 1000
+  },
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60
+  })
 }));
+
+
 
 // app.use(session({ secret: 'anything' }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.session = req.user;
+  next();
+})
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -129,10 +134,7 @@ app.use('/reviews', reviewRoutes);
 const AudioRoutes = require('./routes/AudioRoutes');
 app.use('/audio', AudioRoutes);
 
-app.use((req, res, next) => {
-  res.locals.session = req.user;
-  next();
-})
+
 
 // 404
 app.use(function(req, res, next) {

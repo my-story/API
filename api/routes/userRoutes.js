@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
 const passport = require('../config/passport');
+const isAdmin = require("../middlewears/isAdmin.mid")
 
 //Is Athenticated Middleware
 function isAuth(req, res, next) {
@@ -56,16 +57,19 @@ router.post(
           id: req.user._id,
           username: req.user.username
       };
+      req.session.id = req.user._id;
       res.send(userInfo)
+      res.locals.session = req.user;
       res.status(200).json(req.user)
   }
 )
 
 router.get('/private', (req, res, next) => {
-console.log('===== user!!======')
-console.log(req.session.username);
-res.send(req.session)
-res.status(200).json(req.session)
+  console.log(req.session);
+// console.log('===== user!!======')
+// console.log(req.user);
+  res.send(req.user);
+// res.status(200).json(req.session)
 
 
 })
