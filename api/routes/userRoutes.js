@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
+
 const passport = require('../config/passport');
+const createError = require('create-error');
 // const isAdmin = require("../middlewears/isAdmin.mid")
 const middlewares = require("../middlewears/secure.mid");
 
@@ -88,9 +90,9 @@ router.get('/private', isAuth, (req, res, next) => {
 router.post('/logout', (req, res) => {
   if (req.user) {
       req.logout()
-      res.send({ msg: 'logging out' })
+      res.status(200).json(req.user)
   } else {
-      res.send({ msg: 'no user to log out' })
+    createError(403, "this user is already logged-out");
   }
 })
 
