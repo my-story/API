@@ -2,11 +2,12 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
 const passport = require('../config/passport');
-const isAdmin = require("../middlewears/isAdmin.mid")
+// const isAdmin = require("../middlewears/isAdmin.mid")
+const middlewares = require("../middlewears/secure.mid");
 
 //Is Athenticated Middleware
 function isAuth(req, res, next) {
-    console.log(req.isAuthenticated());
+    console.log(req.session);
     if (req.isAuthenticated()) {
   
       next();
@@ -14,6 +15,15 @@ function isAuth(req, res, next) {
       res.status(401).json({ message: "No te has logueado" });
     }
   }
+
+  
+// module.exports.isAuthenticated = (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     next();
+//   } else {
+//     next(createError(403));
+//   }
+// }
 
   
 router.post('/', (req, res) => {
@@ -52,20 +62,21 @@ router.post(
   },
   passport.authenticate('local'),
   (req, res,next) => {
-    //   console.log('logged in', req.user);
+      console.log('logged in', req.user);
+
       var userInfo = {
           id: req.user._id,
           username: req.user.username
       };
-      req.session.id = req.user._id;
-      res.send(userInfo)
-      res.locals.session = req.user;
+
+      res.send(req.user)
       res.status(200).json(req.user)
   }
 )
 
-router.get('/private', (req, res, next) => {
+router.get('/private', isAuth, (req, res, next) => {
   console.log(req.session);
+  console.log("this is req user:", req.user);
 // console.log('===== user!!======')
 // console.log(req.user);
   res.send(req.user);

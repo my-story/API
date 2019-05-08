@@ -98,6 +98,7 @@ app.use(session({
 // app.use(session({ secret: 'anything' }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(require("body-parser").text());
 
 app.use((req, res, next) => {
   res.locals.session = req.user;
@@ -107,7 +108,7 @@ app.use((req, res, next) => {
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-app.use(require("body-parser").text());
+
 
 
 const index = require('./routes/index');
