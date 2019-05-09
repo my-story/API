@@ -3,6 +3,15 @@ const express    = require('express');
 const router     = express.Router();
 const Review   = require('../models/Review');
 const uploadCloud = require("../config/cloudinary");
+const createError = require('http-errors');
+
+isAdmin = (req, res, next) => {
+  if (req.user.role === "Admin") {
+    return next();
+  } else {
+    next(createError(403));
+  }
+}
 
 
 let test = {}
@@ -33,7 +42,7 @@ router.get('/details/:id', (req, res, next) =>{
 })
 
 
-router.post('/new', (req, res, next) =>{
+router.post('/new', isAdmin, (req, res, next) =>{
     Review.create(req.body)
         .then((response) =>{
             test = response._id
