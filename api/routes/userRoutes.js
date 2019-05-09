@@ -5,7 +5,8 @@ const User = require('../models/User')
 const passport = require('../config/passport');
 const createError = require('create-error');
 // const isAdmin = require("../middlewears/isAdmin.mid")
-const middlewares = require("../middlewears/secure.mid");
+// const middlewares = require("../middlewears/secure.mid");
+
 
 //Is Athenticated Middleware
 function isAuth(req, res, next) {
