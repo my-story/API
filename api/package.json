@@ -31,7 +31,8 @@
     "password-validator": "^4.1.1",
     "serve-favicon": "^2.5.0",
     "session": "^0.1.0",
-    "stream": "0.0.2"
+    "stream": "0.0.2",
+    "stripe": "^6.34.0"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
