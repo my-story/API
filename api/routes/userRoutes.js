@@ -4,20 +4,19 @@ const User = require('../models/User')
 
 const passport = require('../config/passport');
 const createError = require('create-error');
-// const isAdmin = require("../middlewears/isAdmin.mid")
-// const middlewares = require("../middlewears/secure.mid");
+const middlewares = require("../middlewears/secure.mid");
 
 
 //Is Athenticated Middleware
-function isAuth(req, res, next) {
-    console.log(req.session);
-    if (req.isAuthenticated()) {
+// function isAuth(req, res, next) {
+//     console.log(req.session);
+//     if (req.isAuthenticated()) {
   
-      next();
-    } else {
-      res.status(401).json({ message: "No te has logueado" });
-    }
-  }
+//       next();
+//     } else {
+//       res.status(401).json({ message: "No te has logueado" });
+//     }
+//   }
 
   
 // module.exports.isAuthenticated = (req, res, next) => {
@@ -77,7 +76,7 @@ router.post(
   }
 )
 
-router.get('/private', isAuth, (req, res, next) => {
+router.get('/private', middlewares.isAuthenticated, (req, res, next) => {
   console.log(req.session);
   console.log("this is req user:", req.user);
 // console.log('===== user!!======')
