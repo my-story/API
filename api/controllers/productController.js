@@ -11,6 +11,16 @@ module.exports.getAll = (req,res,next)=>{
   .catch()
 }
 
+module.exports.getOne = (req, res, next) =>{
+  Product.findById(req.params.id)
+  .then((product)=>{
+      res.json(product)
+  })
+  .catch((err) =>{
+      res.json(err);
+  })
+}
+
 module.exports.createProduct = (req,res,next)=>{
   console.log(req.body)
 
