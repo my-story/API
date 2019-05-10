@@ -12,18 +12,19 @@ module.exports.getAll = (req,res,next)=>{
 }
 
 module.exports.createProduct = (req,res,next)=>{
+  console.log(req.body)
 
   Product.create({
-    "model": req.body.model,
-    "description": req.body.description,
-    // "images":req.body.images,
-    "category": req.body.category,
-    "prize": req.body.prize,
-    "influencer": req.body.influencer
+    model: req.body.model,
+    description: req.body.description,
+    // images:req.body.images,
+    category: req.body.category,
+    prize: req.body.prize,
+    // influencer: req.body.influencer
   })
-  .then((p)=>{
-    test = p._id
-    res.status(201).json(p)
+  .then((response)=>{
+    test = response._id
+    res.status(201).json(response)
 
   })
   .catch((e)=>next(e))
