@@ -3,15 +3,7 @@ const express    = require('express');
 const router     = express.Router();
 const Review   = require('../models/Review');
 const uploadCloud = require("../config/cloudinary");
-const createError = require('http-errors');
-
-isAdmin = (req, res, next) => {
-  if (req.user.role === "Admin") {
-    return next();
-  } else {
-    next(createError(403));
-  }
-}
+const middlewares = require("../middlewears/secure.mid");
 
 
 let test = {}
@@ -42,7 +34,7 @@ router.get('/details/:id', (req, res, next) =>{
 })
 
 
-router.post('/new', isAdmin, (req, res, next) =>{
+router.post('/new', middlewares.isAdmin, (req, res, next) =>{
     Review.create(req.body)
         .then((response) =>{
             test = response._id
@@ -57,7 +49,7 @@ router.post('/new', isAdmin, (req, res, next) =>{
 
 
 
-router.post('/edit/:id', (req, res, next) =>{
+router.post('/edit/:id', middlewares.isAdmin, (req, res, next) =>{
     // console.log('reqs',req.params, req.body, req.user)
     Review.findByIdAndUpdate(req.params.id,{
       title: req.body.title,
@@ -73,18 +65,5 @@ router.post('/edit/:id', (req, res, next) =>{
         res.json(err)
     })
 })
-
-
-router.post('/upload/voicenote',uploadCloud.single('voicenote'),(req,res,next)=>{
-
-    Review.findByIdAndUpdate(test,{voicenote : req.file.url}, {new:true})
-    .then((review)=>{
-        console.log(review)
-      res.status(201).json(review)
-    })
-    .catch((e)=>{
-        console.log("es el storage" + e.storage)
-    next(e)})
-    })
 
 module.exports = router;

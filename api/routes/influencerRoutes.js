@@ -3,6 +3,7 @@ const router  = express.Router();
 const Influencer = require('../models/Influencer')
 const uploadCloud = require("../config/cloudinary");
 // const security = require('../middlewears/admin.mid')
+const middleweares = require("../middlewears/secure.mid");
 
 //middlewears 
 // const isAuthenticated = (req, res, next) =>{
@@ -35,7 +36,7 @@ router.get('/all',(req,res,next)=>{
 })
 
 //Create a Infleuncer for each infleuncer
-router.post('/create', (req,res,next)=>{
+router.post('/create',middleweares.isAdmin, (req,res,next)=>{
   Influencer.create({
     "name" : req.body.name,
     "review" : req.body.review,
