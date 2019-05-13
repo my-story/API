@@ -136,7 +136,7 @@ const AudioRoutes = require('./routes/AudioRoutes');
 app.use('/audio', AudioRoutes);
 
 const stripe = require('./routes/stripeRoutes')
-app.use('/stripe', stripe)
+app.use('/payment', stripe)
 
 
 // 404
