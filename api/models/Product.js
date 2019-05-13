@@ -8,9 +8,9 @@ const productSchema = new Schema({
   },
   model: String,
   prize : Number,
-  images: {
+  images: [{
     type: String,
-  },
+  }],
   description: String,
   category: [{
     type: String,

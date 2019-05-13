@@ -4,8 +4,9 @@ let test = {}
 
 module.exports.getAll = (req,res,next)=>{
   Product.find()
-  .populate('influencer')
+  .populate("influencer")
   .then((p)=>{
+    console.log(p)
     res.status(200).json(p)
   })
   .catch()
@@ -22,7 +23,7 @@ module.exports.getOne = (req, res, next) =>{
 }
 
 module.exports.createProduct = (req,res,next)=>{
-  console.log(req.body)
+
 
   Product.create({
     model: req.body.model,
@@ -30,7 +31,7 @@ module.exports.createProduct = (req,res,next)=>{
     // images:req.body.images,
     category: req.body.category,
     prize: req.body.prize,
-    // influencer: req.body.influencer
+    influencer: req.body.influencer
   })
   .then((response)=>{
     test = response._id
