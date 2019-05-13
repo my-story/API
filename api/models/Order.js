@@ -16,6 +16,7 @@ const orderSchema = new Schema({
   },
   sold: {
     type: Boolean,
+    default: false
   }
 })
 
