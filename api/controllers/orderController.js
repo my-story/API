@@ -44,6 +44,7 @@ module.exports.deleteProduct = (req, res, next) => {
     { $pull: { product: search }}, 
     { new: true }
   )
+    .populate('product')
     .then(order => {
       res.status(201).json(order)
     })
