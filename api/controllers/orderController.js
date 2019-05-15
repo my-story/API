@@ -35,6 +35,13 @@ module.exports.getCart = (req, res, next) => {
 
 //5ca87284bef68c3a4349f84a
 
+module.exports.paymentCart = (req,res,next) => {
+//needs fixin looking up user and cart at same time
+  Order.findOneAndUpdate({user=req.user._id , state='cart'},{ "state": 'sold', "address":req.body.address, "zip":req.body.address_zip, "city":req.body.address_city},{ upsert: true })
+    .then(order => res.json(order))
+    .catch(next)
+}
+
 module.exports.deleteProduct = (req, res, next) => {
   const search = req.params.id
   console.log("QUERYYYYYYY:", search);

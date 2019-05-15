@@ -12,10 +12,17 @@ const orderSchema = new Schema({
   }],
   state: {
     type: String,
-    enum: ["cart","sold"]
+    enum:["cart","sold"],
+    default: "cart"
   },
   address:{
+    type: Object,
+  },
+  city:{
     type: String,
+  },
+  zip:{
+    type: Number,
   }
 
 })
