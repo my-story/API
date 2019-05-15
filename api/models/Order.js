@@ -12,12 +12,12 @@ const orderSchema = new Schema({
   }],
   state: {
     type: String,
-    default: "cart"
+    enum: ["cart","sold"]
   },
-  sold: {
-    type: Boolean,
-    default: false
+  address:{
+    type: String,
   }
+
 })
 
 const Order = mongoose.model('Order', orderSchema)
