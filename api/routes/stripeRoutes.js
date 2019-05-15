@@ -35,13 +35,13 @@ const postStripeCharge = res => (stripeErr, stripeRes) => {
 // const paymentApi = app => {
   router.get('/', (req, res) => {
     res.send({ message: 'Hello Stripe checkout server!', timestamp: new Date().toISOString() })
-    console.log(res)
-
+   
+    
   });
 
   router.post('/', (req, res) => {
     stripe.charges.create(req.body, postStripeCharge(res));
-    console.log(res)
+
   });
 
   // return app;
