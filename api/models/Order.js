@@ -16,7 +16,16 @@ const orderSchema = new Schema({
     default: "cart"
   },
   address:{
+    type: Object,
+  },
+  city:{
     type: String,
+  },
+  zip:{
+    type: Number,
+  },
+  cardname:{
+    type: String
   }
 
 })
