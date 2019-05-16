@@ -4,6 +4,7 @@ const orderController = require('../controllers/orderController');
 
 
 router.post('/', orderController.createOrder);
+router.post('/add',orderController.orderMake)
 router.get('/:id', orderController.getCart);
 router.post('/payment',orderController.paymentCart)
 router.post('/delete/:id', orderController.deleteProduct);
