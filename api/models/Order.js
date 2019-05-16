@@ -12,7 +12,7 @@ const orderSchema = new Schema({
   }],
   state: {
     type: String,
-    enum:["cart","sold"],
+    enum: ["cart","sold"],
     default: "cart"
   },
   address:{
