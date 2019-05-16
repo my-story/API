@@ -23,6 +23,9 @@ const orderSchema = new Schema({
   },
   zip:{
     type: Number,
+  },
+  cardname:{
+    type: String
   }
 
 })
