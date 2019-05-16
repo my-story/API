@@ -15,8 +15,15 @@ const orderSchema = new Schema({
     enum: ["cart","sold"],
     default: "cart"
   },
+  userLogged:{
+    type: Boolean,
+    default: true
+  },
+  email:{
+    type: String,
+  },
   address:{
-    type: Object,
+    type: String,
   },
   city:{
     type: String,
@@ -32,4 +39,4 @@ const orderSchema = new Schema({
 
 const Order = mongoose.model('Order', orderSchema)
 
-module.exports   = Order;
+module.exports = Order;
