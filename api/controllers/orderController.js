@@ -4,7 +4,7 @@ const createError = require('http-errors');
 module.exports.createOrder = (req, res, next) => {
   Order.findOneAndUpdate(
     { user: req.user.id, state: 'cart' },
-    { $addToSet: { product: [req.body._id] }}, 
+    { $push: { product: [req.body._id] }}, 
     { new: true })
     .then(order => {
       if (order) {
