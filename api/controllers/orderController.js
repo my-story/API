@@ -25,11 +25,13 @@ module.exports.createOrder = (req, res, next) => {
 
 module.exports.orderMake = (req,res,next)=>{
   Order.create({
-    email: req.user.email,
+    // email: req.user.email,
     address:req.body.address, 
     zip:req.body.address_zip, 
     city:req.body.address_city,
-    cardname: req.body.cardname
+    cardname: req.body.cardname,
+    userLogged: false,
+    product: req.body.products
   })
   .then((order)=>res.json(order))
   .catch((e)=>console.log(e))
@@ -48,7 +50,7 @@ module.exports.getCart = (req, res, next) => {
 
 module.exports.paymentCart = (req,res,next) => {
 //needs fixin looking up user and cart at same time
-console.log(req.user)
+
   Order.findOneAndUpdate({user:req.user._id , state:"cart"},{
     state: 'sold', 
     address:req.body.address, 
