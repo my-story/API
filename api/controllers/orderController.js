@@ -12,7 +12,7 @@ module.exports.createOrder = (req, res, next) => {
       } else {
         return new Order({
           user: req.user.id,
-          product: req.body._id
+          product: req.body._id,
         })
         .save()
         .then(order => {
