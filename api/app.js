@@ -138,6 +138,8 @@ app.use('/audio', AudioRoutes);
 const stripe = require('./routes/stripeRoutes')
 app.use('/payment', stripe)
 
+const Mailer = require('./routes/nodemailer/nodemailer')
+app.use('/authorize', Mailer)
 
 // 404
 app.use(function(req, res, next) {

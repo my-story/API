@@ -7,9 +7,12 @@ const orderSchema = new Schema({
     ref: 'User'
   },
   product: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
+      name: String,
+      qty: Number,
   }],
+
   state: {
     type: String,
     enum: ["cart","sold"],
