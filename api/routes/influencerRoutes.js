@@ -75,4 +75,26 @@ Influencer.findByIdAndUpdate(test, {profilePic : req.file.url}, {new:true})
 .catch((e)=>next(e))
 })
 
+//filtro influencer
+router.get('/filter',(req,res,next)=>{
+  const {search} = req.query 
+  Influencer.find({
+  
+    $or:[
+      {name: {$regex:search,$options:'i'}},
+      {expertise:  {$regex:search,$options:'i'}},
+      {review:  {$regex:search,$options:'i'}},
+    ]
+  })
+  // .populate("product")
+  .then((result)=>{
+    // console.log(res)
+    res.status(200).json(result)
+  })
+  .catch((e)=>{
+    console.log(e)
+    res.json(e)
+  })
+})
+
 module.exports = router;

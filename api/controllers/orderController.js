@@ -25,21 +25,24 @@ module.exports.createOrder = (req, res, next) => {
 
 module.exports.orderMake = (req,res,next)=>{
   Order.create({
-    // email: req.user.email,
+    email: req.body.email,
     address:req.body.address, 
     zip:req.body.address_zip, 
     city:req.body.address_city,
     cardname: req.body.cardname,
     userLogged: false,
-    product: req.body.products
+    product: req.body.products,
+    state:"sold"
   })
-  .then((order)=>res.json(order))
+  .then((order)=>{
+  res.json(order)
+  })
   .catch((e)=>console.log(e))
 }
 
 
 module.exports.getCart = (req, res, next) => {
-  // console.info('USER ID => ', req.params.id)
+
   Order.findOne({ user: req.params.id, state: 'cart' })
     .populate('product')
     .then(order => res.json(order))
@@ -65,7 +68,7 @@ module.exports.paymentCart = (req,res,next) => {
 
 module.exports.deleteProduct = (req, res, next) => {
   const search = req.params.id
-  console.log("QUERYYYYYYY:", search);
+
 
   Order.findOneAndUpdate(
     { user: req.user.id, state: 'cart' },
