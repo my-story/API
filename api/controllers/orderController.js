@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const createError = require('http-errors');
 
+
 module.exports.createOrder = (req, res, next) => {
   Order.findOneAndUpdate(
     { user: req.user.id, state: 'cart' },

@@ -141,6 +141,9 @@ app.use('/payment', stripe)
 const Mailer = require('./routes/nodemailer/nodemailer')
 app.use('/authorize', Mailer)
 
+const Shipping = require('./routes/shippingRoutes')
+app.use('/shipping', Shipping)
+
 // 404
 app.use(function(req, res, next) {
   next(createError(404));
