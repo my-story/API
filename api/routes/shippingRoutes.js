@@ -14,7 +14,7 @@ router.post('/validate',(req,res,next)=>{
     "state":req.body.state,
     "zip":req.body.zip,
     "country":req.body.country,
-    "email":req.body.email,
+    // "email":req.body.email,
     "validate": true
   }, function(err, address) {
     if(err){
