@@ -6,15 +6,9 @@ const orderSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  product: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-      name: {
-        type: String,
-        default: "Producto Default"
-      },
-      qty: Number,
-  }],
+  product: {
+    type: Object
+  },
 
   state: {
     type: String,
