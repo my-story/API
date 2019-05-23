@@ -5,7 +5,7 @@ let shippo = require('shippo')(process.env.shippo_test);
 
 
 router.post('/validate',(req,res,next)=>{
-  
+  console.log(req.body)
   shippo.address.create({
     "name":req.body.name, 
     "company":req.body.company,
