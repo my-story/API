@@ -82,6 +82,7 @@ let addressFrom = {
     "metadata": "",
     "test": true
 }
+
 let addressTo = {
   "object_owner": "sebasgrossmann@gmail.com",
   "name": "sesaaa grossmann",
@@ -114,7 +115,7 @@ let shipment = shippo.shipment.create({
     console.log(shipment)
     res.json(shipment)
   })
-  .catch(e=>console.log(e))
+  .catch((e)=>console.log(e))
 })
 
 module.exports = router

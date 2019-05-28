@@ -46,7 +46,7 @@ const postStripeCharge = res => (stripeErr, stripeRes) => {
     // };
 
   ///This can only be used for Test
-  router.post('/paying')
+  router.post('/paying',(req,res,next)=>{
     const order = stripe.orders.create({
       currency: 'usd',
       email: 'jenny.rosen@example.com',
@@ -54,7 +54,7 @@ const postStripeCharge = res => (stripeErr, stripeRes) => {
         {
           type: 'sku',
           parent: 'sku_F95Ej6Ko5wPWmW',
-          quantity: 2,
+          quantity: 3,
         },
       ],
       shipping: {
@@ -67,6 +67,14 @@ const postStripeCharge = res => (stripeErr, stripeRes) => {
           country: 'US',
         },
       },
-    });
+    })
+    .then(order=>{
+      res.json(order)
+      console.log(order)
+    })
+    .catch((e)=>console.log(e))
+
+  })
+
 
 module.exports = router;
