@@ -38,6 +38,7 @@ router.get('/address',(req,res,next)=>{
 })
 
 router.post('/create',(req,res,next)=>{
+console.log(req.body)
 
 let parcel = {
   "object_state":"VALID",
@@ -57,6 +58,7 @@ let parcel = {
   "test": true
 };
 
+//MAKE SURE TO SAVE THIS IN ENV VARIABLES
 let addressFrom = {
     "object_created": "2019-05-23T19:00:50.837Z",
     "object_updated": "2019-05-23T19:00:50.919Z",
@@ -83,37 +85,39 @@ let addressFrom = {
     "test": true
 }
 
-let addressTo = {
-  "object_owner": "sebasgrossmann@gmail.com",
-  "name": "sesaaa grossmann",
-  "company": "",
-  "street_no": "",
-  "street1": "2525 S Bayshore Dr",
-  "street2": "",
-  "street3": "",
-  "city": "Miami",
-  "state": "FL",
-  "zip": "33133-4202",
-  "country": "US",
-  "longitude": "-80.2183400000",
-  "latitude": "25.7416000000",
-  "phone": "",
-  "email": "",
-  "is_residential": false,
-  "metadata": "",
-  "test": true
-}
+// let addressTo = {
+//   "object_owner": "sebasgrossmann@gmail.com",
+//   "name": "sesaaa grossmann",
+//   "company": "",
+//   "street_no": "",
+//   "street1": "2525 S Bayshore Dr",
+//   "street2": "",
+//   "street3": "",
+//   "city": "Miami",
+//   "state": "FL",
+//   "zip": "33133-4202",
+//   "country": "US",
+//   "longitude": "-80.2183400000",
+//   "latitude": "25.7416000000",
+//   "phone": "",
+//   "email": "",
+//   "is_residential": false,
+//   "metadata": "",
+//   "test": true
+// }
+
   // Create shipment object
+
 let shipment = shippo.shipment.create({
   "address_from": addressFrom,
   // "address_from": process.env.address_from,
-  "address_to": addressTo,
+  "address_to": req.body,
   "parcels": parcel,
   "async": true
 })
   .then((shipment)=>{
     console.log(shipment)
-    res.json(shipment)
+    res.status(200).json(shipment)
   })
   .catch((e)=>console.log(e))
 })
