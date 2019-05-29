@@ -79,10 +79,9 @@ Influencer.findByIdAndUpdate(test, {profilePic : req.file.url}, {new:true})
 router.get('/filter',(req,res,next)=>{
   const {search} = req.query 
   Influencer.find({
-  
     $or:[
-      {name: {$regex:search,$options:'i'}},
-      {expertise:  {$regex:search,$options:'i'}},
+      {name: {$regex:search, $options:'i'}},
+      {expertise:  {$regex:search, $options:'i'}},
       {review:  {$regex:search,$options:'i'}},
     ]
   })
