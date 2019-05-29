@@ -18,5 +18,9 @@ router.get('/details/:id', productController.getOne);
 //Add picture
 router.post('/upload/picture',middlewears.isAdmin, uploadCloud.single('picture'), productController.addPicture);
 
+// filter products with searchbar
+
+router.get("/filter", productController.filter)
+
 
 module.exports = router;
