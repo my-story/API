@@ -52,11 +52,28 @@ Product.findByIdAndUpdate(test, {images : req.file.url})
 
 module.exports.filter = (req, res, next) => {
   const {search} = req.query
-  console.log(req.query);
   Product.find({
     $or:[
       {model:{$regex:search, $options:'i'}},
       {description:{$regex:search, $options:'i'}}
+    ]
+  })
+  // .populate("product")
+  .then((result)=>{
+    // console.log(res)
+    res.status(200).json(result)
+  })
+  .catch((e)=>{
+    console.log(e)
+    res.json(e)
+  })
+}
+
+module.exports.filterCategory = (req, res, next) => {
+  const {search} = req.query
+  Product.find({
+    $or:[
+      {category:{$regex:search, $options:'i'}}
     ]
   })
   // .populate("product")
