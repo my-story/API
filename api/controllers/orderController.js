@@ -72,7 +72,6 @@ module.exports.getCart = (req, res, next) => {
 
 module.exports.paymentCart = (req,res,next) => {
 //needs fixin looking up user and cart at same time
-
   Order.findOneAndUpdate({user:req.user._id , state:"cart"},{
     state: 'sold', 
     address:req.body.address, 
@@ -87,8 +86,7 @@ module.exports.paymentCart = (req,res,next) => {
 
 module.exports.deleteProduct = (req, res, next) => {
   const search = req.params.id
-
-
+  
   Order.findOneAndUpdate(
     { user: req.user.id, state: 'cart' },
     { $pull: { product: search }}, 
