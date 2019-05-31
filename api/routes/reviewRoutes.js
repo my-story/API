@@ -50,7 +50,6 @@ router.post('/new', middlewares.isAdmin, (req, res, next) =>{
 
 
 router.post('/edit/:id', middlewares.isAdmin, (req, res, next) =>{
-    // console.log('reqs',req.params, req.body, req.user)
     Review.findByIdAndUpdate(req.params.id,{
       title: req.body.title,
       review: req.body.review,
