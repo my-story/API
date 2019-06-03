@@ -50,7 +50,7 @@ router.post('/new', middlewares.isAdmin, (req, res, next) =>{
 
 
 router.post('/edit/:id', middlewares.isAdmin, (req, res, next) =>{
-    Review.findByIdAndUpdate(req.params.id,{
+    Review.findOneAndUpdate({influencer: req.params.id},{
       title: req.body.title,
       review: req.body.review,
       video: req.body.video,
@@ -63,6 +63,17 @@ router.post('/edit/:id', middlewares.isAdmin, (req, res, next) =>{
     .catch((err)=>{
         res.json(err)
     })
+});
+
+router.post("/delete/:id",middlewares.isAdmin, (req, res, next) =>{
+    const search = req.params.id;
+   
+    
+    Review.findOneAndDelete( {influencer: search})
+        .then(review => {
+            res.status(201).json(review)
+            })
+        .catch(next)
 })
 
 module.exports = router;
