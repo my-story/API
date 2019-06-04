@@ -86,3 +86,20 @@ module.exports.filterCategory = (req, res, next) => {
     res.json(e)
   })
 }
+
+module.exports.delete = (req, res, next) => {
+  const search = req.params.id;
+
+  Product.findOneAndDelete({influencer: search})
+      .then(product => {
+          res.status(201).json(product)
+          })
+      .catch(next)
+}
+
+// still doing
+// module.exports.edit = (req,res, next) => {
+//   Product.findOneAndUpdate({influencer: req.params.id}, {
+
+//   })
+// }

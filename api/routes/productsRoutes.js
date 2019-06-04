@@ -12,7 +12,6 @@ router.get('/all', productController.getAll);
 router.post('/create', middlewears.isAdmin, productController.createProduct);
 
 // Get a specific product
-
 router.get('/details/:id', productController.getOne);
 
 //Add picture
@@ -23,6 +22,16 @@ router.get("/filter", productController.filter)
 
 // filter by categories
 router.get("/filter/category", productController.filterCategory)
+
+// delete product
+router.post("/delete/:id",middlewears.isAdmin, productController.delete);
+
+// edit still doing
+
+// router.post("edit/:id", productController.edit);
+
+
+
 
 
 module.exports = router;
