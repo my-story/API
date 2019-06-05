@@ -41,6 +41,7 @@ router.post('/create',middleweares.isAdmin, (req,res,next)=>{
     "name" : req.body.name,
     "review" : req.body.review,
     "expertise" : req.body.expertise,
+    "percentage" : req.body.percentage,
     "images" : req.body.images,
   })
   .then((user)=>{
