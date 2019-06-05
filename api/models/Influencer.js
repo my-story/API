@@ -2,7 +2,16 @@ const mongoose = require ('mongoose');
 const Schema   = mongoose.Schema;
 
 const influencerSchema = new Schema({
-  name: String,
+  name: {
+    type: String
+  },
+  percentage:{
+    type: Number
+  },
+  reward: {
+    type: Number,
+    default: 0
+  },
   product : {
     type: Schema.Types.ObjectId,
     ref: "Product"
