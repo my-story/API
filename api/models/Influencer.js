@@ -7,6 +7,7 @@ const influencerSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Product"
   },
+  
   profilePic: {
     type: String,
   },
