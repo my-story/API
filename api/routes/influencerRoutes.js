@@ -5,34 +5,29 @@ const uploadCloud = require("../config/cloudinary");
 // const security = require('../middlewears/admin.mid')
 const middleweares = require("../middlewears/secure.mid");
 
-//middlewears 
-// const isAuthenticated = (req, res, next) =>{
-//   // do any checks you want to in here
 
-//   // CHECK THE USER STORED IN SESSION FOR A CUSTOM VARIABLE
-//   // you can do this however you want with whatever variables you set up
-//   if (req.user.authenticated)
-//       return next();
-
-//   // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
-//   res.redirect('/');
-// }
 
 let test = {}
-//Is Admin middlewear
-const isAdmin = (req, res, next) => {
-  if (!req.user) return res.redirect('/')
-  if (req.user.role === 'Admin') return next()
-  return res.redirect('/')
-}
 
-//Gtet all Influencers in Product Page
+
+//Get all Influencers in Product Page
 router.get('/all',(req,res,next)=>{
   Influencer.find()
   .then((influencer)=>{
     res.status(200).json(influencer)
   })
   .catch((e)=>console.log(e))
+})
+
+
+router.get("/:id", (req,res,next) => {
+  const id = req.params.id;
+
+  Influencer.findOne({_id: id})
+    .then(influencer => {
+      res.status(201).json(influencer)
+    })
+    .catch(next)
 })
 
 //Create a Infleuncer for each infleuncer
@@ -57,8 +52,9 @@ router.post('/edit/:id',(req,res,next)=>{
   Influencer.findByIdAndUpdate(req.params.id, {
     "name":req.body.name,
     // picture: req.body.picture,
-    "description": req.body.description
+    "description": req.body.description,
     // category: req.body.category,
+    "reward": req.body.reward
   })
   .then((user)=>{
     res.status(201).json(user)
