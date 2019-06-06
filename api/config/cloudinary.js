@@ -9,7 +9,8 @@ cloudinary.config({
 
 });
 var storage = cloudinaryStorage({
-    resourceType: "video",
+    html: {multiple:1},
+    // resource_type: "raw", 
     cloudinary: cloudinary,
     folder: 'myStory', // The name of the folder in cloudinary
     allowedFormats: ['jpg', 'png', 'jpeg','webp','webm','mp4','mp3'],
