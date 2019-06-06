@@ -28,7 +28,7 @@ module.exports.createProduct = (req,res,next)=>{
   Product.create({
     model: req.body.model,
     description: req.body.description,
-    // images:req.body.images,
+    images:req.body.images,
     category: req.body.category,
     prize: req.body.prize,
     influencer: req.body.influencer
@@ -42,6 +42,7 @@ module.exports.createProduct = (req,res,next)=>{
 }
 
 module.exports.addPicture = (req,res,next) =>{
+console.log(req.body.picture)
 
 Product.findByIdAndUpdate(test, {images : req.file.url})
 .then((product)=>{
