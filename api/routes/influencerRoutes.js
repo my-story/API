@@ -52,8 +52,9 @@ router.post('/edit/:id',(req,res,next)=>{
   Influencer.findByIdAndUpdate(req.params.id, {
     "name":req.body.name,
     // picture: req.body.picture,
-    "description": req.body.description
+    "description": req.body.description,
     // category: req.body.category,
+    "reward": req.body.reward
   })
   .then((user)=>{
     res.status(201).json(user)
