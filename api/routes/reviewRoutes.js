@@ -74,6 +74,6 @@ router.post("/delete/:id",middlewares.isAdmin, (req, res, next) =>{
             res.status(201).json(review)
             })
         .catch(next)
-})
+});
 
 module.exports = router;

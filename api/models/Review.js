@@ -16,9 +16,12 @@ const reviewSchema = new mongoose.Schema({
   review: {
     type: String
   },
-  // likes:{
-  //   type: Array
-  // },
+  upvotes:{
+    type: Array
+  },
+  downvotes:{
+    type: Array
+  },
   video:{
     type: String
   },

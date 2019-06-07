@@ -51,9 +51,9 @@ router.post('/edit/:id',(req,res,next)=>{
 
   Influencer.findByIdAndUpdate(req.params.id, {
     "name":req.body.name,
-    // picture: req.body.picture,
+    "picture": req.body.picture,
     "description": req.body.description,
-    // category: req.body.category,
+    "category": req.body.category,
     "reward": req.body.reward
   })
   .then((user)=>{
@@ -91,6 +91,15 @@ router.get('/filter',(req,res,next)=>{
     console.log(e)
     res.json(e)
   })
+})
+
+
+router.post("/delete/:id",middleweares.isAdmin, (req, res, next) =>{
+  Influencer.findByIdAndDelete({_id: req.params.id})
+    .then((influencer) =>{
+      res.status(201).json(influencer)
+    })
+    .catch((err) => next(err))
 })
 
 module.exports = router;
