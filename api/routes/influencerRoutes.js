@@ -47,14 +47,14 @@ router.post('/create',middleweares.isAdmin, (req,res,next)=>{
 });
 
 //Update a INfluencer for each infleuncer
-router.post('/edit/:id',(req,res,next)=>{
+router.post('/edit/:id',middleweares.isAdmin,(req,res,next)=>{
 
   Influencer.findByIdAndUpdate(req.params.id, {
     "name":req.body.name,
-    "picture": req.body.picture,
-    "description": req.body.description,
-    "category": req.body.category,
-    "reward": req.body.reward
+    "profilePic": req.body.image,
+    "review": req.body.review,
+    "expertise": req.body.expertise,
+    "percentage": req.body.percentage
   })
   .then((user)=>{
     res.status(201).json(user)
