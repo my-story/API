@@ -98,9 +98,16 @@ module.exports.delete = (req, res, next) => {
       .catch(next)
 }
 
-// still doing
-// module.exports.edit = (req,res, next) => {
-//   Product.findOneAndUpdate({influencer: req.params.id}, {
-
-//   })
-// }
+module.exports.edit = (req,res, next) => {
+  Product.findOneAndUpdate({influencer: req.params.id}, {
+    "model": req.body.model,
+    "prize": req.body.prize,
+    "images": req.body.images,
+    "description": req.body.description,
+    "category": req.body.category
+  })
+  .then((product)=>{
+    res.status(201).json(product)
+  })
+  .catch((e)=>console.log(e))
+}
