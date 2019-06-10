@@ -28,7 +28,7 @@ router.post("/delete/:id",middlewears.isAdmin, productController.delete);
 
 // edit still doing
 
-// router.post("edit/:id", productController.edit);
+router.post("/edit/:id", middlewears.isAdmin, productController.edit);
 
 
 
