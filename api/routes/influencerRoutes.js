@@ -46,6 +46,17 @@ router.post('/create',middleweares.isAdmin, (req,res,next)=>{
   .catch((e)=>console.log(e))
 });
 
+//ADD Reward
+router.post('/reward/:id',(req,res,next)=>{
+
+  Influencer.findByIdAndUpdate(req.params.id, {
+  "reward":req.body.reward
+  })
+  .then((user)=>{
+    res.status(201).json(user)
+  })
+  .catch((e)=>console.log(e))
+})
 //Update a INfluencer for each infleuncer
 router.post('/edit/:id',middleweares.isAdmin,(req,res,next)=>{
 
