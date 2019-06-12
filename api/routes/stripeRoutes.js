@@ -86,15 +86,32 @@ const stripe = require("stripe")("sk_test_Au0wg34od1GC3qgugL3CQQQL00gaI6Hf92");
 router.use(require("body-parser").text());
 
 router.post("/charge", (req, res) => {
-  console.log(req.body.total)
-    let {status} = stripe.charges.create({
+  console.log("este es el total ", req.body)
+    let status = stripe.charges.create({
       amount: req.body.total,
       currency: "usd",
       description: "An example charge",
-      source: req.body.token
+      source: req.body.token,
     })
-    .then((status)=>{
-      res.json({status})
+      // stripe.paymentMethods.create({
+      //   // amount: req.body.total,
+      //   type:"card",
+      //   card:{
+      //     number: '4242424242424242',
+      //     exp_month: 12,
+      //     exp_year: 2020,
+      //     cvc: '123'
+      //   },
+      //   billing_details:{
+      //     address: req.body.address
+      //   }
+      // amount: req.body.total,
+      // currency: "usd",
+      // description: "An example charge",
+      // source: req.body.token,
+    .then((response)=>{
+      console.log(response)
+      res.json({response})
     })
     .catch((err)=>{
       console.log(err)

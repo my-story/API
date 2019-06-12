@@ -116,7 +116,7 @@ let shipment = shippo.shipment.create({
   "async": true
 })
   .then((shipment)=>{
-    console.log(shipment)
+    // console.log(shipment)
     res.status(200).json(shipment)
   })
   .catch((e)=>console.log(e))
