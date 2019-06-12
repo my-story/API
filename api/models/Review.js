@@ -20,6 +20,9 @@ const reviewSchema = new mongoose.Schema({
     type: String
   },
   upvotes:{
+    type: Array
+  },
+  votes:{
     type: Number,
     default: 0
   },

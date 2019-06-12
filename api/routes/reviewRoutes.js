@@ -68,7 +68,7 @@ router.post('/edit/:id', middlewares.isAdmin, (req, res, next) =>{
 router.post('/upvote/:id', (req,res,next)=>{
     Review.findOneAndUpdate(
       {influencer: req.params.id},
-      {$inc: {upvotes: 1}}, 
+      {$inc: {votes: 1}}, 
       {new: true}
     )
     .then((review)=>{
@@ -80,13 +80,25 @@ router.post('/upvote/:id', (req,res,next)=>{
 router.post('/downvote/:id', (req,res,next)=>{ 
     Review.findOneAndUpdate(
         {influencer: req.params.id},
-        {$inc: {upvotes: -1}}, 
+        {$inc: {votes: -1}}, 
         {new: true}
     )
     .then((review)=>{
         res.status(201).json(review)
       })
     .catch((e)=>next(e))
+})
+
+
+router.post('/user/upvote/:id', (req,res,next) =>{
+    Review.findOneAndUpdate(
+    { influencer: req.params.id},
+    { $push: { upvotes: [req.body._id] }}, 
+    { new: true })
+    .then(order => {
+        res.status(201).json(order)
+    })
+    .catch(next)
 })
   
 
