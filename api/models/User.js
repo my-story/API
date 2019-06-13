@@ -7,7 +7,8 @@ const userSchema = new Schema({
 
     username: String,
     password: String,
-    productsLiked: Array,
+    reviewsUpvoted: Array,
+    reviewsDownvoted: Array,
     role: {
         type: String,
         enum:["User","Admin"],

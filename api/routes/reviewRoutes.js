@@ -90,16 +90,7 @@ router.post('/downvote/:id', (req,res,next)=>{
 })
 
 
-router.post('/user/upvote/:id', (req,res,next) =>{
-    Review.findOneAndUpdate(
-    { influencer: req.params.id},
-    { $push: { upvotes: [req.body._id] }}, 
-    { new: true })
-    .then(order => {
-        res.status(201).json(order)
-    })
-    .catch(next)
-})
+
   
 
 router.post("/delete/:id",middlewares.isAdmin, (req, res, next) =>{
