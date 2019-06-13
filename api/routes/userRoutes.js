@@ -96,4 +96,48 @@ router.post('/logout', (req, res) => {
   }
 })
 
+router.post('/upvote/:id', (req,res,next) =>{
+  User.findOneAndUpdate(
+  { _id: req.params.id},
+  { $push: { reviewsUpvoted: [req.body.reviewId] }}, 
+  { new: true })
+  .then(user => {
+      res.status(201).json(user)
+  })
+  .catch(next)
+})
+
+router.post('/downvote/:id', (req,res,next) =>{
+  User.findOneAndUpdate(
+  { _id: req.params.id},
+  { $push: { reviewsDownvoted: [req.body.reviewId] }}, 
+  { new: true })
+  .then(user => {
+      res.status(201).json(user)
+  })
+  .catch(next)
+})
+
+router.post('/pull/downvote/:id', (req,res,next)=>{
+  User.findOneAndUpdate(
+    { _id: req.params.id},
+    { $pull: { reviewsDownvoted: req.body.reviewId }}, 
+    { new: true })
+    .then(user => {
+        res.status(201).json(user)
+    })
+    .catch(next)
+})
+
+router.post('/pull/upvote/:id', (req,res,next) =>{
+  User.findOneAndUpdate(
+    { _id: req.params.id},
+    { $pull: { reviewsUpvoted: req.body.reviewId }}, 
+    { new: true })
+    .then(user => {
+        res.status(201).json(user)
+    })
+    .catch(next)
+})
+
 module.exports = router;
