@@ -30,9 +30,7 @@ module.exports.orderMake = (req,res,next)=>{
       user:req.body.user,
       email: req.body.email,
       address:req.body.address, 
-      zip:req.body.address_zip, 
-      city:req.body.address_city,
-      cardname: req.body.cardname,
+      cardname: req.body.name,
       userLogged: true,
       product: req.body.products,
       state:"sold"
@@ -45,9 +43,7 @@ module.exports.orderMake = (req,res,next)=>{
     Order.create({
       email: req.body.email,
       address:req.body.address, 
-      zip:req.body.address_zip, 
-      city:req.body.address_city,
-      cardname: req.body.cardname,
+      cardname: req.body.name,
       userLogged: false,
       product: req.body.products,
       state:"sold"

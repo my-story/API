@@ -25,14 +25,14 @@ router.post('/contact', (req, res, next) => {
   var name = req.body.name
   var email = req.body.email
   var message = req.body.message
-
+  
   var content = `name: ${name} \n email: ${email} \n message: ${content} `
 
   var mail = {
     from: name,
     to: email,  //Change to email address that you want to receive messages on
     subject: 'Thank you for contacting us!',
-    text: "We will read your " + message + " request, and get back to you as soon as we can."
+    text: `Thank you for buying!`
     
   }
 
