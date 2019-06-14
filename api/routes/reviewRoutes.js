@@ -65,6 +65,34 @@ router.post('/edit/:id', middlewares.isAdmin, (req, res, next) =>{
     })
 });
 
+router.post('/upvote/:id', (req,res,next)=>{
+    Review.findOneAndUpdate(
+      {influencer: req.params.id},
+      {$inc: {votes: 1}}, 
+      {new: true}
+    )
+    .then((review)=>{
+      res.status(201).json(review)
+    })
+    .catch((e)=>next(e))
+})
+
+router.post('/downvote/:id', (req,res,next)=>{ 
+    Review.findOneAndUpdate(
+        {influencer: req.params.id},
+        {$inc: {votes: -1}}, 
+        {new: true}
+    )
+    .then((review)=>{
+        res.status(201).json(review)
+      })
+    .catch((e)=>next(e))
+})
+
+
+
+  
+
 router.post("/delete/:id",middlewares.isAdmin, (req, res, next) =>{
     const search = req.params.id;
    
