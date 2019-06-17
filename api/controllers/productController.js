@@ -22,17 +22,6 @@ module.exports.getOne = (req, res, next) =>{
   })
 }
 
-// router.post('/update/:id/:reward', (req,res,next)=>{
-//   InfluencerReward.findOneAndUpdate(
-//     {influencer: req.params.id},
-//     {$inc: {counter: 1 , reward: req.params.reward}}, 
-//     {new: true}
-//   )
-//   .then((InfluencerReward)=>{
-//     res.status(201).json(InfluencerReward)
-//   })
-//   .catch((e)=>next(e))
-// })
 
 module.exports.updateTotal = (req, res, next) =>{
   Product.findOneAndUpdate(
