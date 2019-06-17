@@ -8,6 +8,7 @@ const productSchema = new Schema({
   },
   model: String,
   prize : Number,
+  total: Number,
   images: [{
     type: String,
   }],

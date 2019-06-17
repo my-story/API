@@ -31,7 +31,8 @@ module.exports.createProduct = (req,res,next)=>{
     images:req.body.images,
     category: req.body.category,
     prize: req.body.prize,
-    influencer: req.body.influencer
+    influencer: req.body.influencer,
+    total: req.body.total
   })
   .then((response)=>{
     test = response._id
@@ -104,7 +105,8 @@ module.exports.edit = (req,res, next) => {
     "prize": req.body.prize,
     "images": req.body.images,
     "description": req.body.description,
-    "category": req.body.category
+    "category": req.body.category,
+    "total": req.body.total
   })
   .then((product)=>{
     res.status(201).json(product)
