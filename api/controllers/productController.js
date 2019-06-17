@@ -22,6 +22,30 @@ module.exports.getOne = (req, res, next) =>{
   })
 }
 
+// router.post('/update/:id/:reward', (req,res,next)=>{
+//   InfluencerReward.findOneAndUpdate(
+//     {influencer: req.params.id},
+//     {$inc: {counter: 1 , reward: req.params.reward}}, 
+//     {new: true}
+//   )
+//   .then((InfluencerReward)=>{
+//     res.status(201).json(InfluencerReward)
+//   })
+//   .catch((e)=>next(e))
+// })
+
+module.exports.updateTotal = (req, res, next) =>{
+  Product.findOneAndUpdate(
+    {_id: req.params.id},
+    {$inc: {total: - req.body.qty}},
+    {new: true}
+  )
+  .then((product)=>{
+    res.status(201).json(product)
+  })
+  .catch((e) => next(e))
+}
+
 module.exports.createProduct = (req,res,next)=>{
 
 
@@ -31,7 +55,8 @@ module.exports.createProduct = (req,res,next)=>{
     images:req.body.images,
     category: req.body.category,
     prize: req.body.prize,
-    influencer: req.body.influencer
+    influencer: req.body.influencer,
+    total: req.body.total
   })
   .then((response)=>{
     test = response._id
@@ -104,7 +129,8 @@ module.exports.edit = (req,res, next) => {
     "prize": req.body.prize,
     "images": req.body.images,
     "description": req.body.description,
-    "category": req.body.category
+    "category": req.body.category,
+    "total": req.body.total
   })
   .then((product)=>{
     res.status(201).json(product)

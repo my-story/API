@@ -30,6 +30,8 @@ router.post("/delete/:id",middlewears.isAdmin, productController.delete);
 
 router.post("/edit/:id", middlewears.isAdmin, productController.edit);
 
+router.post("/update/total/:id", productController.updateTotal);
+
 
 
 
