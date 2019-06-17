@@ -37,7 +37,7 @@ module.exports.getOne = (req, res, next) =>{
 module.exports.updateTotal = (req, res, next) =>{
   Product.findOneAndUpdate(
     {_id: req.params.id},
-    {$inc: {total: -1}},
+    {$inc: {total: - req.body.qty}},
     {new: true}
   )
   .then((product)=>{
