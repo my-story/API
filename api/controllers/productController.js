@@ -113,6 +113,19 @@ module.exports.filterCategory = (req, res, next) => {
   })
 }
 
+module.exports.category = (req,res,next)=>{
+  const {search} = req.query
+  Product.find({
+    $or:[
+      {category:search}
+    ]
+  })
+  .then((result)=>{
+    res.status(200).json(result)
+  })
+  .catch((e)=>next(e))
+}
+
 module.exports.delete = (req, res, next) => {
   const search = req.params.id;
 
