@@ -65,7 +65,7 @@ router.post('/edit/:id', middlewares.isAdmin, (req, res, next) =>{
     })
 });
 
-router.post('/upvote/:id', (req,res,next)=>{
+router.post('/upvote/:id', middlewares.isAuthenticated, (req,res,next)=>{
     Review.findOneAndUpdate(
       {influencer: req.params.id},
       {$inc: {votes: 1}}, 
@@ -77,7 +77,7 @@ router.post('/upvote/:id', (req,res,next)=>{
     .catch((e)=>next(e))
 })
 
-router.post('/downvote/:id', (req,res,next)=>{ 
+router.post('/downvote/:id',middlewares.isAuthenticated, (req,res,next)=>{ 
     Review.findOneAndUpdate(
         {influencer: req.params.id},
         {$inc: {votes: -1}}, 

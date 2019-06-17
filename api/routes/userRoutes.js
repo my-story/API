@@ -96,7 +96,7 @@ router.post('/logout', (req, res) => {
   }
 })
 
-router.post('/upvote/:id', (req,res,next) =>{
+router.post('/upvote/:id', middlewares.isAuthenticated, (req,res,next) =>{
   User.findOneAndUpdate(
   { _id: req.params.id},
   { $push: { reviewsUpvoted: [req.body.reviewId] }}, 
@@ -107,7 +107,7 @@ router.post('/upvote/:id', (req,res,next) =>{
   .catch(next)
 })
 
-router.post('/downvote/:id', (req,res,next) =>{
+router.post('/downvote/:id', middlewares.isAuthenticated,(req,res,next) =>{
   User.findOneAndUpdate(
   { _id: req.params.id},
   { $push: { reviewsDownvoted: [req.body.reviewId] }}, 
@@ -118,7 +118,7 @@ router.post('/downvote/:id', (req,res,next) =>{
   .catch(next)
 })
 
-router.post('/pull/downvote/:id', (req,res,next)=>{
+router.post('/pull/downvote/:id', middlewares.isAuthenticated, (req,res,next)=>{
   User.findOneAndUpdate(
     { _id: req.params.id},
     { $pull: { reviewsDownvoted: req.body.reviewId }}, 
@@ -129,7 +129,7 @@ router.post('/pull/downvote/:id', (req,res,next)=>{
     .catch(next)
 })
 
-router.post('/pull/upvote/:id', (req,res,next) =>{
+router.post('/pull/upvote/:id',middlewares.isAuthenticated, (req,res,next) =>{
   User.findOneAndUpdate(
     { _id: req.params.id},
     { $pull: { reviewsUpvoted: req.body.reviewId }}, 
