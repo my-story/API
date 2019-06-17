@@ -20,14 +20,13 @@ router.post('/upload/picture',middlewears.isAdmin, uploadCloud.single('picture')
 // filter products with searchbar
 router.get("/filter", productController.filter)
 
-// filter by categories
+// filter by categories Search
 router.get("/filter/category", productController.filterCategory)
 
 // delete product
 router.post("/delete/:id",middlewears.isAdmin, productController.delete);
 
 // edit still doing
-
 router.post("/edit/:id", middlewears.isAdmin, productController.edit);
 
 
