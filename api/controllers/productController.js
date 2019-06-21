@@ -70,7 +70,8 @@ module.exports.filter = (req, res, next) => {
   Product.find({
     $or:[
       {model:{$regex:search, $options:'i'}},
-      {description:{$regex:search, $options:'i'}}
+      {description:{$regex:search, $options:'i'}},
+      {category:{$regex:search, $options:'i'}}
     ]
   })
   // .populate("product")
@@ -102,18 +103,6 @@ module.exports.filterCategory = (req, res, next) => {
   })
 }
 
-module.exports.category = (req,res,next)=>{
-  const {search} = req.query
-  Product.find({
-    $or:[
-      {category:search}
-    ]
-  })
-  .then((result)=>{
-    res.status(200).json(result)
-  })
-  .catch((e)=>next(e))
-}
 
 module.exports.delete = (req, res, next) => {
   const search = req.params.id;
