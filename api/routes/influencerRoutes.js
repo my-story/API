@@ -20,6 +20,23 @@ router.get('/all',(req,res,next)=>{
 })
 
 
+// filter categories
+router.get("/filter/category", (req, res, next) => {
+  const {search} = req.query
+  Influencer.find({
+    $or:[
+      {expertise:{$regex:search, $options:'i'}}
+    ]
+  })
+  .then((result)=>{
+    res.status(200).json(result)
+  })
+  .catch((e)=>{
+    console.log(e)
+    res.json(e)
+  })
+})
+
 router.get("/:id", (req,res,next) => {
   const id = req.params.id;
 
