@@ -84,11 +84,15 @@ module.exports.filter = (req, res, next) => {
   })
 }
 
+//Search bar
 module.exports.filterCategory = (req, res, next) => {
   const {search} = req.query
   Product.find({
     $or:[
-      {category:{$regex:search, $options:'i'}}
+      {category:{$regex:search, $options:'i'}},
+      {model:{$regex:search, $options:'i'}},
+      {description:{$regex:search, $options:'i'}}
+
     ]
   })
   // .populate("product")
@@ -102,11 +106,12 @@ module.exports.filterCategory = (req, res, next) => {
   })
 }
 
+//This is for the cartegory menu
 module.exports.category = (req,res,next)=>{
   const {search} = req.query
   Product.find({
     $or:[
-      {category:search}
+      {category:{$regex:search, $options:'i'}},
     ]
   })
   .then((result)=>{
