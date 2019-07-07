@@ -3,8 +3,7 @@ const Schema   = mongoose.Schema;
 var passportLocalMongoose = require("passport-local-mongoose"); 
 const bcrypt = require('bcryptjs');
 
-const userSchema = new Schema({
-
+const userSchema = new Schema( {
     username: String,
     password: String,
     reviewsUpvoted: Array,
@@ -15,6 +14,18 @@ const userSchema = new Schema({
         default: "User",
     }
 })
+
+// const passwordHash = async function (){
+// checkPassword(this.password)
+// }
+
+// function checkPassword(inputPassword) {
+//   return bcrypt.compareSync(inputPassword, this.password)
+// }
+
+// function hashPassword(){
+//     return bcrypt.hashSync(plainTextPassword, 10)
+// }
 
 userSchema.methods = {
     checkPassword: function (inputPassword) {

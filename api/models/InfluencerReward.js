@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const InfluencerRewardSchema = new mongoose.Schema({
+const influencerRewardSchema = new mongoose.Schema({
   influencer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Influencer'
@@ -14,5 +14,6 @@ const InfluencerRewardSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-const InfluencerReward = mongoose.model("InfluencerReward", InfluencerRewardSchema);
+const InfluencerReward = mongoose.model("InfluencerReward", influencerRewardSchema);
+
 module.exports = InfluencerReward;

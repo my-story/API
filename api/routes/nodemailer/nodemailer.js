@@ -3,15 +3,15 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 // const creds = require('../config/config');
 
-var transport = {
+let transport = {
   service: 'Gmail',
   auth: {
-    user: process.env.email_for_app,
-    pass: process.env.password_for_email
+    user: process.env.EMAIL_FOR_APP,
+    pass: process.env.PASSWORD_FOR_EMAIL
   }
 }
 
-var transporter = nodemailer.createTransport(transport)
+let transporter = nodemailer.createTransport(transport)
 
 transporter.verify((error, success) => {
   if (error) {
@@ -22,26 +22,25 @@ transporter.verify((error, success) => {
 });
 
 router.post('/contact', (req, res, next) => {
-  var name = req.body.name
-  var email = req.body.email
-  var message = req.body.message
+  let name = req.body.name
+  let email = req.body.email
+  let message = req.body.message
   
-  var content = `name: ${name} \n email: ${email} \n message: ${content} `
+  let content = `name: ${name} \n email: ${email} \n message: ${content} `
 
-  var mail = {
+  let mail = {
     from: name,
     to: email,  //Change to email address that you want to receive messages on
     subject: 'Thank you for contacting us!',
     text: `Thank you for buying!`
-    
-  }
+  };
 
   let mail2 = {
     from: name,
     to: "sebasgrossmann@gmail.com",
     subject: "A customer bought a Product!",
     text: "Go into the website to ship product"
-  }
+  };
 
   transporter.sendMail(mail, (err, data) => {
     if (err) {
@@ -49,13 +48,13 @@ router.post('/contact', (req, res, next) => {
         msg: 'fail'
       })
     } else {
-      transporter.sendMail(mail2,(err,data)=>{x})
+      transporter.sendMail(mail2, (err,data) => {x})
       res.json({
         msg: 'success'
       })
     }
-  })
-})
+  });
+});
 
 module.exports = router;
 
