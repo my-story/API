@@ -1,12 +1,9 @@
-
 const express    = require('express');
 const router     = express.Router();
-let shippo = require('shippo')(process.env.shippo_test);
+const shippo = require('shippo')(process.env.SHIPPO_TEST);
 
-
-
-router.post('/validate',(req,res,next)=>{
-
+router.post('/validate', (req,res,next) => {
+  console.log(req.body)
   shippo.address.create({
     "name":req.body.name, 
     "company":req.body.company,
@@ -15,31 +12,23 @@ router.post('/validate',(req,res,next)=>{
     "state":req.body.state,
     "zip":req.body.zip,
     "country":req.body.country,
-    // "email":req.body.email,
     "validate": true
   }, function(err, address) {
-    if(err){
+    if (err) {
       console.log("shippo error" , err)
-    }else{
-      console.log(address)
+    } else {
       res.json(address)
     }
   });
+});
 
-})
-
-router.get('/address',(req,res,next)=>{
+router.get('/address', (req,res,next) => {
   shippo.address.list()
-  .then((address)=>{
-    console.log(address)
-    res.json(address)
-  })
+  .then((address) => res.json(address))
   .catch((e)=>next(e))
-})
+});
 
-router.post('/create',(req,res,next)=>{
-console.log(req.body)
-
+router.post('/create', (req,res,next) => {
 let parcel = {
   "object_state":"VALID",
   "object_created": "2013-12-11T19:38:09.729Z",
@@ -83,43 +72,18 @@ let addressFrom = {
     "is_residential": null,
     "metadata": "",
     "test": true
-}
-
-// let addressTo = {
-//   "object_owner": "sebasgrossmann@gmail.com",
-//   "name": "sesaaa grossmann",
-//   "company": "",
-//   "street_no": "",
-//   "street1": "2525 S Bayshore Dr",
-//   "street2": "",
-//   "street3": "",
-//   "city": "Miami",
-//   "state": "FL",
-//   "zip": "33133-4202",
-//   "country": "US",
-//   "longitude": "-80.2183400000",
-//   "latitude": "25.7416000000",
-//   "phone": "",
-//   "email": "",
-//   "is_residential": false,
-//   "metadata": "",
-//   "test": true
-// }
-
+};
   // Create shipment object
 
-let shipment = shippo.shipment.create({
+let shipment = shippo.shipment.create( {
   "address_from": addressFrom,
   // "address_from": process.env.address_from,
   "address_to": req.body,
   "parcels": parcel,
   "async": true
 })
-  .then((shipment)=>{
-    // console.log(shipment)
-    res.status(200).json(shipment)
-  })
-  .catch((e)=>console.log(e))
-})
+  .then((shipment) => res.status(200).json(shipment))
+  .catch((e) => console.log(e))
+});
 
-module.exports = router
+module.exports = router;

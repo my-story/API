@@ -9,7 +9,6 @@ const orderSchema = new Schema({
   product: {
     type: Object
   },
-
   state: {
     type: String,
     enum: ["cart","sold"],
