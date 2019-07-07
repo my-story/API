@@ -101,19 +101,19 @@ Influencer.findByIdAndUpdate(test, {profilePic : req.file.url}, {new:true})
 })
 
 //filtro influencer
-router.get('/filter',(req,res,next)=>{
-  const {search} = req.query 
+router.get('/filter', (req,res) => {
+  const {search} = req.query;
   Influencer.find({
     $or:[
-      {name: {$regex:search, $options:'i'}},
-      {expertise:  {$regex:search, $options:'i'}},
-      {review:  {$regex:search,$options:'i'}},
+      {name:{$regex:search, $options:'i'}}
+      // {expertise:  {$regex:search, $options:'i'}},
+      // {review:  {$regex:search,$options:'i'}},
     ]
   })
-  // .populate("product")
+  // .populate("influencer")
   .then((result)=>{
-    // console.log(res)
-    res.status(200).json(result)
+    console.log(result);
+    res.status(200).json(result);
   })
   .catch((e)=>{
     console.log(e)
