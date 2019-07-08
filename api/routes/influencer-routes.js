@@ -1,6 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-const uploadCloud = require("../config/cloudinary");
 const middleweares = require("../middlewears/secure.mid");
 const Influencer = require('../models/Influencer')
 
@@ -17,6 +16,20 @@ router.get("/filter/category", (req, res, next) => {
   Influencer.find({
     $or:[
     {expertise:{$regex:search, $options:'i'}}
+    ]
+  })
+    .then((influencer) => console.log(influencer),res.status(200).json(influencer))
+    .catch((e) => console.log(e))
+});
+
+//filtro influencer
+router.get('/filter', (req,res,next) => {
+  const {search} = req.query 
+  Influencer.find({
+    $or:[
+      {name: {$regex:search, $options:'i'}},
+      {expertise:  {$regex:search, $options:'i'}},
+      {review:  {$regex:search,$options:'i'}},
     ]
   })
     .then((influencer) => res.status(200).json(influencer))
@@ -65,32 +78,6 @@ router.post('/edit/:id', middleweares.isAdmin, (req,res,next) => {
     .then((influencer) => res.status(201).json(influencer))
     .catch((e)=>console.log(e))
 });
-
-//filtro influencer
-
-router.get('/filter', (req,res) => {
-  const {search} = req.query;
-
-  Influencer.find({
-    $or:[
-      {name:{$regex:search, $options:'i'}}
-      // {expertise:  {$regex:search, $options:'i'}},
-      // {review:  {$regex:search,$options:'i'}},
-    ]
-  })
-
-  // .populate("influencer")
-  .then((result)=>{
-    console.log(result);
-    res.status(200).json(result);
-  })
-  .catch((e)=>{
-    console.log(e)
-    res.json(e)
-  })
-})
-
-
 
 router.post("/delete/:id", middleweares.isAdmin, (req, res, next) => {
   Influencer.findByIdAndDelete({_id: req.params.id})
