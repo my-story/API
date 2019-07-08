@@ -1,6 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-const uploadCloud = require("../config/cloudinary");
 const middleweares = require("../middlewears/secure.mid");
 const Influencer = require('../models/Influencer')
 
