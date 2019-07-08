@@ -19,6 +19,20 @@ router.get("/filter/category", (req, res, next) => {
     {expertise:{$regex:search, $options:'i'}}
     ]
   })
+    .then((influencer) => console.log(influencer),res.status(200).json(influencer))
+    .catch((e) => console.log(e))
+});
+
+//filtro influencer
+router.get('/filter', (req,res,next) => {
+  const {search} = req.query 
+  Influencer.find({
+    $or:[
+      {name: {$regex:search, $options:'i'}},
+      {expertise:  {$regex:search, $options:'i'}},
+      {review:  {$regex:search,$options:'i'}},
+    ]
+  })
     .then((influencer) => res.status(200).json(influencer))
     .catch((e) => console.log(e))
 });
@@ -64,20 +78,6 @@ router.post('/edit/:id', middleweares.isAdmin, (req,res,next) => {
   })
     .then((influencer) => res.status(201).json(influencer))
     .catch((e)=>console.log(e))
-});
-
-//filtro influencer
-router.get('/filter', (req,res,next) => {
-  const {search} = req.query 
-  Influencer.find({
-    $or:[
-      {name: {$regex:search, $options:'i'}},
-      {expertise:  {$regex:search, $options:'i'}},
-      {review:  {$regex:search,$options:'i'}},
-    ]
-  })
-    .then((influencer) => res.status(200).json(influencer))
-    .catch((e) => console.log(e))
 });
 
 router.post("/delete/:id", middleweares.isAdmin, (req, res, next) => {

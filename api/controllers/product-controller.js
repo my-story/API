@@ -45,9 +45,11 @@ module.exports.filter = (req, res, next) => {
       {model:{$regex:search, $options:'i'}},
       {description:{$regex:search, $options:'i'}},
       {category:{$regex:search, $options:'i'}}
+
     ]
   })
-  .then((products)=> res.status(200).json([products]))
+  .populate("influencer")
+  .then((products)=> res.status(200).json(products))
   .catch((e)=>res.json(e))
 }
 

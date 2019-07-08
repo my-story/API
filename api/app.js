@@ -84,31 +84,31 @@ passport.deserializeUser(User.deserializeUser());
 const index = require('./routes/index');
 app.use('/', index);
 
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require('./routes/user-routes');
 app.use('/api', userRoutes);
 
-const orderRoutes = require('./routes/orderRoutes');
+const orderRoutes = require('./routes/order-routes');
 app.use('/order', orderRoutes);
 
-const productsRoutes = require('./routes/productsRoutes');
+const productsRoutes = require('./routes/products-routes');
 app.use('/product', productsRoutes);
 
-const influencerRoutes = require('./routes/influencerRoutes');
+const influencerRoutes = require('./routes/influencer-routes');
 app.use('/influencer', influencerRoutes);
 
-const influencerRewardRoutes = require('./routes/influencerRewardRoutes');
+const influencerRewardRoutes = require('./routes/influencer-reward-routes');
 app.use('/influencer/rewards', influencerRewardRoutes);
 
-const reviewRoutes = require('./routes/reviewRoutes');
+const reviewRoutes = require('./routes/review-routes');
 app.use('/reviews', reviewRoutes);
 
-const stripe = require('./routes/stripeRoutes')
+const stripe = require('./routes/stripe-routes')
 app.use('/payment', stripe)
 
 const Mailer = require('./routes/nodemailer/nodemailer')
 app.use('/authorize', Mailer)
 
-const Shipping = require('./routes/shippingRoutes')
+const Shipping = require('./routes/shipping-routes')
 app.use('/shipping', Shipping)
 
 // 404

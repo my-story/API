@@ -3,7 +3,7 @@ const router  = express.Router();
 
 const uploadCloud = require("../config/cloudinary");
 const middlewears = require("../middlewears/secure.mid")
-const productController = require('../controllers/productController')
+const productController = require('../controllers/product-controller')
 
 //Get all Products in Product Page
 router.get('/all', productController.getAll);
