@@ -78,7 +78,7 @@ router.post('/edit/:id', middleweares.isAdmin, (req,res,next) => {
     "percentage": req.body.percentage
   })
     .then((influencer) => res.status(201).json(influencer))
-    .catch((e)=>console.log(e))
+    .catch((e) => console.log(e))
 });
 
 router.post("/delete/:id", middleweares.isAdmin, (req, res, next) => {
