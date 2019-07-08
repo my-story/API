@@ -3,7 +3,8 @@ const Schema   = mongoose.Schema;
 
 const influencerSchema = new Schema({
   name: {
-    type: String
+    firstName: String,
+    lastName: String,
   },
   percentage:{
     type: Number

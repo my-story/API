@@ -2,9 +2,9 @@ const Product = require('../models/Product')
 
 module.exports.getAll = (req,res,next)=> {
   Product.find()
-  .populate("influencer")
+    .populate("influencer")
     .then((product) => res.status(200).json(product))
-    .catch()
+    .catch((e) => console.log(e))
 };
 
 module.exports.getOne = (req, res, next) => {

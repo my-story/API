@@ -46,7 +46,8 @@ router.get("/:id", (req,res,next) => {
 //Create a Influencer for each influencer
 router.post('/create', middleweares.isAdmin, (req,res,next) => {
   Influencer.create({
-    "name" : req.body.name,
+    "name.firstName" : req.body.firstname,
+    "name.lastName" : req.body.lastname,
     "review" : req.body.review,
     "expertise" : req.body.expertise,
     "percentage" : req.body.percentage,
@@ -69,7 +70,8 @@ Influencer.findByIdAndUpdate(req.params.id, {
 router.post('/edit/:id', middleweares.isAdmin, (req,res,next) => {
 
   Influencer.findByIdAndUpdate(req.params.id, {
-    "name":req.body.name,
+    "name.firstName":req.body.firstName,
+    "name.lastName":req.body.lastName,
     "profilePic": req.body.image,
     "review": req.body.review,
     "expertise": req.body.expertise,
