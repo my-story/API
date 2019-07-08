@@ -15,17 +15,34 @@ const userSchema = new Schema( {
     }
 })
 
-// const passwordHash = async function (){
-// checkPassword(this.password)
-// }
+//New try
+// userSchema.pre('save', async function (next) {
 
-// function checkPassword(inputPassword) {
-//   return bcrypt.compareSync(inputPassword, this.password)
-// }
+//   let user = this
+//   const password = user.password;
 
-// function hashPassword(){
-//     return bcrypt.hashSync(plainTextPassword, 10)
-// }
+//   const hashedPassword = await hashPassword(user);
+//   user.password = hashedPassword
+
+//   next()
+
+// })
+
+// async function hashPassword (user) {
+
+//   const password = user.password
+//   const saltRounds = 10;
+
+//   const hashedPassword = await new Promise((resolve, reject) => {
+//     bcrypt.hash(password, saltRounds, function(err, hash) {
+//       if (err) reject(err)
+//       resolve(hash)
+//     });
+//   })
+
+//   return hashedPassword
+// };
+//ends here
 
 userSchema.methods = {
     checkPassword: function (inputPassword) {
