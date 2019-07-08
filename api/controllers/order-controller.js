@@ -16,13 +16,14 @@ module.exports.createOrder = (req, res, next) => {
           product: req.body._id,
         })
         .save()
-        .then(order =>res.status(201).json(order))
+        .then(order => res.status(201).json(order))
       }
     })
     .catch((e) => next(e))
 }
 
 module.exports.orderMake = (req,res,next) => {
+  console.log(req.body.products)
   if(req.body.user) {
     Order.create( {
       user:req.body.user,
@@ -33,8 +34,8 @@ module.exports.orderMake = (req,res,next) => {
       products: req.body.products,
       state:"sold"
     })
-    .then((order) => res.json(order))
-    .catch((e)=>console.log(e))
+      .then((order) => res.json(order))
+      .catch((e) => console.log(e))
   } else {
     Order.create( {
       email: req.body.email,
