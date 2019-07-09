@@ -6,8 +6,6 @@ const bcrypt = require('bcryptjs');
 const userSchema = new Schema( {
     username: String,
     password: String,
-    reviewsUpvoted: Array,
-    reviewsDownvoted: Array,
     role: {
         type: String,
         enum:["User","Admin"],
