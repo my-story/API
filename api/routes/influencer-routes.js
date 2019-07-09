@@ -13,12 +13,8 @@ router.get('/all', (req,res,next) => {
 // Filter categories
 router.get("/filter/category", (req, res, next) => {
   const {search} = req.query;
-  Influencer.find({
-    $or:[
-    {expertise:{$regex:search, $options:'i'}}
-    ]
-  })
-    .then((influencer) => console.log(influencer),res.status(200).json(influencer))
+  Influencer.find({expertise:search})
+    .then((influencer) => res.status(200).json(influencer))
     .catch((e) => console.log(e))
 });
 
