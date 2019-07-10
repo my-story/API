@@ -18,9 +18,10 @@ const logger = winston.createLogger({
       db: process.env.DB,
       collection: 'error-logs',
       storeHost: true,
+      expireAfterSeconds: 2630000,
+      tryReconnect: true
     })
   ],
-  json: true,
   exitOnError: false,
 });
 
