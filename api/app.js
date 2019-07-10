@@ -96,20 +96,17 @@ app.use('/product', productsRoutes);
 const influencerRoutes = require('./routes/influencer-routes');
 app.use('/influencer', influencerRoutes);
 
-const influencerRewardRoutes = require('./routes/influencer-reward-routes');
-app.use('/influencer/rewards', influencerRewardRoutes);
-
 const reviewRoutes = require('./routes/review-routes');
 app.use('/reviews', reviewRoutes);
 
 const stripe = require('./routes/stripe-routes')
-app.use('/payment', stripe)
+app.use('/payment', stripe);
 
 const Mailer = require('./routes/nodemailer/nodemailer')
-app.use('/authorize', Mailer)
+app.use('/authorize', Mailer);
 
 const Shipping = require('./routes/shipping-routes')
-app.use('/shipping', Shipping)
+app.use('/shipping', Shipping);
 
 // 404
 app.use(function(req, res, next) {

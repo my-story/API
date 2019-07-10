@@ -1,31 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('../config/passport');
-const createError = require('create-error');
 const middlewares = require("../middlewears/secure.mid");
+
+const userController = require('../controllers/user-controller')
+
 const User = require('../models/User');
 const winstonLogger = require('../config/error-logs/winston');
 
-router.post('/', (req, res) => {
-  const { username, password } = req.body
-  User.findOne({ username: username }, (err, user) => {
-    if (err) {
-        console.log('User.js post error: ', err)
-    } else if (user) {
-        res.json( {error: `Sorry, already a user with the username: ${username}`})
-    } else {
-        const newUser = new User( {
-          username: username,
-          password: password
-        });
-        newUser.save((err, savedUser) => {
-          if (err) return res.json(err)
-          res.json(savedUser)
-          req.session.username = req.body.username;
-        })
-    };
-  });
-});
+
+router.post('/', userController.singUp);
 
 router.post('/login',
   function (req, res, next) {
@@ -49,51 +33,17 @@ router.get('/private', middlewares.isAuthenticated, (req, res, next) => {
   res.send(req.user);
 });
 
-router.post('/logout', (req, res) => {
-  if (req.user) {
-      req.logout()
-      res.status(200).json(req.user)
-  } else {
-    createError(403, "this user is already logged-out");
-  }
-});
+router.get('/private', middlewares.isAuthenticated, userController.private);
 
-router.post('/upvote/:id', middlewares.isAuthenticated, (req,res,next) => {
-  User.findOneAndUpdate(
-  { _id: req.params.id},
-  { $push: { reviewsUpvoted: [req.body.reviewId] }}, 
-  { new: true })
-    .then(user => res.status(201).json(user))
-    .catch(next)
-});
+router.post('/logout', userController.logout);
 
-router.post('/downvote/:id', middlewares.isAuthenticated,(req,res,next) => {
-  User.findOneAndUpdate(
-  { _id: req.params.id},
-  { $push: { reviewsDownvoted: [req.body.reviewId] }}, 
-  { new: true })
-  .then(user => {
-      res.status(201).json(user)
-  })
-  .catch(next)
-});
+router.post('/upvote/:id', middlewares.isAuthenticated, userController.upvote);
 
-router.post('/pull/downvote/:id', middlewares.isAuthenticated, (req,res,next) => {
-  User.findOneAndUpdate(
-    { _id: req.params.id},
-    { $pull: { reviewsDownvoted: req.body.reviewId }}, 
-    { new: true })
-      .then(user => res.status(201).json(user))
-      .catch((e)=>console.log(e))
-})
+router.post('/downvote/:id', middlewares.isAuthenticated, userController.downvote);
 
-router.post('/pull/upvote/:id',middlewares.isAuthenticated, (req,res,next) => {
-  User.findOneAndUpdate(
-    { _id: req.params.id},
-    { $pull: { reviewsUpvoted: req.body.reviewId }}, 
-    { new: true })
-    .then(user => res.status(201).json(user))
-    .catch(next)
-})
+router.post('/pull/upvote/:id',middlewares.isAuthenticated, userController.upvoteUndo);
+
+router.post('/pull/downvote/:id', middlewares.isAuthenticated, userController.downvoteUndo);
+
 
 module.exports = router;

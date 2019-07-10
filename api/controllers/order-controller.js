@@ -1,3 +1,4 @@
+
 const createError = require('http-errors');
 const winstonLogger = require('../config/error-logs/winston');
 const Order = require('../models/Order');
@@ -26,6 +27,7 @@ module.exports.createOrder = (req, res, next) => {
       }
     }))
 }
+
 
 module.exports.orderMake = (req,res,next) => {
   if(req.body.user) {
@@ -62,7 +64,7 @@ module.exports.orderMake = (req,res,next) => {
       }
     }))
   }
-}
+};
 
 module.exports.getCart = (req, res, next) => {
   Order.findOne({ user: req.params.id, state: 'cart' })
@@ -75,6 +77,7 @@ module.exports.getCart = (req, res, next) => {
       }
     }))
 }
+
 
 module.exports.paymentCart = (req,res,next) => {
   Order.findOneAndUpdate({user:req.user._id , state:"cart"}, {
@@ -93,6 +96,7 @@ module.exports.paymentCart = (req,res,next) => {
     }))
 }
 
+
 module.exports.deleteProduct = (req, res, next) => {
   const search = req.params.id;
   Order.findOneAndUpdate(
@@ -110,6 +114,7 @@ module.exports.deleteProduct = (req, res, next) => {
     }))
 }
 
+
 module.exports.deleteOrder = (req, res, next) => {
   const search = req.params.id;
   Order.findOneAndDelete({ user: req.user.id, state: 'cart' })
@@ -120,4 +125,5 @@ module.exports.deleteOrder = (req, res, next) => {
         error: error
       }
     })) 
-}
+};
+
