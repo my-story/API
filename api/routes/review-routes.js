@@ -40,8 +40,9 @@ router.post('/edit/:id', middlewares.isAdmin, (req, res, next) => {
 });
 
 router.post('/upvote/:id', middlewares.isAuthenticated, (req,res,next) => {
+
 	Review.findOneAndUpdate(
-		{influencer: req.params.id},
+		{influencer: req.body.influencer_id},
 		{$inc: {votes: 1}}, 
 		{new: true}
     )
@@ -49,9 +50,10 @@ router.post('/upvote/:id', middlewares.isAuthenticated, (req,res,next) => {
     .catch((e) => next(e))
 });
 
-router.post('/downvote/:id', middlewares.isAuthenticated, (req,res,next) => { 
+router.post('/downvote/:id', middlewares.isAuthenticated, (req,res,next) => {
+// console.log(req)
 	Review.findOneAndUpdate(
-		{influencer: req.params.id},
+		{influencer: req.body.influencer_id},
 		{$inc: {votes: -1}}, 
 		{new: true}
     )
