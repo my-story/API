@@ -1,16 +1,27 @@
-const Product = require('../models/Product')
+const Product = require('../models/Product');
+const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.getAll = (req,res,next)=> {
   Product.find()
     .populate("influencer")
     .then((product) => res.status(200).json(product))
-    .catch((e) => console.log(e))
+    .catch((error) => winstonLogger.info("Couldn't get all products", {
+      metadata:{
+        services:"product-controller: getAll",
+        error: error
+      }
+    })) 
 };
 
 module.exports.getOne = (req, res, next) => {
   Product.findById(req.params.id)
     .then((product)=> res.json(product))
-    .catch((err) => res.json(err))
+    .catch((error) => winstonLogger.info("Couldn't get one product", {
+      metadata:{
+        services:"product-controller: getOne",
+        error: error
+      }
+    })) 
 };
 
 
@@ -21,7 +32,12 @@ module.exports.updateTotal = (req, res, next) => {
     {new: true}
   )
     .then((product) => res.status(201).json(product))
-    .catch((e) => next(e))
+    .catch((error) => winstonLogger.verbose("Couldn't update total", {
+      metadata:{
+        services:"product-controller: updateTotal",
+        error: error
+      }
+    })); 
 };
 
 module.exports.createProduct = (req,res,next)=> {
@@ -35,7 +51,12 @@ module.exports.createProduct = (req,res,next)=> {
     total: req.body.total
   })
     .then((product) => res.status(201).json(product))
-    .catch((e)=>next(e))
+    .catch((error) => winstonLogger.info("Couldn't create Product", {
+      metadata:{
+        services:"product-controller: createProduct",
+        error: error
+      }
+    })); 
 }
 
 module.exports.filter = (req, res, next) => {
@@ -50,7 +71,12 @@ module.exports.filter = (req, res, next) => {
   })
   .populate("influencer")
   .then((products)=> res.status(200).json(products))
-  .catch((e)=>res.json(e))
+  .catch((error) => winstonLogger.debug("Couldn't filter products", {
+    metadata:{
+      services:"product-controller: filter",
+      error: error
+    }
+  }));
 }
 
 //Search bar
@@ -65,14 +91,24 @@ module.exports.filterCategory = (req, res, next) => {
     ]
   })
     .then((product) => res.status(200).json(product))
-    .catch((e) => res.json(e))
+    .catch((error) => winstonLogger.debug("Couldn't filter category", {
+      metadata:{
+        services:"product-controller: filterCategory",
+        error: error
+      }
+    }));
 }
 
 module.exports.delete = (req, res, next) => {
   const search = req.params.id;
   Product.findOneAndDelete({ influencer: search })
     .then(product => res.status(201).json(product))
-    .catch((e) => console.log(e))
+    .catch((error) => winstonLogger.debug("Couldn't delete product", {
+      metadata:{
+        services:"product-controller: delete",
+        error: error
+      }
+    }));
 }
 
 module.exports.edit = (req,res, next) => {
@@ -85,5 +121,10 @@ module.exports.edit = (req,res, next) => {
     "total": req.body.total
   })
     .then((product) => res.status(201).json(product))
-    .catch((e) => console.log(e))
+    .catch((error) => winstonLogger.info("Couldn't edit product", {
+      metadata:{
+        services:"product-controller: edit",
+        error: error
+      }
+    }));
 }

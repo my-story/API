@@ -1,9 +1,10 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 const passport = require('../config/passport');
 const createError = require('create-error');
 const middlewares = require("../middlewears/secure.mid");
-const User = require('../models/User')
+const User = require('../models/User');
+const winstonLogger = require('../config/error-logs/winston');
 
 router.post('/', (req, res) => {
   const { username, password } = req.body
