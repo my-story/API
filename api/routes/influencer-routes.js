@@ -1,13 +1,14 @@
 const express = require('express');
 const router  = express.Router();
+// const winstonLogger = require('../config/winston/winston');
 const middleweares = require("../middlewears/secure.mid");
-const Influencer = require('../models/Influencer')
+const Influencer = require('../models/Influencer');
 
 //Get all Influencers in Product Page
 router.get('/all', (req,res,next) => {
   Influencer.find()
     .then((influencer) => res.status(200).json(influencer))
-    .catch((e)=>console.log(e))
+    .catch((error) => console.log(error))
 });
 
 // Filter categories
