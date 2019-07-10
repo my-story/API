@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const Order = require('../models/Order');
 
 
@@ -20,7 +19,7 @@ module.exports.createOrder = (req, res, next) => {
       }
     })
     .catch((e) => next(e))
-}
+};
 
 module.exports.orderMake = (req,res,next) => {
   if(req.body.user) {
@@ -47,14 +46,14 @@ module.exports.orderMake = (req,res,next) => {
     .then((order) => res.json(order))
     .catch((e) => console.log(e))
   }
-}
+};
 
 module.exports.getCart = (req, res, next) => {
   Order.findOne({ user: req.params.id, state: 'cart' })
     .populate('product')
     .then(order => res.json(order))
     .catch((e) => console.log(e))
-}
+};
 
 module.exports.paymentCart = (req,res,next) => {
   Order.findOneAndUpdate({user:req.user._id , state:"cart"}, {
@@ -66,7 +65,7 @@ module.exports.paymentCart = (req,res,next) => {
   })
     .then(order => res.json(order))
     .catch((e) => console.log(e))
-}
+};
 
 module.exports.deleteProduct = (req, res, next) => {
   const search = req.params.id;
@@ -78,11 +77,11 @@ module.exports.deleteProduct = (req, res, next) => {
     .populate('product')
     .then(order => res.status(201).json(order))
     .catch(next)
-}
+};
 
 module.exports.deleteOrder = (req, res, next) => {
   const search = req.params.id;
   Order.findOneAndDelete({ user: req.user.id, state: 'cart' })
     .then(order => res.status(201).json(order))
     .catch((e) => console.log(e))    
-}
+};
