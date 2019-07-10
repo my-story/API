@@ -23,7 +23,6 @@ module.exports.createOrder = (req, res, next) => {
 }
 
 module.exports.orderMake = (req,res,next) => {
-  console.log(req.body.products)
   if(req.body.user) {
     Order.create( {
       user:req.body.user,

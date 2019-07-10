@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
-  title:{
+  title: {
     type: String
   },
   influencer: {
@@ -15,20 +15,19 @@ const reviewSchema = new mongoose.Schema({
   review: {
     type: String
   },
-  video:{
+  video: {
     type: String
   },
-  upvotes:{
+  upvotes: {
     type: Array
   },
-  votes:{
-    type: Number,
-    default: 0
+  downvotes: {
+    type: Array
   },
   voicenote:{
     type: String
   }
-}, {timestamps: true});
+}, { timestamps: true });
 
 
 const Review = mongoose.model("Review", reviewSchema);
