@@ -1,8 +1,13 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 const passport = require('../config/passport');
 const middlewares = require("../middlewears/secure.mid");
+
 const userController = require('../controllers/user-controller')
+
+const User = require('../models/User');
+const winstonLogger = require('../config/error-logs/winston');
+
 
 router.post('/', userController.singUp);
 
