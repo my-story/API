@@ -1,4 +1,5 @@
 const express    = require('express');
+const mongoose = require('mongoose');
 const router     = express.Router();
 const uploadCloud = require("../config/cloudinary");
 const middlewares = require("../middlewears/secure.mid");
@@ -6,7 +7,7 @@ const Review   = require('../models/Review');
 
 router.get('/specific/:id', (req, res, next) => {
 	let {id} = req.params
-  Review.find({influencer: id}) //.findById(req.params.restID)
+  Review.findOne({influencer: id}) //.findById(req.params.restID)
 		.populate('influencer')
 		.then((review) => res.json(review))
 		.catch((err) => res.json(err))
@@ -39,26 +40,54 @@ router.post('/edit/:id', middlewares.isAdmin, (req, res, next) => {
 		.catch((err) => res.json(err))
 });
 
-router.post('/upvote/:id', middlewares.isAuthenticated, (req,res,next) => {
+router.patch('/upvote', middlewares.isAuthenticated, (req, res, next) => {
+	const userObjectId = mongoose.Types.ObjectId(req.body.user_id);
 
-	Review.findOneAndUpdate(
-		{influencer: req.body.influencer_id},
-		{$inc: {votes: 1}}, 
-		{new: true}
-    )
-    .then((review) => res.status(201).json(review))
-    .catch((e) => next(e))
+	Review.update(
+		{ influencer: req.body.influencer_id },
+		{
+			$push: { upvotes: userObjectId },
+			$pull: { downvotes: userObjectId }
+		}
+	).exec()
+	 .then(() => res.status(200).send('OK'))
+	 .catch(e => next(e));
 });
 
-router.post('/downvote/:id', middlewares.isAuthenticated, (req,res,next) => {
-// console.log(req)
-	Review.findOneAndUpdate(
-		{influencer: req.body.influencer_id},
-		{$inc: {votes: -1}}, 
-		{new: true}
-    )
-    .then((review) => res.status(201).json(review))
-    .catch((e) => next(e))
+router.patch('/upvote/undo', middlewares.isAuthenticated, (req, res, next) => {
+	const userObjectId = mongoose.Types.ObjectId(req.body.user_id);
+
+	Review.update(
+		{ influencer: req.body.influencer_id },
+		{ $pull: { upvotes: userObjectId } }
+	).exec()
+	 .then(() => res.status(200).send('OK'))
+	 .catch(e => next(e));
+});
+
+router.patch('/downvote', middlewares.isAuthenticated, (req, res, next) => {
+	const userObjectId = mongoose.Types.ObjectId(req.body.user_id);
+
+	Review.update(
+		{ influencer: req.body.influencer_id },
+		{
+			$push: { downvotes: userObjectId },
+			$pull: { upvotes: userObjectId }
+		}
+	).exec()
+	 .then(() => res.status(200).send('OK'))
+	 .catch(e => next(e));
+});
+
+router.patch('/downvote/undo', middlewares.isAuthenticated, (req, res, next) => {
+	const userObjectId = mongoose.Types.ObjectId(req.body.user_id);
+
+	Review.update(
+		{ influencer: req.body.influencer_id },
+		{ $pull: { downvotes: userObjectId } }
+	).exec()
+	 .then(() => res.status(200).send('OK'))
+	 .catch(e => next(e));
 });
 
 router.post("/delete/:id", middlewares.isAdmin, (req, res, next) => {
