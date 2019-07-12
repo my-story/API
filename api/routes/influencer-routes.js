@@ -1,6 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-// const winstonLogger = require('../config/error-logs/winston');
 const middleweares = require("../middlewears/secure.mid");
 const influencerController = require('../controllers/influencer-controller');
 

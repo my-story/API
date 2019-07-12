@@ -24,9 +24,9 @@ transporter.verify((error, success) => {
 router.post('/contact', (req, res, next) => {
   let name = req.body.name
   let email = req.body.email
-  let message = req.body.message
+  // let message = req.body.message
   
-  let content = `name: ${name} \n email: ${email} \n message: ${content} `
+  // let content = `name: ${name} \n email: ${email} \n message: ${content} `
 
   let mail = {
     from: name,

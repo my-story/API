@@ -1,4 +1,5 @@
 const shippo = require('shippo')(process.env.SHIPPO_TEST);
+const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.validate = (req, res) => {
   shippo.address.create({
@@ -10,9 +11,14 @@ module.exports.validate = (req, res) => {
     "zip":req.body.zip,
     "country":req.body.country,
     "validate": true
-  }, function(err, address) {
-    if (err) {
-      console.log("shippo error" , err)
+  }, function(error, address) {
+    if (error) {
+      winstonLogger.error("Couldnt validate address" ,{
+        metadata: {
+          service: "shipment-controller: validate",
+          error: error
+        }
+      })
     } else {
       res.json(address)
     }
@@ -22,7 +28,12 @@ module.exports.validate = (req, res) => {
 module.exports.address = (req, res) => {
   shippo.address.list()
   .then((address) => res.json(address))
-  .catch((e)=>next(e))
+  .catch((error) => winstonLogger.error("Couldn't get address", {
+    metadata:{
+      services:"shipment-controller: address",
+      error: error
+    }
+  }))
 };
 
 module.exports.create = (req, res) => {
@@ -79,5 +90,10 @@ module.exports.create = (req, res) => {
     "async": true
   })
     .then((shipment) => res.status(200).json(shipment))
-    .catch((e) => console.log(e))
+    .catch((error) => winstonLogger.error("Couldn't create shipment for rates", {
+      metadata:{
+        services:"shipment-controller: create",
+        error: error
+      }
+    }))
 };
