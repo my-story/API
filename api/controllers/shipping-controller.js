@@ -16,7 +16,7 @@ module.exports.validate = (req, res) => {
       winstonLogger.error("Couldnt validate address" ,{
         metadata: {
           service: "shipment-controller: validate",
-          error: error
+          error: error.message
         }
       })
     } else {
@@ -31,7 +31,7 @@ module.exports.address = (req, res) => {
   .catch((error) => winstonLogger.error("Couldn't get address", {
     metadata:{
       services:"shipment-controller: address",
-      error: error
+      error: error.message
     }
   }))
 };
@@ -93,7 +93,7 @@ module.exports.create = (req, res) => {
     .catch((error) => winstonLogger.error("Couldn't create shipment for rates", {
       metadata:{
         services:"shipment-controller: create",
-        error: error
+        error: error.message
       }
     }))
 };

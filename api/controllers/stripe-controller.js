@@ -12,7 +12,7 @@ module.exports.charge = (req,res) => {
       .catch((error) => winstonLogger.error("Couldn't charge customer", {
         metadata:{
           services:"stripe-controller: charge",
-          error: error
+          error: error.message
         }
       }))
 };

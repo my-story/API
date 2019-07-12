@@ -10,7 +10,7 @@ module.exports.getOne = (req, res) => {
 		.catch((error) => winstonLogger.error("Couldn't get review", {
       metadata:{
         services:"review-controller: getOne",
-        error: error
+        error: error.message
       }
     }))
 };
@@ -24,7 +24,7 @@ module.exports.create = (req, res) => {
 		.catch((error) => winstonLogger.info("Couldn't create review", {
       metadata:{
         services:"review-controller: create",
-        error: error
+        error: error.message
       }
     }))
 };
@@ -37,12 +37,13 @@ module.exports.edit = (req,res) => {
 		voicenote: req.body.voicenote
     })
 		.then((review) => res.status(201).json(review))
-		.catch((error) => winstonLogger.info("Couldn't edit review", {
+		.catch((error) => winstonLogger.error("Couldn't edit review", {
       metadata:{
         services:"review-controller: edit",
-        error: error
+        error: error.message
       }
-    }))
+		}
+		))
 };
 
 module.exports.upvote = (req, res) => {
@@ -59,7 +60,7 @@ module.exports.upvote = (req, res) => {
 	 .catch((error) => winstonLogger.warn("Couldn't upvote the review", {
 		metadata:{
 			services:"review-controller: upvote",
-			error: error
+			error: error.message
 		}
 	}))
 };
@@ -75,7 +76,7 @@ module.exports.upvoteUndo = (req, res) => {
 	 .catch((error) => winstonLogger.warn("Couldn't undo upvote the review", {
 		metadata:{
 			services:"review-controller: upvoteUndo",
-			error: error
+			error: error.message
 		}
 	}))
 };
@@ -94,7 +95,7 @@ module.exports.downvote = (req,res) => {
 	 .catch((error) => winstonLogger.warn("Couldn't downvote the review", {
 		metadata:{
 			services:"review-controller: downvote",
-			error: error
+			error: error.message
 		}
 	}))
 };
@@ -110,7 +111,7 @@ module.exports.downvoteUndo = (req,res) => {
 	 .catch((error) => winstonLogger.warn("Couldn't undo downvote the review", {
 		metadata:{
 			services:"review-controller: downvoteUndo",
-			error: error
+			error: error.message
 		}
 	}))
 };
@@ -124,7 +125,7 @@ module.exports.delete = (req, res) => {
 		.catch((error) => winstonLogger.info("Couldn't edit review", {
       metadata:{
         services:"review-controller: delete",
-        error: error
+        error: error.message
       }
     }))
 };
