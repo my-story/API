@@ -1,5 +1,5 @@
 
-const createError = require('http-errors');
+// const createError = require('http-errors');
 const winstonLogger = require('../config/error-logs/winston');
 const Order = require('../models/Order');
 
@@ -25,7 +25,7 @@ module.exports.createOrder = (req, res, next) => {
         services:"order-controller: createOrder",
         error: error
       }
-    }))
+    }));
 }
 
 
@@ -46,7 +46,7 @@ module.exports.orderMake = (req,res,next) => {
           services:"order-controller: orderMake",
           error: error
         }
-      }))
+      }));
   } else {
     Order.create( {
       email: req.body.email,
@@ -62,7 +62,7 @@ module.exports.orderMake = (req,res,next) => {
         services:"order-controller: orderMake",
         error: error
       }
-    }))
+    }));
   }
 };
 
@@ -75,7 +75,7 @@ module.exports.getCart = (req, res, next) => {
         services:"order-controller: getCart",
         error: error
       }
-    }))
+    }));
 }
 
 
@@ -93,7 +93,7 @@ module.exports.paymentCart = (req,res,next) => {
         services:"order-controller: paymentCart",
         error: error
       }
-    }))
+    }));
 }
 
 
@@ -111,7 +111,7 @@ module.exports.deleteProduct = (req, res, next) => {
         services:"order-controller: deleteProduct",
         error: error
       }
-    }))
+    }));
 }
 
 
@@ -124,6 +124,6 @@ module.exports.deleteOrder = (req, res, next) => {
         services:"order-controller: deleteOrder",
         error: error
       }
-    })) 
+    }));
 };
 
