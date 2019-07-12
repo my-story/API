@@ -8,7 +8,7 @@ module.exports.getAll = (req,res,next)=> {
     .catch((error) => winstonLogger.info("Couldn't get all products", {
       metadata:{
         services:"product-controller: getAll",
-        error: error
+        error: error.message
       }
     })) 
 };
@@ -19,7 +19,7 @@ module.exports.getOne = (req, res, next) => {
     .catch((error) => winstonLogger.info("Couldn't get one product", {
       metadata:{
         services:"product-controller: getOne",
-        error: error
+        error: error.message
       }
     })) 
 };
@@ -35,7 +35,7 @@ module.exports.updateTotal = (req, res, next) => {
     .catch((error) => winstonLogger.verbose("Couldn't update total", {
       metadata:{
         services:"product-controller: updateTotal",
-        error: error
+        error: error.message
       }
     })); 
 };
@@ -54,7 +54,7 @@ module.exports.createProduct = (req,res,next)=> {
     .catch((error) => winstonLogger.info("Couldn't create Product", {
       metadata:{
         services:"product-controller: createProduct",
-        error: error
+        error: error.message
       }
     })); 
 }
@@ -74,7 +74,7 @@ module.exports.filter = (req, res, next) => {
   .catch((error) => winstonLogger.debug("Couldn't filter products", {
     metadata:{
       services:"product-controller: filter",
-      error: error
+      error: error.message
     }
   }));
 }
@@ -94,7 +94,7 @@ module.exports.filterCategory = (req, res, next) => {
     .catch((error) => winstonLogger.debug("Couldn't filter category", {
       metadata:{
         services:"product-controller: filterCategory",
-        error: error
+        error: error.message
       }
     }));
 }
@@ -106,7 +106,7 @@ module.exports.delete = (req, res, next) => {
     .catch((error) => winstonLogger.debug("Couldn't delete product", {
       metadata:{
         services:"product-controller: delete",
-        error: error
+        error: error.message
       }
     }));
 }
@@ -124,7 +124,7 @@ module.exports.edit = (req,res, next) => {
     .catch((error) => winstonLogger.info("Couldn't edit product", {
       metadata:{
         services:"product-controller: edit",
-        error: error
+        error: error.message
       }
     }));
 };

@@ -23,7 +23,7 @@ module.exports.createOrder = (req, res, next) => {
     .catch((error) => winstonLogger.error("Couldn't create Order", {
       metadata:{
         services:"order-controller: createOrder",
-        error: error
+        error: error.message
       }
     }));
 }
@@ -44,7 +44,7 @@ module.exports.orderMake = (req,res,next) => {
       .catch((error) => winstonLogger.error("Couldn't create Order", {
         metadata:{
           services:"order-controller: orderMake",
-          error: error
+          error: error.message
         }
       }));
   } else {
@@ -60,7 +60,7 @@ module.exports.orderMake = (req,res,next) => {
     .catch((error) => winstonLogger.error("Couldn't create Order", {
       metadata:{
         services:"order-controller: orderMake",
-        error: error
+        error: error.message
       }
     }));
   }
@@ -73,7 +73,7 @@ module.exports.getCart = (req, res, next) => {
     .catch((error) => winstonLogger.info("Couldn't get Cart", {
       metadata:{
         services:"order-controller: getCart",
-        error: error
+        error: error.message
       }
     }));
 }
@@ -91,7 +91,7 @@ module.exports.paymentCart = (req,res,next) => {
     .catch((error) => winstonLogger.error("Couldn't update payment cart", {
       metadata:{
         services:"order-controller: paymentCart",
-        error: error
+        error: error.message
       }
     }));
 }
@@ -109,7 +109,7 @@ module.exports.deleteProduct = (req, res, next) => {
     .catch((error) => winstonLogger.verbose("Couldn't delete product", {
       metadata:{
         services:"order-controller: deleteProduct",
-        error: error
+        error: error.message
       }
     }));
 }
@@ -122,7 +122,7 @@ module.exports.deleteOrder = (req, res, next) => {
     .catch((error) => winstonLogger.info("Couldn't delete order", {
       metadata:{
         services:"order-controller: deleteOrder",
-        error: error
+        error: error.message
       }
     }));
 };

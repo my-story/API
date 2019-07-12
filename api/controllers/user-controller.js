@@ -9,7 +9,7 @@ module.exports.singUp = (req, res) => {
         winstonLogger.error("signup not working", {
           metadata:{
             services:"user-controller: singUp",
-            error: err
+            error: err.message
           }
         });
     } else if (user) {
@@ -51,7 +51,7 @@ module.exports.upvote = (req, res) => {
       .catch((error) => winstonLogger.info("Couldn't upvote", {
         metadata:{
           services:"user-controller: upvote",
-          error: error
+          error: error.message
         }
       }));
 };
@@ -67,7 +67,7 @@ module.exports.downvote = (req, res) => {
     .catch((error) => winstonLogger.info("Couldn't downvote", {
       metadata:{
         services:"user-controller: downvote",
-        error: error
+        error: error.message
       }
     }));
 };
@@ -81,7 +81,7 @@ module.exports.upvoteUndo = (req, res) => {
     .catch((error) => winstonLogger.info("Couldn't upvote undo", {
       metadata:{
         services:"user-controller: upvoteUndo",
-        error: error
+        error: error.message
       }
     }));
 };
@@ -95,7 +95,7 @@ module.exports.downvoteUndo = (req, res) => {
     .catch((error) => winstonLogger.info("Couldn't downvote undo", {
       metadata:{
         services:"user-controller: downvoteUndo",
-        error: error
+        error: error.message
       }
     }));
 }

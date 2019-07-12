@@ -7,7 +7,7 @@ module.exports.getAll = (req,res) => {
   .catch((error) => winstonLogger.warn("Couldn't get all Influencers", {
     metadata:{
       services:"influencer-controller: getAll",
-      error: error
+      error: error.message
     }
   }));
 };
@@ -19,7 +19,7 @@ module.exports.filterButton = (req,res) => {
     .catch((error) => winstonLogger.info("Couldn't filter the category of Influencers", {
       metadata:{
         services:"influencer-controller: filterButton",
-        error: error
+        error: error.message
       }
     }));
 };
@@ -38,7 +38,7 @@ module.exports.filterSearch = (req,res) => {
     .catch((error) => winstonLogger.info("Couldn't filter Influencers", {
       metadata:{
         services:"influencer-controller: filterSearch",
-        error: error
+        error: error.message
       }
     }));
 };
@@ -50,7 +50,7 @@ module.exports.profile = (req,res) => {
     .catch((error) => winstonLogger.warn("Couldn't get Influencer profile", {
       metadata:{
         services:"influencer-controller: profile",
-        error: error
+        error: error.message
       }
     }));
 };
@@ -68,7 +68,7 @@ module.exports.create = (req,res) => {
     .catch((error) => winstonLogger.info("Couldn't create Influencer", {
       metadata:{
         services:"influencer-controller: create",
-        error: error
+        error: error.message
       }
     }));
 };
@@ -81,7 +81,7 @@ module.exports.addReward = (req,res) => {
     .catch((error) => winstonLogger.error("Couldn't add Influencer reward", {
       metadata:{
         services:"influencer-controller: addReward",
-        error: error
+        error: error.message
       }
     }));
 };
@@ -99,7 +99,7 @@ module.exports.edit = (req,res) => {
     .catch((error) => winstonLogger.verbose("Couldn't edit Influencer", {
       metadata:{
         services:"influencer-controller: edit",
-        error: error
+        error: error.message
       }
     }));
 };
@@ -110,7 +110,7 @@ module.exports.delete = (req,res) => {
   .catch((error) => winstonLogger.verbose("Couldn't delete Influencer", {
     metadata:{
       services:"influencer-controller: delete",
-      error: error
+      error: error.message
     }
   }));
 }
