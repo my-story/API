@@ -1,4 +1,5 @@
-const stripe = require("stripe")("sk_test_Au0wg34od1GC3qgugL3CQQQL00gaI6Hf92");
+const stripe = require("stripe")(process.env.sk_test_MY_SECRET_KEY);
+const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.charge = (req,res) => {
   let status = stripe.charges.create({
@@ -8,8 +9,10 @@ module.exports.charge = (req,res) => {
     source: req.body.token,
     })
       .then((response) => res.json({response}))
-      .catch((err)=>{
-        console.log(err)
-        res.status(500).end();
-      });
+      .catch((error) => winstonLogger.error("Couldn't charge customer", {
+        metadata:{
+          services:"stripe-controller: charge",
+          error: error
+        }
+      }))
 };

@@ -1,12 +1,18 @@
 const Review = require('../models/Review');
 const mongoose = require('mongoose');
+const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.getOne = (req, res) => {
   let {id} = req.params
   Review.findOne({influencer: id}) //.findById(req.params.restID)
 		.populate('influencer')
 		.then((review) => res.json(review))
-		.catch((err) => res.json(err))
+		.catch((error) => winstonLogger.error("Couldn't get review", {
+      metadata:{
+        services:"review-controller: getOne",
+        error: error
+      }
+    }))
 };
 
 module.exports.create = (req, res) => {
@@ -15,7 +21,12 @@ module.exports.create = (req, res) => {
     test = review._id
     res.json(review)
     })
-  .catch((err) => res.json(err))
+		.catch((error) => winstonLogger.info("Couldn't create review", {
+      metadata:{
+        services:"review-controller: create",
+        error: error
+      }
+    }))
 };
 
 module.exports.edit = (req,res) => {
@@ -26,7 +37,12 @@ module.exports.edit = (req,res) => {
 		voicenote: req.body.voicenote
     })
 		.then((review) => res.status(201).json(review))
-		.catch((err) => res.json(err))
+		.catch((error) => winstonLogger.info("Couldn't edit review", {
+      metadata:{
+        services:"review-controller: edit",
+        error: error
+      }
+    }))
 };
 
 module.exports.upvote = (req, res) => {
@@ -40,7 +56,12 @@ module.exports.upvote = (req, res) => {
 		}
 	).exec()
 	 .then(() => res.status(200).send('OK'))
-	 .catch(e => next(e));
+	 .catch((error) => winstonLogger.warn("Couldn't upvote the review", {
+		metadata:{
+			services:"review-controller: upvote",
+			error: error
+		}
+	}))
 };
 
 module.exports.upvoteUndo = (req, res) => {
@@ -51,7 +72,12 @@ module.exports.upvoteUndo = (req, res) => {
 		{ $pull: { upvotes: userObjectId } }
 	).exec()
 	 .then(() => res.status(200).send('OK'))
-	 .catch(e => next(e));
+	 .catch((error) => winstonLogger.warn("Couldn't undo upvote the review", {
+		metadata:{
+			services:"review-controller: upvoteUndo",
+			error: error
+		}
+	}))
 };
 
 module.exports.downvote = (req,res) => {
@@ -65,7 +91,12 @@ module.exports.downvote = (req,res) => {
 		}
 	).exec()
 	 .then(() => res.status(200).send('OK'))
-	 .catch(e => next(e));
+	 .catch((error) => winstonLogger.warn("Couldn't downvote the review", {
+		metadata:{
+			services:"review-controller: downvote",
+			error: error
+		}
+	}))
 };
 
 module.exports.downvoteUndo = (req,res) => {
@@ -76,7 +107,12 @@ module.exports.downvoteUndo = (req,res) => {
 		{ $pull: { downvotes: userObjectId } }
 	).exec()
 	 .then(() => res.status(200).send('OK'))
-	 .catch(e => next(e));
+	 .catch((error) => winstonLogger.warn("Couldn't undo downvote the review", {
+		metadata:{
+			services:"review-controller: downvoteUndo",
+			error: error
+		}
+	}))
 };
 
 module.exports.delete = (req, res) => {
@@ -85,7 +121,12 @@ module.exports.delete = (req, res) => {
 		{influencer: search}
 	)
 		.then(review => res.status(201).json(review))
-		.catch((e) => console.log(e))
+		.catch((error) => winstonLogger.info("Couldn't edit review", {
+      metadata:{
+        services:"review-controller: delete",
+        error: error
+      }
+    }))
 };
 
 
