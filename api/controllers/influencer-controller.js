@@ -1,24 +1,27 @@
 const Influencer = require('../models/Influencer');
+const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.getAll = (req,res) => {
   Influencer.find()
   .then((influencer) => res.status(200).json(influencer))
-  .catch((error) => {
-    winstonLogger.info('Influencer All' , {
-      "error" : error,
-    })
-  })
+  .catch((error) => winstonLogger.warn("Couldn't get all Influencers", {
+    metadata:{
+      services:"influencer-controller: getAll",
+      error: error.message
+    }
+  }));
 };
 
 module.exports.filterButton = (req,res) => {
   const {search} = req.query;
   Influencer.find({expertise:search})
     .then((influencer) => res.status(200).json(influencer))
-    .catch((error) => {
-      winstonLogger.info('Filter Categories Button Influencer' , {
-        "error" : error
-      })
-    })
+    .catch((error) => winstonLogger.info("Couldn't filter the category of Influencers", {
+      metadata:{
+        services:"influencer-controller: filterButton",
+        error: error.message
+      }
+    }));
 };
 
 module.exports.filterSearch = (req,res) => {
@@ -32,18 +35,24 @@ module.exports.filterSearch = (req,res) => {
     ]
   })
     .then((influencer) => res.status(200).json(influencer))
-    .catch((error) => {
-      winstonLogger.info('Filter Search Bar Influencer' , {
-        "error" : error,
-      })
-    });
+    .catch((error) => winstonLogger.info("Couldn't filter Influencers", {
+      metadata:{
+        services:"influencer-controller: filterSearch",
+        error: error.message
+      }
+    }));
 };
 
 module.exports.profile = (req,res) => {
   const id = req.params.id;
   Influencer.findOne({_id: id})
     .then(influencer => res.status(201).json(influencer))
-    .catch((e) => console.log(e))
+    .catch((error) => winstonLogger.warn("Couldn't get Influencer profile", {
+      metadata:{
+        services:"influencer-controller: profile",
+        error: error.message
+      }
+    }));
 };
 
 module.exports.create = (req,res) => {
@@ -56,7 +65,12 @@ module.exports.create = (req,res) => {
     "images" : req.body.images,
   })
     .then((influencer) => res.status(201).json(influencer))
-    .catch((e)=>console.log(e))
+    .catch((error) => winstonLogger.info("Couldn't create Influencer", {
+      metadata:{
+        services:"influencer-controller: create",
+        error: error.message
+      }
+    }));
 };
 
 module.exports.addReward = (req,res) => {
@@ -64,7 +78,12 @@ module.exports.addReward = (req,res) => {
     "reward":req.body.reward
     })
     .then((influencer) => res.status(201).json(influencer))
-    .catch((e)=> console.log(e))
+    .catch((error) => winstonLogger.error("Couldn't add Influencer reward", {
+      metadata:{
+        services:"influencer-controller: addReward",
+        error: error.message
+      }
+    }));
 };
 
 module.exports.edit = (req,res) => {
@@ -77,11 +96,21 @@ module.exports.edit = (req,res) => {
     "percentage": req.body.percentage
   })
     .then((influencer) => res.status(201).json(influencer))
-    .catch((e) => console.log(e))
+    .catch((error) => winstonLogger.verbose("Couldn't edit Influencer", {
+      metadata:{
+        services:"influencer-controller: edit",
+        error: error.message
+      }
+    }));
 };
 
 module.exports.delete = (req,res) => {
   Influencer.findByIdAndDelete({_id: req.params.id})
   .then((influencer) => res.status(201).json(influencer))
-  .catch((err) => next(err))
+  .catch((error) => winstonLogger.verbose("Couldn't delete Influencer", {
+    metadata:{
+      services:"influencer-controller: delete",
+      error: error.message
+    }
+  }));
 }

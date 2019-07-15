@@ -1,5 +1,5 @@
 const winston = require('winston');
-const winstonMongoDB = require('winston-mongodb').MongoDB;
+require('winston-mongodb').MongoDB;
 
 // const levels = { 
 //   error: 0, 
