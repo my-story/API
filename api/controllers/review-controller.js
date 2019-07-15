@@ -30,14 +30,16 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.edit = (req,res) => {
-  Review.findOneAndUpdate({influencer: req.params.id}, {
-		title: req.body.title,
-		review: req.body.review,
-		video: req.body.video,
-		voicenote: req.body.voicenote
+
+  Review.findByIdAndUpdate(req.params.id, {
+		"title": req.body.title,
+		"review": req.body.review,
+		"video": req.body.video,
+		"voicenote": req.body.voicenote,
+		"influencer": req.body.influencer._id
     })
-		.then((review) => res.status(201).json(review))
-		.catch((error) => winstonLogger.info("Couldn't edit review", {
+		.then((review) => res.status(201).json(review),console.log(review))
+		.catch((error) => winstonLogger.error("Couldn't edit review", {
       metadata:{
         services:"review-controller: edit",
         error: error

@@ -10,7 +10,9 @@ const winstonMongoDB = require('winston-mongodb').MongoDB;
 //   silly: 5 
 // };
 
-const logger = winston.createLogger({
+// winston.add(new winston.transports.MongoDB(options));
+
+const winstonLogger = winston.createLogger({
   format: winston.format.json(),
   transports:[
     new (winston.transports.Console),
@@ -25,5 +27,5 @@ const logger = winston.createLogger({
   exitOnError: false,
 });
 
-module.exports = logger
+module.exports = winstonLogger
 
