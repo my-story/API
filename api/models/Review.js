@@ -18,12 +18,20 @@ const reviewSchema = new mongoose.Schema({
   video: {
     type: String
   },
-  upvotes: {
-    type: Array
-  },
-  downvotes: {
-    type: Array
-  },
+  upvotes: [{
+    createdAt: Date,
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  }],
+  downvotes: [{
+    createdAt: Date,
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  }],
   voicenote:{
     type: String
   }

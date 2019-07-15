@@ -47,13 +47,20 @@ module.exports.edit = (req,res) => {
 };
 
 module.exports.upvote = (req, res) => {
-  const userObjectId = mongoose.Types.ObjectId(req.body.user_id);
+	const author = mongoose.Types.ObjectId(req.body.user_id);
 
 	Review.update(
 		{ influencer: req.body.influencer_id },
 		{
-			$push: { upvotes: userObjectId },
-			$pull: { downvotes: userObjectId }
+			$push: { 
+				upvotes: { 
+					author: author, 
+					createdAt: new Date() 
+				}
+			},
+			$pull: { 
+				downvotes: { author } 
+			}
 		}
 	).exec()
 	 .then(() => res.status(200).send('OK'))
@@ -62,15 +69,19 @@ module.exports.upvote = (req, res) => {
 			services:"review-controller: upvote",
 			error: error.message
 		}
-	}))
+	}));
 };
 
 module.exports.upvoteUndo = (req, res) => {
-  const userObjectId = mongoose.Types.ObjectId(req.body.user_id);
+	const author = mongoose.Types.ObjectId(req.body.user_id);
 
 	Review.update(
 		{ influencer: req.body.influencer_id },
-		{ $pull: { upvotes: userObjectId } }
+		{ 
+			$pull: { 
+				upvotes: { author }  
+			}
+		}
 	).exec()
 	 .then(() => res.status(200).send('OK'))
 	 .catch((error) => winstonLogger.warn("Couldn't undo upvote the review", {
@@ -78,17 +89,24 @@ module.exports.upvoteUndo = (req, res) => {
 			services:"review-controller: upvoteUndo",
 			error: error.message
 		}
-	}))
+	}));
 };
 
 module.exports.downvote = (req,res) => {
-  const userObjectId = mongoose.Types.ObjectId(req.body.user_id);
+  const author = mongoose.Types.ObjectId(req.body.user_id);
 
 	Review.update(
 		{ influencer: req.body.influencer_id },
 		{
-			$push: { downvotes: userObjectId },
-			$pull: { upvotes: userObjectId }
+			$push: { 
+				downvotes: {
+					author: author,
+					createdAt: new Date()
+				},
+			},
+			$pull: { 
+				upvotes: { author }
+			}
 		}
 	).exec()
 	 .then(() => res.status(200).send('OK'))
@@ -97,15 +115,19 @@ module.exports.downvote = (req,res) => {
 			services:"review-controller: downvote",
 			error: error.message
 		}
-	}))
+	}));
 };
 
 module.exports.downvoteUndo = (req,res) => {
-  const userObjectId = mongoose.Types.ObjectId(req.body.user_id);
+	const author = mongoose.Types.ObjectId(req.body.user_id);
 
 	Review.update(
 		{ influencer: req.body.influencer_id },
-		{ $pull: { downvotes: userObjectId } }
+		{ 
+			$pull: { 
+				downvotes: { author } 
+			} 
+		}
 	).exec()
 	 .then(() => res.status(200).send('OK'))
 	 .catch((error) => winstonLogger.warn("Couldn't undo downvote the review", {
@@ -113,7 +135,7 @@ module.exports.downvoteUndo = (req,res) => {
 			services:"review-controller: downvoteUndo",
 			error: error.message
 		}
-	}))
+	}));
 };
 
 module.exports.delete = (req, res) => {
