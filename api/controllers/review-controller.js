@@ -36,7 +36,7 @@ module.exports.edit = (req,res) => {
 		"review": req.body.review,
 		"video": req.body.video,
 		"voicenote": req.body.voicenote,
-		"influencer": req.body.influencer._id
+		"influencer": req.body.influencer
     })
 
 		.then((review) => res.status(201).json(review))
@@ -51,7 +51,6 @@ module.exports.edit = (req,res) => {
 
 module.exports.upvote = (req, res) => {
 	const author = mongoose.Types.ObjectId(req.body.user_id);
-
 	Review.update(
 		{ influencer: req.body.influencer_id },
 		{

@@ -15,17 +15,7 @@ const userSchema = new Schema( {
 })
 
 //New try
-// userSchema.pre('save', async function (next) {
 
-//   let user = this
-//   const password = user.password;
-
-//   const hashedPassword = await hashPassword(user);
-//   user.password = hashedPassword
-
-//   next()
-
-// })
 
 // async function hashPassword (user) {
 
@@ -40,8 +30,20 @@ const userSchema = new Schema( {
 //   })
 
 //   return hashedPassword
-// };
+// }
+// userSchema.pre('save', async function (next) {
+
+//   let user = this
+//   const password = user.password;
+
+//   const hashedPassword = await hashPassword(user);
+//   user.password = hashedPassword
+
+//   next()
+
+// })
 //ends here
+
 
 userSchema.methods = {
     checkPassword: function (inputPassword) {
