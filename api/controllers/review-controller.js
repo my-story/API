@@ -6,6 +6,7 @@ module.exports.getOne = (req, res) => {
   let {id} = req.params
   Review.findOne({influencer: id}) //.findById(req.params.restID)
 		.populate('influencer')
+		.populate('product')
 		.then((review) => res.json(review))
 		.catch((error) => winstonLogger.error("Couldn't get review", {
       metadata:{

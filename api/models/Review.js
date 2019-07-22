@@ -8,10 +8,10 @@ const reviewSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Influencer'
   },
-  product: [{
+  product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product'
-  }],
+  },
   review: {
     type: String
   },
