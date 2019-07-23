@@ -15,6 +15,7 @@ module.exports.getAll = (req,res,next)=> {
 
 module.exports.getOne = (req, res, next) => {
   Product.findById(req.params.id)
+    .populate("influencer")
     .then((product)=> res.json(product))
     .catch((error) => winstonLogger.info("Couldn't get one product", {
       metadata:{
