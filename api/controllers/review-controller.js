@@ -52,17 +52,26 @@ module.exports.upvote = (req, res) => {
 	Review.update(
 		{ influencer: req.body.influencer_id },
 		{
-			$push: { 
-				upvotes: { 
-					author: author, 
-					createdAt: new Date() 
-				}
-			},
-			$pull: { 
-				downvotes: { author } 
+			$pull: {
+				upvotes: { author: author }
 			}
 		}
-	).exec()
+	).exec().then(() => {
+		return Review.update(
+			{ influencer: req.body.influencer_id },
+			{
+				$push: { 
+					upvotes: { 
+						author: author, 
+						createdAt: new Date() 
+					}
+				},
+				$pull: { 
+					downvotes: { author } 
+				}
+			}
+		).exec();
+	})
 	 .then(() => res.status(200).send('OK'))
 	 .catch((error) => winstonLogger.warn("Couldn't upvote the review", {
 		metadata:{
@@ -98,19 +107,28 @@ module.exports.downvote = (req,res) => {
 	Review.update(
 		{ influencer: req.body.influencer_id },
 		{
-			$push: { 
-				downvotes: {
-					author: author,
-					createdAt: new Date()
-				},
-			},
-			$pull: { 
-				upvotes: { author }
+			$pull: {
+				downvotes: { author: author }
 			}
 		}
-	).exec()
-	 .then(() => res.status(200).send('OK'))
-	 .catch((error) => winstonLogger.warn("Couldn't downvote the review", {
+	).exec().then(() => {
+		return Review.update(
+			{ influencer: req.body.influencer_id },
+			{
+				$push: { 
+					downvotes: {
+						author: author,
+						createdAt: new Date()
+					},
+				},
+				$pull: { 
+					upvotes: { author }
+				}
+			}
+		).exec()
+	})
+	.then(() => res.status(200).send('OK'))
+	.catch((error) => winstonLogger.warn("Couldn't downvote the review", {
 		metadata:{
 			services:"review-controller: downvote",
 			error: error.message
