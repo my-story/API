@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.getOne = (req, res) => {
-  let {id} = req.params
+	let {id} = req.params
   Review.findOne({influencer: id}) //.findById(req.params.restID)
 		.populate('influencer')
 		.populate('product')
