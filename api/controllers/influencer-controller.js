@@ -62,6 +62,7 @@ module.exports.create = (req,res) => {
     "review" : req.body.review,
     "expertise" : req.body.expertise,
     "percentage" : req.body.percentage,
+    "profilePic": req.body.profilePic,
     "images" : req.body.images,
   })
     .then((influencer) => res.status(201).json(influencer))
@@ -90,10 +91,10 @@ module.exports.edit = (req,res) => {
   Influencer.findByIdAndUpdate(req.params.id, {
     "name.firstName":req.body.firstName,
     "name.lastName":req.body.lastName,
-    "profilePic": req.body.image,
+    "profilePic": req.body.profilePic,
     "review": req.body.review,
     "expertise": req.body.expertise,
-    "percentage": req.body.percentage
+    "percentage": req.body.percentage,
   })
     .then((influencer) => res.status(201).json(influencer))
     .catch((error) => winstonLogger.verbose("Couldn't edit Influencer", {
