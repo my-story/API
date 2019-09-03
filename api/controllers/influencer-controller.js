@@ -29,9 +29,7 @@ module.exports.filterSearch = (req,res) => {
   Influencer.find({
     $or:[
       {"name.firstName": {$regex:search, $options:'i'}},
-      {"name.lastName": {$regex:search, $options:'i'}},
-      {expertise:  {$regex:search, $options:'i'}},
-      {review:  {$regex:search,$options:'i'}},
+      {"name.lastName": {$regex:search, $options:'i'}}
     ]
   })
     .then((influencer) => res.status(200).json(influencer))
