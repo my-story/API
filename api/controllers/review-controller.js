@@ -31,8 +31,8 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.edit = (req,res) => {
-
-  Review.findByIdAndUpdate(req.params.id, {
+	console.log(req.params);
+  Review.update({influencer: req.params.id} , {
 		"title": req.body.title,
 		"review": req.body.review,
 		"video": req.body.video,
@@ -107,7 +107,7 @@ module.exports.upvoteUndo = (req, res) => {
 module.exports.downvote = (req,res) => {
   const author = mongoose.Types.ObjectId(req.body.user_id);
 
-	Review.update(
+	Review.findOneAndUpdate(
 		{ influencer: req.body.influencer_id },
 		{
 			$pull: {
