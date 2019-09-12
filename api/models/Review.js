@@ -13,7 +13,18 @@ const reviewSchema = new mongoose.Schema({
     ref: 'Product'
   },
   review: {
-    type: String
+    one: {
+      type: String,
+    },
+    two: {
+      type: String,
+    },
+    three: {
+      type: String,
+    },
+    specs: {
+      type: String,
+    },
   },
   video: {
     type: String
