@@ -14,6 +14,8 @@ router.get('/filter', influencerController.filterSearch);
 
 router.get("/:id", influencerController.profile);
 
+router.get('/all/admin', influencerController.getAllAdmin);
+
 //Create a Influencer for each influencer
 router.post('/create', middleweares.isAdmin, influencerController.create);
 
