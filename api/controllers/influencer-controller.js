@@ -12,6 +12,17 @@ module.exports.getAll = (req,res) => {
   }));
 };
 
+module.exports.getAllAdmin = (req, res) => {
+  Influencer.find({}, {name: 1} )
+    .then((influencer) => res.status(200).json(influencer))
+    .catch((error) => winstonLogger.warn("Couldn't get all Influencers in Admin Panel", {
+      metadata:{
+        services:"influencer-controller: getAllAdmin",
+        error: error.message
+      }
+    }));
+}
+
 module.exports.filterButton = (req,res) => {
   const {search} = req.query;
   Influencer.find({expertise:search})
