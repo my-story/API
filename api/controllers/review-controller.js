@@ -17,7 +17,17 @@ module.exports.getOne = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-  Review.create(req.body)
+  Review.create({
+		"title": req.body.title,
+		"review.one": req.body.one,
+		"review.two": req.body.two,
+		"review.three": req.body.three,
+		"review.specs": req.body.specs,
+		"product":req.body.product,
+		"video": req.body.video,
+		"voicenote": req.body.voicenote,
+		"influencer": req.body.influencer
+	})
   .then((review) =>{
     test = review._id
     res.json(review)
@@ -31,10 +41,12 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.edit = (req,res) => {
-	console.log(req.params);
   Review.update({influencer: req.params.id} , {
 		"title": req.body.title,
-		"review": req.body.review,
+		"review.one": req.body.one,
+		"review.two": req.body.two,
+		"review.three": req.body.three,
+		"review.specs": req.body.specs,
 		"video": req.body.video,
 		"voicenote": req.body.voicenote,
 		"influencer": req.body.influencer
