@@ -25,6 +25,17 @@ module.exports.getOne = (req, res, next) => {
     })) 
 };
 
+module.exports.getOneAdmin = (req, res) => {
+  Product.find({influencer: req.params.id}, {model: 1})
+    .then((product) => res.json(product))
+    .catch((error) => winstonLogger.info("Couldn't get one product for admin panel", {
+      metadata:{
+        services:"product-controller: getOneAdmin",
+        error: error.message
+      }
+    })) 
+}
+
 
 module.exports.updateTotal = (req, res, next) => {
   Product.findOneAndUpdate(

@@ -14,6 +14,9 @@ router.post('/create', middlewears.isAdmin, productController.createProduct);
 // Get a specific product
 router.get('/details/:id', productController.getOne);
 
+// Get a specific product for the admin routes
+router.get('/details/admin/:id', productController.getOneAdmin);
+
 // filter products with searchbar
 router.get("/filter", productController.filter);
 

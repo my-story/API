@@ -16,6 +16,14 @@ module.exports.getOne = (req, res) => {
     }))
 };
 
+module.exports.getOneAdmin = (req,res) => {
+	let {id} = req.params
+
+  Review.findOne({influencer: id}, {title: 1}) 
+		.then((review) => res.json(review))
+		.catch((error) => console.log(error))
+}
+
 module.exports.create = (req, res) => {
   Review.create({
 		"title": req.body.title,
