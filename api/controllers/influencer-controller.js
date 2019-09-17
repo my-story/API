@@ -100,7 +100,7 @@ module.exports.edit = (req,res) => {
   Influencer.findByIdAndUpdate(req.params.id, {
     "name.firstName":req.body.firstName,
     "name.lastName":req.body.lastName,
-    "profilePic": req.body.profilePic,
+    "profilePic": req.body.image,
     "review": req.body.review,
     "expertise": req.body.expertise,
     "percentage": req.body.percentage,
