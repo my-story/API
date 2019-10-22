@@ -91,6 +91,30 @@ module.exports.filter = (req, res, next) => {
   }));
 }
 
+module.exports.filterPrizeDecending = (req, res, next) => {
+  Product.find().sort( {prize: -1} )
+  .populate("influencer")
+  .then((products)=> res.status(200).json(products))
+  .catch((error) => winstonLogger.debug("Couldn't filter products by price", {
+    metadata:{
+      services:"product-controller: filterPrizeDecending",
+      error: error.message
+    }
+  }));
+}
+
+module.exports.filterPrizeAcending = (req, res, next) => {
+  Product.find().sort( {prize: 1} )
+  .populate("influencer")
+  .then((products)=> res.status(200).json(products))
+  .catch((error) => winstonLogger.debug("Couldn't filter products by price", {
+    metadata:{
+      services:"product-controller: filterPrizeDecending",
+      error: error.message
+    }
+  }));
+}
+
 //Search bar
 module.exports.filterCategory = (req, res, next) => {
   const {search} = req.query
