@@ -20,6 +20,12 @@ router.get('/details/admin/:id', productController.getOneAdmin);
 // filter products with searchbar
 router.get("/filter", productController.filter);
 
+// filter products by price decending
+router.get("/filter/price/decending", productController.filterPrizeDecending)
+
+// filter products by price acending
+router.get("/filter/price/acending", productController.filterPrizeAcending)
+
 // filter by categories Search
 router.get("/filter/category", productController.filterCategory);
 
