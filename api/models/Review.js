@@ -12,20 +12,20 @@ const reviewSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product'
   },
-  review: {
-    one: {
-      type: String,
-    },
-    two: {
-      type: String,
-    },
-    three: {
-      type: String,
-    },
-    specs: {
-      type: String,
-    },
-  },
+  // review: {
+  //   one: {
+  //     type: String,
+  //   },
+  //   two: {
+  //     type: String,
+  //   },
+  //   three: {
+  //     type: String,
+  //   },
+  //   specs: {
+  //     type: String,
+  //   },
+  // },
   video: {
     type: String
   },

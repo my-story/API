@@ -1,3 +1,5 @@
+// THIS IS THE MAIN ONE
+
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -24,10 +26,12 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 
-app.use(cors({
-  credentials: true,
-  origin: ['http://localhost:3000']
-}));
+app.use(cors({ 
+  origin: function(origin, callback){
+    return callback(null, true)
+  },
+  credentials: true
+}))
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -41,15 +45,6 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
-
-
-// Default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
 
 app.use(session({
   secret:process.env.SECRET,
@@ -65,6 +60,14 @@ app.use(session({
     ttl: 24 * 60 * 60
   })
 }));
+
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hbs');
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+
+
+// Default value for title local
 
 app.use(passport.initialize());
 app.use(passport.session());
