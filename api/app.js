@@ -111,6 +111,9 @@ app.use('/authorize', Mailer);
 const Shipping = require('./routes/shipping-routes')
 app.use('/shipping', Shipping);
 
+const Kit = require('./routes/kit-routes')
+app.use('/kit', Kit);
+
 // 404
 app.use(function(req, res, next) {
   next(createError(404));
