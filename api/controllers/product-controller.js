@@ -53,7 +53,6 @@ module.exports.updateTotal = (req, res, next) => {
 };
 
 module.exports.createProduct = (req,res,next)=> {
-  console.log(req.body)
   Product.create({
     model: req.body.model,
     description: req.body.description,

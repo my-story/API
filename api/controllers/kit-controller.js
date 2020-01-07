@@ -6,7 +6,7 @@ module.exports.createKit = (req,res,next) => {
     influencer: req.body.influencer,
     products: req.body.products,
     tips: req.body.tips,
-    role: req.body.role
+    // role: req.body.role
   })
   .then((kit) => {
     res.status(200).json(kit)
@@ -20,7 +20,9 @@ module.exports.createKit = (req,res,next) => {
 };
 
 module.exports.getKit = (req, res, next) => {
-  Kit.find({influencer: req.body.influencer})
+  let {id} = req.params; 
+
+  Kit.find({influencer: id})
   .then(kit => res.status(200).json(kit))
   .catch((error) => winstonLogger.error("Couldn't get Kit", {
     metadata:{
