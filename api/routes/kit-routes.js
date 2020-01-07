@@ -3,6 +3,6 @@ const router = express.Router();
 const kitController = require('../controllers/kit-controller');
 
 router.post('/create',kitController.createKit);
-router.get('/kit', kitController.getKit);
+router.get('/:id', kitController.getKit);
 
 module.exports = router;
