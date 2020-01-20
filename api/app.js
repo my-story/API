@@ -3,7 +3,7 @@
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const MongoClient = require('mongodb').MongoClient;
