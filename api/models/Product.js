@@ -2,13 +2,17 @@ const mongoose = require ('mongoose');
 const Schema   = mongoose.Schema;
 
 const productSchema = new Schema({
-  comments:[{
-    influencer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Influencer'
-    },
-    comment: String
-  }],
+  // comments:[{
+  //   influencer: {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: 'Influencer'
+  //   },
+  //   comment: String
+  // }],
+  influencer:{
+    type: Schema.Types.ObjectId,
+    ref: "Influencer"
+  },
   model: String,
   prize : Number,
   total: Number,
