@@ -68,9 +68,8 @@ module.exports.create = (req,res) => {
   Influencer.create({
     "name.firstName" : req.body.firstname,
     "name.lastName" : req.body.lastname,
-    "review" : req.body.review,
+    "description" : req.body.description,
     "expertise" : req.body.expertise,
-    "percentage" : req.body.percentage,
     "profilePic": req.body.profilePic,
     "images" : req.body.images,
   })

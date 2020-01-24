@@ -9,6 +9,9 @@ const influencerSchema = new Schema({
   profilePic: {
     type: String,
   },
+  description: {
+    type: String,
+  },
   expertise: [{
     type: String,
     enum: ["Athlete","Musician","Tech","Artist"]
