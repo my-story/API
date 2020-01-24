@@ -8,11 +8,18 @@ const SurvivalSchema = new Schema({
   },
   products: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product'
+    ref: 'Product',
+    comment: String
   }],
   tips: [{
     header: String,
-    description: Array
+    description: String,
+    video: String
+  }],
+  techniques: [{
+    header: String,
+    description: Array,
+    video: String
   }],
   role: {
     type: String,
