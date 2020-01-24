@@ -6,28 +6,16 @@ const influencerSchema = new Schema({
     firstName: String,
     lastName: String,
   },
-  percentage:{
-    type: Number
-  },
-  reward: {
-    type: Number,
-    default: 0
-  },
-  product : {
-    type: Schema.Types.ObjectId,
-    ref: "Product"
-  },
   profilePic: {
     type: String,
   },
-  review: String,
   expertise: [{
     type: String,
     enum: ["Athlete","Musician","Tech","Artist"]
   }],
   role: {
     type: String,
-    enum:["Influencer","Admin"],
+    enum:["Influencer"],
     default: "Influencer",
 }
 }, {timestamps:true})

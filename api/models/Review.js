@@ -8,24 +8,28 @@ const reviewSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Influencer'
   },
-  product: {
+  kit: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product'
+    ref:'Kit'
   },
-  review: {
-    one: {
-      type: String,
-    },
-    two: {
-      type: String,
-    },
-    three: {
-      type: String,
-    },
-    specs: {
-      type: String,
-    },
+  product : {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product"
   },
+  // review: {
+  //   one: {
+  //     type: String,
+  //   },
+  //   two: {
+  //     type: String,
+  //   },
+  //   three: {
+  //     type: String,
+  //   },
+  //   specs: {
+  //     type: String,
+  //   },
+  // },
   video: {
     type: String
   },

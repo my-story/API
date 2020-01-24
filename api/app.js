@@ -1,7 +1,9 @@
+// THIS IS THE MAIN ONE
+
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const MongoClient = require('mongodb').MongoClient;
@@ -24,10 +26,12 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 
-app.use(cors({
-  credentials: true,
-  origin: ['http://localhost:3000']
-}));
+app.use(cors({ 
+  origin: function(origin, callback){
+    return callback(null, true)
+  },
+  credentials: true
+}))
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -41,15 +45,6 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
-
-
-// Default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
 
 app.use(session({
   secret:process.env.SECRET,
@@ -66,6 +61,14 @@ app.use(session({
   })
 }));
 
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hbs');
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+
+
+// Default value for title local
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require("body-parser").text());
@@ -79,7 +82,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
+// saes
 
 const index = require('./routes/index');
 app.use('/', index);
@@ -111,10 +114,17 @@ app.use('/authorize', Mailer);
 const Shipping = require('./routes/shipping-routes')
 app.use('/shipping', Shipping);
 
+const Kit = require('./routes/kit-routes')
+app.use('/kit', Kit);
+
 // 404
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+app.get('*',(req ,res) => {
+  res.json({success:'yes'})
+})
 
 
 module.exports = app;
