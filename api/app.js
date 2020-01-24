@@ -102,6 +102,9 @@ app.use('/influencer', influencerRoutes);
 const reviewRoutes = require('./routes/review-routes');
 app.use('/reviews', reviewRoutes);
 
+const emailRoutes = require('./routes/email-routes');
+app.use('/email', emailRoutes);
+
 const stripe = require('./routes/stripe-routes')
 app.use('/payment', stripe);
 
