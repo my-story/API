@@ -7,8 +7,10 @@ const SurvivalSchema = new Schema({
     ref: 'Influencer'
   },
   products: [{
+    product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product',
+    },
     comment: String
   }],
   tips: [{
