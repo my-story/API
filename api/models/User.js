@@ -4,6 +4,8 @@ var passportLocalMongoose = require("passport-local-mongoose");
 const bcrypt = require('bcryptjs');
 
 const userSchema = new Schema( {
+    firstName: String,
+    lastName: String,
     username: String,
     password: String,
     role: {

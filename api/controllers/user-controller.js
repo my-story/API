@@ -3,7 +3,7 @@ const passport = require('../config/passport');
 const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.singUp = (req, res) => {
-  const { username, password } = req.body
+  const { username, password, firstName, lastName } = req.body;
   User.findOne({ username: username }, (err, user) => {
     if (err) {
         winstonLogger.error("signup not working", {
@@ -17,7 +17,9 @@ module.exports.singUp = (req, res) => {
     } else {
         const newUser = new User( {
           username: username,
-          password: password
+          password: password,
+          firstName: firstName,
+          lastName: lastName
         });
         newUser.save((err, savedUser) => {
           if (err) return res.json(err)
