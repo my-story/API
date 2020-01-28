@@ -12,10 +12,6 @@ const reviewSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref:'Kit'
   },
-  product : {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product"
-  },
   // review: {
   //   one: {
   //     type: String,
