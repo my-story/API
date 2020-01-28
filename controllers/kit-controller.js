@@ -21,6 +21,7 @@ module.exports.createKit = (req,res,next) => {
 
 module.exports.getKit = (req, res, next) => {
  let {id} = req.params
+ 
   Kit.find({influencer: id})
   .then(kit => res.status(200).json(kit))
   .catch((error) => winstonLogger.error("Couldn't get Kit", {
