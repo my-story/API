@@ -22,14 +22,15 @@ module.exports.createKit = (req,res,next) => {
 module.exports.getKit = (req, res, next) => {
  let {id} = req.params
  
-  Kit.find({influencer: id})
-  .then(kit => res.status(200).json(kit))
-  .catch((error) => winstonLogger.error("Couldn't get Kit", {
-    metadata:{
-      services:"kit-controller: getKit",
-      error: error.message
-    }
-  }))
+  Kit.findOne({influencer: id})
+    .populate("product")
+    .then(kit => res.status(200).json(kit))
+    .catch((error) => winstonLogger.error("Couldn't get Kit", {
+      metadata:{
+        services:"kit-controller: getKit",
+        error: error.message
+      }
+    }))
 };
 
 module.exports.editKit = (req,res,next) => {
