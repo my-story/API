@@ -120,6 +120,9 @@ app.use('/shipping', Shipping);
 const Kit = require('./routes/kit-routes')
 app.use('/kit', Kit);
 
+const Podcast = require('./routes/podcast-routes')
+app.use('/podcast', Podcast);
+
 // 404
 app.use(function(req, res, next) {
   next(createError(404));
