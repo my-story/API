@@ -36,7 +36,7 @@ module.exports.filterButton = (req,res) => {
 };
 
 module.exports.filterSearch = (req,res) => {
-  const {search} = req.query 
+  const {search} = req.query;
   Influencer.find({
     $or:[
       {"name.firstName": {$regex:search, $options:'i'}},

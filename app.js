@@ -96,6 +96,9 @@ app.use('/api', userRoutes);
 const orderRoutes = require('./routes/order-routes');
 app.use('/order', orderRoutes);
 
+const Kit = require('./routes/kit-routes')
+app.use('/kit', Kit);
+
 const productsRoutes = require('./routes/products-routes');
 app.use('/product', productsRoutes);
 
@@ -117,8 +120,7 @@ app.use('/authorize', Mailer);
 const Shipping = require('./routes/shipping-routes')
 app.use('/shipping', Shipping);
 
-const Kit = require('./routes/kit-routes')
-app.use('/kit', Kit);
+
 
 // 404
 app.use(function(req, res, next) {

@@ -28,21 +28,16 @@ module.exports.getOneAdmin = (req,res) => {
 module.exports.create = (req, res) => {
   Review.create({
 		"title": req.body.title,
-		"review.one": req.body.one,
-		"review.two": req.body.two,
-		"review.three": req.body.three,
-		"review.specs": req.body.specs,
-		"product":req.body.product,
+		"influencer": req.body.influencer,
 		"kit": req.body.kit,
 		"video": req.body.video,
 		"voicenote": req.body.voicenote,
-		"influencer": req.body.influencer
 	})
-  .then((review) =>{
+  	.then((review) => {
     test = review._id
     res.json(review)
-    })
-		.catch((error) => winstonLogger.info("Couldn't create review", {
+	})
+	.catch((error) => winstonLogger.info("Couldn't create review", {
       metadata:{
         services:"review-controller: create",
         error: error.message
@@ -53,18 +48,14 @@ module.exports.create = (req, res) => {
 module.exports.edit = (req,res) => {
   Review.update({influencer: req.params.id} , {
 		"title": req.body.title,
-		"review.one": req.body.one,
-		"review.two": req.body.two,
-		"review.three": req.body.three,
-		"review.specs": req.body.specs,
+		"influencer": req.body.influencer,
 		"kit": req.body.kit,
 		"video": req.body.video,
 		"voicenote": req.body.voicenote,
-		"influencer": req.body.influencer
     })
 
-		.then((review) => res.status(201).json(review))
-		.catch((error) => winstonLogger.error("Couldn't edit review", {
+	.then((review) => res.status(201).json(review))
+	.catch((error) => winstonLogger.error("Couldn't edit review", {
       metadata:{
         services:"review-controller: edit",
         error: error.message
