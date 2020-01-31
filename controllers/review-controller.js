@@ -6,7 +6,6 @@ module.exports.getOne = (req, res) => {
 	let {id} = req.params
   Review.findOne({influencer: id}) //.findById(req.params.restID)
 		.populate('influencer')
-		.populate('kit')
 		// .populate('products')
 		.then((review) => res.json(review))
 		.catch((error) => winstonLogger.error("Couldn't get review", {
@@ -29,6 +28,7 @@ module.exports.create = (req, res) => {
   Review.create({
 		"title": req.body.title,
 		"influencer": req.body.influencer,
+		"description": req.body.one,
 		"kit": req.body.kit,
 		"video": req.body.video,
 		"voicenote": req.body.voicenote,
@@ -49,6 +49,7 @@ module.exports.edit = (req,res) => {
   Review.update({influencer: req.params.id} , {
 		"title": req.body.title,
 		"influencer": req.body.influencer,
+		"description": req.body.one,
 		"kit": req.body.kit,
 		"video": req.body.video,
 		"voicenote": req.body.voicenote,

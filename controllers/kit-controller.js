@@ -23,17 +23,18 @@ module.exports.createKit = (req,res,next) => {
 };
 
 module.exports.getKit = (req, res, next) => {
- const {id} = req.params;
-//  console.log(id);
-
-  Kit.find({influencer: id})
-  .then(kit => res.status(200).json(kit))
-  .catch((error) => winstonLogger.error("Couldn't get Kit", {
-    metadata:{
-      services:"kit-controller: getKit",
-      error: error.message
-    }
-  }))
+  
+ let {id} = req.params
+ 
+  Kit.findOne({influencer: id})
+    .populate("product")
+    .then(kit => res.status(200).json(kit))
+    .catch((error) => winstonLogger.error("Couldn't get Kit", {
+      metadata:{
+        services:"kit-controller: getKit",
+        error: error.message
+      }
+    }))
 };
 
 module.exports.productBackedBy = (req, res, next ) => {
