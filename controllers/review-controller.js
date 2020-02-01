@@ -27,12 +27,8 @@ module.exports.getOneAdmin = (req,res) => {
 module.exports.create = (req, res) => {
   Review.create({
 		"title": req.body.title,
-<<<<<<< HEAD
 		"influencer": req.body.influencer,
-=======
 		"description": req.body.one,
-		"product":req.body.product,
->>>>>>> 408ab585bffe43c53675d3a2f091cdbf3fc55bbd
 		"kit": req.body.kit,
 		"video": req.body.video,
 		"voicenote": req.body.voicenote,
@@ -52,11 +48,8 @@ module.exports.create = (req, res) => {
 module.exports.edit = (req,res) => {
   Review.update({influencer: req.params.id} , {
 		"title": req.body.title,
-<<<<<<< HEAD
 		"influencer": req.body.influencer,
-=======
 		"description": req.body.one,
->>>>>>> 408ab585bffe43c53675d3a2f091cdbf3fc55bbd
 		"kit": req.body.kit,
 		"video": req.body.video,
 		"voicenote": req.body.voicenote,

@@ -12,12 +12,9 @@ const reviewSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref:'Kit'
   },
-<<<<<<< HEAD
-=======
   description: {
     type: String
   },
->>>>>>> 408ab585bffe43c53675d3a2f091cdbf3fc55bbd
   video: {
     type: String
   },

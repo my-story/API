@@ -24,19 +24,6 @@ module.exports.createKit = (req,res,next) => {
 };
 
 module.exports.getKit = (req, res, next) => {
-<<<<<<< HEAD
- const {id} = req.params;
-//  console.log(id);
-
-  Kit.find({influencer: id})
-  .then(kit => res.status(200).json(kit))
-  .catch((error) => winstonLogger.error("Couldn't get Kit", {
-    metadata:{
-      services:"kit-controller: getKit",
-      error: error.message
-    }
-  }))
-=======
  let {id} = req.params
  
   Kit.findOne({influencer: id})
@@ -48,7 +35,7 @@ module.exports.getKit = (req, res, next) => {
         error: error.message
       }
     }))
->>>>>>> 408ab585bffe43c53675d3a2f091cdbf3fc55bbd
+
 };
 
 module.exports.productBackedBy = (req, res, next ) => {
