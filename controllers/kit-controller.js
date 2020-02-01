@@ -3,6 +3,7 @@ const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.createKit = (req,res,next) => {
   Kit.create({
+    title: req.body.title,
     influencer: req.body.influencer,
     products: req.body.products,
     tips: req.body.tips,
