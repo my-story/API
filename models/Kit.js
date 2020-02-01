@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const SurvivalSchema = new Schema({
+  title: String,
   influencer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Influencer'

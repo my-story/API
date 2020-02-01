@@ -2,14 +2,17 @@ const Kit = require('../models/Kit');
 const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.createKit = (req,res,next) => {
-  console.log(req.body)
   Kit.create({
+    title: req.body.title,
     influencer: req.body.influencer,
     products: req.body.products,
     tips: req.body.tips,
     techniques: req.body.techniques,
+    category: req.body.category[0],
+
   })
   .then((kit) => {
+    console.log(kit)
     res.status(200).json(kit)
   })
   .catch((error) => winstonLogger.error("Couldn't create Kit", {
@@ -32,8 +35,29 @@ module.exports.getKit = (req, res, next) => {
         error: error.message
       }
     }))
+
 };
 
-module.exports.editKit = (req,res,next) => {
+module.exports.productBackedBy = (req, res, next ) => {
+  const {id} = req.params;
+  // return id;
+  // {"products.product":"5d547d66753fb60cb0ff0968"}
+  console.log(req.params.id)
   
-}
+  Kit.find({
+      products: [{ 
+        product: id 
+      }]
+    })
+    .then((kits) => console.log(kits), res.status(200).json(kits))
+    .catch((error) => winstonLogger.error("Couldn't kits for products backed by influencers", {
+      metadata:{
+        services:"kit-controller: productBackedBy",
+        error: error.message
+      }
+    }))
+};
+
+// module.exports.editKit = (req,res,next) => {
+  
+// }
