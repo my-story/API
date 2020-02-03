@@ -28,10 +28,7 @@ const SurvivalSchema = new Schema({
     type: String,
     enum: ['Survival','Habit']
   },
-  category: {
-    type: String,
-    enum: ["Addiction", "Sleep", "Spirituality"]
-  }
+  category: String,
 })
 
 const Kit =  mongoose.model('Kit', SurvivalSchema);

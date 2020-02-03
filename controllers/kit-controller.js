@@ -28,7 +28,7 @@ module.exports.getKit = (req, res, next) => {
  let {id} = req.params;
  
   Kit.findOne({influencer: id})
-    .populate("products")
+    .populate("products.product")
     .then(kit => res.status(200).json(kit))
     .catch((error) => winstonLogger.error("Couldn't get Kit", {
       metadata:{
@@ -61,7 +61,6 @@ module.exports.productBackedBy = (req, res, next ) => {
 
 module.exports.updateKit = (req, res, next) => {
   Kit.findByIdAndUpdate( req.params.id, {
-  
       title: req.body.kit.title,
       influencer: req.body.kit.influencer,
       products: req.body.kit.products,
@@ -84,7 +83,6 @@ module.exports.getKitAdmin = (req, res, next) => {
   let {id} = req.params;
   
    Kit.findById(id)
-     .populate("products")
      .then(kit => res.status(200).json(kit))
      .catch((error) => winstonLogger.error("Couldn't get Kit", {
        metadata:{
@@ -92,7 +90,6 @@ module.exports.getKitAdmin = (req, res, next) => {
          error: error.message
        }
      }))
- 
  };
 // module.exports.editKit = (req,res,next) => {
   
