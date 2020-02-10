@@ -43,14 +43,18 @@ module.exports.productBackedBy = (req, res, next ) => {
   const {id} = req.params;
   // return id;
   // {"products.product":"5d547d66753fb60cb0ff0968"}
-  console.log(req.params.id)
   
-  Kit.find({
-      products: [{ 
-        product: id 
-      }]
+  Kit.find()
+  .populate("product")
+    .then((kits) => {
+      kits.map((kit) => {
+        let products = kit.products;
+        products.map((p) => {
+          let product = p.product;
+        })
+      })
+
     })
-    .then((kits) => console.log(kits), res.status(200).json(kits))
     .catch((error) => winstonLogger.error("Couldn't kits for products backed by influencers", {
       metadata:{
         services:"kit-controller: productBackedBy",
