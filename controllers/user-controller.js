@@ -15,6 +15,7 @@ module.exports.singUp = (req, res) => {
     } else if (user) {
         res.json( {error: `Sorry, already a user with the username: ${username}`})
     } else {
+      console.log(req.body)
         const newUser = new User( {
           username: username,
           password: password,
