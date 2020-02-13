@@ -21,8 +21,10 @@ const SurvivalSchema = new Schema({
   }],
   techniques: [{
     title: String,
-    header: Array,
-    description: Array,
+    technique: [{
+      header: String,
+      descriptions: Array,
+    }],
     video: String
   }],
   role: {

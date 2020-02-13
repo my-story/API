@@ -59,10 +59,6 @@ module.exports.createProduct = (req,res,next)=> {
     images:req.body.images,
     category: req.body.category,
     prize: req.body.prize,
-    comments: {
-      influencer: req.body.comments.influencer,
-      comment: req.body.comments.comment
-    },
     total: req.body.total
   })
     .then((product) => res.status(201).json(product))
