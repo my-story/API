@@ -33,6 +33,7 @@ module.exports.singUp = (req, res) => {
 
 
 module.exports.private = (req, res) => {
+  console.log(req.user)
   res.send(req.user);
 };
 
