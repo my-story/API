@@ -8,6 +8,16 @@ const userSchema = new Schema( {
     lastName: String,
     username: String,
     password: String,
+    favorites: [{
+      products: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+      }],
+      tips: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "tips"
+      }]
+    }],
     role: {
         type: String,
         enum:["User","Admin"],
