@@ -8,16 +8,16 @@ const userSchema = new Schema( {
     lastName: String,
     username: String,
     password: String,
-    favorites: [{
-      products: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
-      }],
-      tips: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "tips"
-      }]
-    }],
+    // favorites: [{
+    //   products: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Product'
+    //   }],
+    //   tips: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "tips"
+    //   }]
+    // }],
     role: {
         type: String,
         enum:["User","Admin"],
@@ -78,6 +78,6 @@ userSchema.pre('save', function (next) {
 })
 
 userSchema.plugin(passportLocalMongoose); 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

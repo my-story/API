@@ -1,9 +1,51 @@
 const Kit = require('../models/Kit');
+const Technique = require('../models/Technique');
 const winstonLogger = require('../config/error-logs/winston');
 
+//Create Technique
+module.exports.createTechnique = (req, res, next) => {
 
+  Technique.create({
+    influencer: req.body.influencer,
+    title: req.body.title,
+    subheading: req.body.subheading,
+    recommendation: req.body.recommendation
+  })
+  .then((technique) => {
+    res.status(200).json(technique)
+  })
+  .catch((error) => winstonLogger.error("Couldn't create Technique", {
+    metadata:{
+      services:"kit-controller: createTechnique",
+      error: error.message
+    }
+  }))
+};
+
+
+module.exports.createKit = (req, res, next) => {
+  Kit.create({
+    title: req.body.kit.title,
+    influencer: req.body.kit.influencer,
+    products: req.body.kit.products,
+    tips: req.body.kit.tips,
+    techniques: req.body.kit.techniques,
+    category: req.body.kit.category,
+
+  })
+  .then((kit) => {
+    res.status(200).json(kit)
+  })
+  .catch((error) => winstonLogger.error("Couldn't create Kit", {
+    metadata:{
+      services:"kit-controller: createKit",
+      error: error.message
+    }
+  }))
+};
+
+//Create Technique 
 module.exports.createKit = (req,res,next) => {
-  console.log(req.body.kit)
   Kit.create({
     title: req.body.kit.title,
     influencer: req.body.kit.influencer,
@@ -25,6 +67,7 @@ module.exports.createKit = (req,res,next) => {
   }))
 };
 
+//Get kit for review
 module.exports.getKit = (req, res, next) => {
  let {id} = req.params;
  

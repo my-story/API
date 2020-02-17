@@ -19,14 +19,7 @@ const SurvivalSchema = new Schema({
     description: String,
     video: String
   }],
-  techniques: [{
-    title: String,
-    technique: [{
-      header: String,
-      descriptions: Array,
-    }],
-    video: String
-  }],
+
   role: {
     type: String,
     enum: ['Survival','Habit']
