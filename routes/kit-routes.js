@@ -8,7 +8,7 @@ router.get('/popular/:id', kitController.productBackedBy);
 router.get('/survival/:id', kitController.getKit);
 router.get('/admin/:id', kitController.getKitAdmin);
 router.post('/update/:id', middlewares.isAdmin, kitController.updateKit);
-
+router.post('/create/technique', kitController.createTechnique);
 
 
 module.exports = router;
