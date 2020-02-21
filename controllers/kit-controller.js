@@ -4,15 +4,15 @@ const winstonLogger = require('../config/error-logs/winston');
 
 //Create Technique
 module.exports.createTechnique = (req, res, next) => {
-
-  Technique.create({
-    influencer: req.body.influencer,
-    title: req.body.title,
-    subheading: req.body.subheading,
-    recommendation: req.body.recommendation
-  })
-  .then((technique) => {
-    res.status(200).json(technique)
+console.log(req.body)
+  Technique.insertMany(req.body)
+    // influencer: req.body.technique.technique.influencer,
+    // title: req.body.technique.title,
+    // subheading: req.body.technique.subheading,
+    // recommendation: req.body.technique.recommendation
+  
+  .then((techniques) => {
+    res.status(200).json(techniques)
   })
   .catch((error) => winstonLogger.error("Couldn't create Technique", {
     metadata:{
