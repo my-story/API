@@ -1,11 +1,84 @@
 const Kit = require('../models/Kit');
 const Technique = require('../models/Technique');
+const Tip = require('../models/Tip');
+const SurvivalProduct = require('../models/SurvivalProduct');
 const winstonLogger = require('../config/error-logs/winston');
+
+//Get unassigned Tips
+module.exports.getUnassignedTips = (req, res, next) => {
+  Tip.find({survivalKit: false})
+    .then((tips) => {
+      res.status(200).json(tips)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get Tips", {
+      metadata:{
+        services:"kit-controller: getUnassignedTips",
+        error: error.message
+      }
+    }))
+}
+
+
+//Create Survival Tips
+module.exports.createSurvivalTips = (req, res, next) => {
+  Tip.create(req.body)
+    .then((tip) => {
+      res.status(200).json(tip)
+    })
+    .catch((error) => winstonLogger.error("Couldn't create Tip Survival Kit", {
+      metadata:{
+        services:"kit-controller: createSurvivalTips",
+        error: error.message
+      }
+    }))
+};
+
+//Get unassigned Products
+module.exports.getUnassignedProducts = (req, res, next) => {
+  SurvivalProduct.find({survivalKit: false})
+    .then((products) => {
+      res.status(200).json(products)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get Products", {
+      metadata:{
+        services:"kit-controller: getUnassignedProducts",
+        error: error.message
+      }
+    }))
+};
+
+//Create Survival Product
+module.exports.createSurvivalProduct = (req, res, next) => {
+  SurvivalProduct.create(req.body)
+    .then((product) => {
+      res.status(200).json(product)
+    })
+    .catch((error) => winstonLogger.error("Couldn't create Product Survival Kit", {
+      metadata:{
+        services:"kit-controller: createSurvivalProduct",
+        error: error.message
+      }
+    }))
+};
+
+//Get unassigned Techniques 
+module.exports.getUnassignedTechnique = (req, res, next) => {
+  Technique.find({survivalKit: false})
+    .then((techniques) => {
+      res.status(200).json(techniques)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get Techniques", {
+      metadata:{
+        services:"kit-controller: getUnassignedTechnique",
+        error: error.message
+      }
+    }))
+};
 
 //Create Technique
 module.exports.createTechnique = (req, res, next) => {
-console.log(req.body)
-  Technique.insertMany(req.body)
+  console.log(req.body)
+  Technique.create(req.body.technique)
     // influencer: req.body.technique.technique.influencer,
     // title: req.body.technique.title,
     // subheading: req.body.technique.subheading,
@@ -21,7 +94,6 @@ console.log(req.body)
     }
   }))
 };
-
 
 module.exports.createKit = (req, res, next) => {
   Kit.create({

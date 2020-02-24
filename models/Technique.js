@@ -11,7 +11,11 @@ const TechniqueSchema = new Schema( {
           header: String,
           descriptions: Array,
         }],
-        recommendation: String
+        recommendation: String,
+        survivalKit: {
+          type: Boolean,
+          default: false,
+        }
 })
 
 const Technique = mongoose.model("Technique", TechniqueSchema);
