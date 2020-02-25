@@ -7,6 +7,8 @@ router.post('/create', kitController.createKit);
 router.get('/popular/:id', kitController.productBackedBy);
 router.get('/survival/:id', kitController.getKit);
 router.get('/admin/:id', kitController.getKitAdmin);
+//Get product for survival kit
+router.get('/product/:id', kitController.getProductSurvival);
 router.get('/list/techniques', kitController.getUnassignedTechnique);
 router.get('/list/products', kitController.getUnassignedProducts);
 router.get('/list/tips', kitController.getUnassignedTips);

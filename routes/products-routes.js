@@ -17,6 +17,9 @@ router.get('/details/:id', productController.getOne);
 // Get a specific product for the admin routes
 router.get('/details/admin/:id', productController.getOneAdmin);
 
+// //Get product for survival kit
+// router.get('/survival/product', productController.getOneSurvival);
+
 // filter products with searchbar
 router.get("/filter", productController.filter);
 

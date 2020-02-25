@@ -13,7 +13,21 @@ module.exports.getAll = (req,res,next)=> {
     })) 
 };
 
+// module.exports.getOneSurvival = (req, res, next) => {
+// console.log(req.body)
+//   Product.findById(req.body)
+//     .populate("influencer")
+//     .then((product)=> res.json(product))
+//     .catch((error) => winstonLogger.info("Couldn't get one product", {
+//       metadata:{
+//         services:"product-controller: getOneSurvival",
+//         error: error.message
+//       }
+//     })) 
+// };
+
 module.exports.getOne = (req, res, next) => {
+
   Product.findById(req.params.id)
     .populate("influencer")
     .then((product)=> res.json(product))
