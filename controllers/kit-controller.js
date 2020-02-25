@@ -4,6 +4,24 @@ const Tip = require('../models/Tip');
 const SurvivalProduct = require('../models/SurvivalProduct');
 const winstonLogger = require('../config/error-logs/winston');
 
+//Get ProductKit
+module.exports.getProductSurvival = (req, res, next) => {
+  const {id} = req.params;
+  // const {id} = req.body
+
+  SurvivalProduct.findById(id)
+    .populate("product")
+    .then((product) => {
+      res.status(200).json(product)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get ProductSurvival", {
+      metadata:{
+        services:"kit-controller: getProductSurvival",
+        error: error.message
+      }
+    }))
+};
+
 //Get unassigned Tips
 module.exports.getUnassignedTips = (req, res, next) => {
   Tip.find({survivalKit: false})
@@ -16,7 +34,7 @@ module.exports.getUnassignedTips = (req, res, next) => {
         error: error.message
       }
     }))
-}
+};
 
 
 //Create Survival Tips
@@ -96,6 +114,7 @@ module.exports.createTechnique = (req, res, next) => {
 };
 
 module.exports.createKit = (req, res, next) => {
+  console.log(req.body);
   Kit.create({
     title: req.body.kit.title,
     influencer: req.body.kit.influencer,
@@ -144,7 +163,10 @@ module.exports.getKit = (req, res, next) => {
  let {id} = req.params;
  
   Kit.findOne({influencer: id})
-    .populate("products.product")
+  .populate("products")
+  .populate("tips")
+  .populate("techniques")
+  .populate("products.product")
     .then(kit => res.status(200).json(kit))
     .catch((error) => winstonLogger.error("Couldn't get Kit", {
       metadata:{
@@ -203,6 +225,7 @@ module.exports.getKitAdmin = (req, res, next) => {
   let {id} = req.params;
   
    Kit.findById(id)
+
      .then(kit => res.status(200).json(kit))
      .catch((error) => winstonLogger.error("Couldn't get Kit", {
        metadata:{

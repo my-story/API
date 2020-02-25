@@ -8,18 +8,17 @@ const SurvivalSchema = new Schema({
     ref: 'Influencer'
   },
   products: [{
-    product: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
-    },
-    comment: String
+    ref: 'SurvivalProduct',
   }],
   tips: [{
-    header: String,
-    description: String,
-    video: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tip',
   }],
-
+  techniques: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Technique',
+  }],
   role: {
     type: String,
     enum: ['Survival','Habit']
