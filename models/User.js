@@ -18,6 +18,18 @@ const userSchema = new Schema( {
     //     ref: "tips"
     //   }]
     // }],
+    techniques: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Technique"
+    }],
+    tips: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tip"
+    }],
+    products: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product"
+    }],
     role: {
         type: String,
         enum:["User","Admin"],

@@ -2,6 +2,27 @@ const User = require('../models/User')
 const passport = require('../config/passport');
 const winstonLogger = require('../config/error-logs/winston');
 
+//Add Techniques to user
+module.exports.addTechniques = (req, res) => {
+  console.log(req.params)
+  User.findOneAndUpdate(
+    {_id: req.params.id},
+    {$push: {techniques: req.params.technique}},
+    {new: true}
+  )
+    .then((user) => {
+      res.status(201).json(user)
+    })
+    .catch((error) => winstonLogger.info("Couldn't Add technique to user", {
+      metadata:{
+        services:"user-controller: addTechniques",
+        error: error.message
+      }
+    }));
+};
+
+
+//Sign up
 module.exports.singUp = (req, res) => {
   const { username, password, firstName, lastName } = req.body;
   User.findOne({ username: username }, (err, user) => {

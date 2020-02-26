@@ -33,6 +33,9 @@ router.get('/private', middlewares.isAuthenticated, (req, res, next) => {
   res.send(req.user);
 });
 
+//Add techniques
+router.post('/add/technique/:id/:technique', userController.addTechniques);
+
 router.get('/private', middlewares.isAuthenticated, userController.private);
 
 router.post('/logout', userController.logout);

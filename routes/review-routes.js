@@ -9,10 +9,10 @@ router.get('/specific/:id', reviewController.getOne);
 //Get One Admin
 router.get('/specific/admin/:id', reviewController.getOneAdmin);
 
-//New
+//Create review
 router.post('/new', middlewares.isAdmin, reviewController.create);
 
-//Edit
+//Update Review
 router.post('/edit/:id', middlewares.isAdmin, reviewController.edit);
 
 //Upvote
