@@ -4,10 +4,11 @@ const Tip = require('../models/Tip');
 const SurvivalProduct = require('../models/SurvivalProduct');
 const winstonLogger = require('../config/error-logs/winston');
 
+
+
 //Get ProductKit
 module.exports.getProductSurvival = (req, res, next) => {
   const {id} = req.params;
-  // const {id} = req.body
 
   SurvivalProduct.findById(id)
     .populate("product")
@@ -17,35 +18,6 @@ module.exports.getProductSurvival = (req, res, next) => {
     .catch((error) => winstonLogger.error("Couldn't get ProductSurvival", {
       metadata:{
         services:"kit-controller: getProductSurvival",
-        error: error.message
-      }
-    }))
-};
-
-//Get unassigned Tips
-module.exports.getUnassignedTips = (req, res, next) => {
-  Tip.find({survivalKit: false})
-    .then((tips) => {
-      res.status(200).json(tips)
-    })
-    .catch((error) => winstonLogger.error("Couldn't get Tips", {
-      metadata:{
-        services:"kit-controller: getUnassignedTips",
-        error: error.message
-      }
-    }))
-};
-
-
-//Create Survival Tips
-module.exports.createSurvivalTips = (req, res, next) => {
-  Tip.create(req.body)
-    .then((tip) => {
-      res.status(200).json(tip)
-    })
-    .catch((error) => winstonLogger.error("Couldn't create Tip Survival Kit", {
-      metadata:{
-        services:"kit-controller: createSurvivalTips",
         error: error.message
       }
     }))
@@ -65,6 +37,25 @@ module.exports.getUnassignedProducts = (req, res, next) => {
     }))
 };
 
+//Update Product Kit
+module.exports.updateProduct = (req, res, next) => {
+  SurvivalProduct.findByIdAndUpdate(req.params.id, {
+    influencer: req.body.influencer,
+    product: req.body.product,
+    comment: req.body.comment,
+    recommendation: req.body.recommendation
+  })
+    .then((product) => {
+      res.status(201).json(product)
+    })
+    .catch((error) => winstonLogger.error("Couldn't Update Survival Product", {
+      metadata:{
+        services:"kit-controller: updateProduct",
+        error: error.message
+      }
+    }))
+}
+
 //Create Survival Product
 module.exports.createSurvivalProduct = (req, res, next) => {
   SurvivalProduct.create(req.body)
@@ -78,6 +69,52 @@ module.exports.createSurvivalProduct = (req, res, next) => {
       }
     }))
 };
+
+//Get unassigned Tips
+module.exports.getUnassignedTips = (req, res, next) => {
+  Tip.find({survivalKit: false})
+    .then((tips) => {
+      res.status(200).json(tips)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get Tips", {
+      metadata:{
+        services:"kit-controller: getUnassignedTips",
+        error: error.message
+      }
+    }))
+};
+
+//Update Survival Tip
+module.exports.updateTip = (req, res, next) => {
+  Tip.findByIdAndUpdate(req.params.id, {
+    influencer: req.body.influencer,
+    header: req.body.header,
+    description: req.body.description,
+    // recommendation: req.body.recommendation
+  })
+    .then((tip) => res.status(201).json(tip))
+    .catch((error) => winstonLogger.error("Couldn't update Tip", {
+      metadata:{
+        services:"kit-controller: updateTip",
+        error: error.message
+      }
+    }))
+};
+
+//Create Survival Tips
+module.exports.createSurvivalTips = (req, res, next) => {
+  Tip.create(req.body)
+    .then((tip) => {
+      res.status(200).json(tip)
+    })
+    .catch((error) => winstonLogger.error("Couldn't create Tip Survival Kit", {
+      metadata:{
+        services:"kit-controller: createSurvivalTips",
+        error: error.message
+      }
+    }))
+};
+
 
 //Get unassigned Techniques 
 module.exports.getUnassignedTechnique = (req, res, next) => {
@@ -113,29 +150,26 @@ module.exports.createTechnique = (req, res, next) => {
   }))
 };
 
-module.exports.createKit = (req, res, next) => {
-  console.log(req.body);
-  Kit.create({
-    title: req.body.kit.title,
-    influencer: req.body.kit.influencer,
-    products: req.body.kit.products,
-    tips: req.body.kit.tips,
-    techniques: req.body.kit.techniques,
-    category: req.body.kit.category,
-
+//Update Technique
+module.exports.updateTechnique = (req, res, next) => {
+  Technique.findByIdAndUpdate(req.params.id, {
+    influencer: req.body.influencer,
+    title: req.body.title,
+    subheading: req.body.subheading,
+    recommendation: req.body.recommendation,
   })
-  .then((kit) => {
-    res.status(200).json(kit)
-  })
-  .catch((error) => winstonLogger.error("Couldn't create Kit", {
-    metadata:{
-      services:"kit-controller: createKit",
-      error: error.message
-    }
-  }))
+    .then((technique) => {
+      res.status(201).json(technique)
+    })
+    .catch((error) => winstonLogger.error("Couldn't update Technique", {
+      metadata:{
+        services:"kit-controller: updateTechnique",
+        error: error.message
+      }
+    }))
 };
 
-//Create Technique 
+//Create Kit 
 module.exports.createKit = (req,res,next) => {
   Kit.create({
     title: req.body.kit.title,
