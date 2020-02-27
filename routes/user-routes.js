@@ -33,8 +33,14 @@ router.get('/private', middlewares.isAuthenticated, (req, res, next) => {
   res.send(req.user);
 });
 
-//Add techniques
+//Favorite Techniques
 router.post('/add/technique/:id/:technique', userController.addTechniques);
+
+//Favorite Tips
+router.post('/add/tip/:id/:tip', userController.addTips);
+
+//Favorite Products 
+router.post('/add/product/:id/:product', userController.addProductSurvival);
 
 router.get('/private', middlewares.isAuthenticated, userController.private);
 
