@@ -2,9 +2,46 @@ const User = require('../models/User')
 const passport = require('../config/passport');
 const winstonLogger = require('../config/error-logs/winston');
 
-//Add Techniques to user
+//FALTA VERIFICAR SI TIPS, TECHNICAS O PRODUCTOS YA ESTA 
+
+//Favorite product to user
+module.exports.addProductSurvival = (req,res) => {
+  User.findOneAndUpdate(
+    {_id: req.params.id},
+    {$push: {products: req.params.product}},
+    {new: true}
+  )
+  .then((user) => {
+    res.status(201).json(user)
+  })
+  .catch((error) => winstonLogger.info("Couldn't Add ProductKit to user", {
+    metadata:{
+      services:"user-controller: addProductSurvival",
+      error: error.message
+    }
+  }));
+};
+
+//Favorite tips to user
+module.exports.addTips = (req, res) => {
+  User.findOneAndUpdate(
+    {_id: req.params.id},
+    {$push: {tips: req.params.tip}},
+    {new: true}
+  )
+  .then((user) => {
+    res.status(201).json(user)
+  })
+  .catch((error) => winstonLogger.info("Couldn't Add Tip to user", {
+    metadata:{
+      services:"user-controller: addTips",
+      error: error.message
+    }
+  }));
+}
+
+//Favorite Techniques to user
 module.exports.addTechniques = (req, res) => {
-  console.log(req.params)
   User.findOneAndUpdate(
     {_id: req.params.id},
     {$push: {techniques: req.params.technique}},
@@ -20,7 +57,6 @@ module.exports.addTechniques = (req, res) => {
       }
     }));
 };
-
 
 //Sign up
 module.exports.singUp = (req, res) => {
