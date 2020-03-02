@@ -5,6 +5,52 @@ const SurvivalProduct = require('../models/SurvivalProduct');
 const winstonLogger = require('../config/error-logs/winston');
 
 
+//Get Admin Routes To update by influencer
+//Tip
+module.exports.getTipAdmin = (req, res) => {
+  const {id} = req.params;
+  
+  Tip.find({influencer: id})
+    .then((tip) => {
+      res.status(200).json(tip)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get Tip for admin", {
+      metadata:{
+        services:"kit-controller: getTipAdmin",
+        error: error.message
+      }
+    }))
+};
+//Technique
+module.exports.getTechniqueAdmin = (req, res) => {
+  const {id} = req.params;
+
+  Technique.find({influencer: id})
+    .then((technique) => {
+      res.status(200).json(technique)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get technique for admin", {
+      metadata:{
+        services:"kit-controller: getTechniqueAdmin",
+        error: error.message
+      }
+    }))
+};
+//SurvivalProduct
+module.exports.getSurvivalProductAdmin = (req, res) => {
+  const {id} = req.params;
+
+  SurvivalProduct.find({influencer: id})
+    .then((product) => {
+      res.status(200).json(product)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get SurvivalProduct for admin", {
+      metadata:{
+        services:"kit-controller: getSurvivalProductAdmin",
+        error: error.message
+      }
+    }))
+};
 
 //Get ProductKit
 module.exports.getProductSurvival = (req, res, next) => {
