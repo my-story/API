@@ -53,6 +53,7 @@ module.exports.filterSearch = (req,res) => {
 };
 
 module.exports.profile = (req,res) => {
+
   const id = req.params.id;
   Influencer.findOne({_id: id})
     .then(influencer => res.status(201).json(influencer))
@@ -96,13 +97,14 @@ module.exports.addReward = (req,res) => {
 };
 
 module.exports.edit = (req,res) => {
+  console.log(req.body)
+
   Influencer.findByIdAndUpdate(req.params.id, {
     "name.firstName":req.body.firstName,
     "name.lastName":req.body.lastName,
-    "profilePic": req.body.image,
-    "review": req.body.review,
+    "profilePic": req.body.profilePic,
     "expertise": req.body.expertise,
-    "percentage": req.body.percentage,
+    "description": req.body.description
   })
     .then((influencer) => res.status(201).json(influencer))
     .catch((error) => winstonLogger.verbose("Couldn't edit Influencer", {
