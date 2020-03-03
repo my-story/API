@@ -161,7 +161,9 @@ module.exports.delete = (req, res, next) => {
 }
 
 module.exports.edit = (req,res, next) => {
-  Product.findOneAndUpdate({influencer: req.params.id}, {
+  const {id} = req.params;
+  
+  Product.findOneAndUpdate({_id: id}, {
     "model": req.body.model,
     "prize": req.body.prize,
     "images": req.body.images,
