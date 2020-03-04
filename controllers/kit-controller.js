@@ -21,6 +21,19 @@ module.exports.getTipAdmin = (req, res) => {
       }
     }))
 };
+module.exports.getTipEdit = (req, res) => {
+  const {id} = req.params;
+  Tip.findById(id)
+    .then((tip) => {
+      res.status(200).json(tip)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get Tip for admin", {
+      metadata:{
+        services:"kit-controller: getTipEdit",
+        error: error.message
+      }
+    }))
+};
 //Technique
 module.exports.getTechniqueAdmin = (req, res) => {
   const {id} = req.params;
@@ -36,10 +49,38 @@ module.exports.getTechniqueAdmin = (req, res) => {
       }
     }))
 };
+
+module.exports.getTechniqueEdit = (req, res) => {
+  const {id} = req.params;
+  Technique.findById(id)
+    .then((technique) => {
+      res.status(200).json(technique)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get Techinque for admin", {
+      metadata:{
+        services:"kit-controller: getTechniqueEdit",
+        error: error.message
+      }
+    }))
+};
+
 //SurvivalProduct
+module.exports.getSurvivalProductEdit = (req, res) => {
+  const {id} = req.params;
+  SurvivalProduct.findById(id)
+    .then((product) => {
+      res.status(200).json(product)
+    })
+    .catch((error) => winstonLogger.error("Couldn't get SurvivalProduct for admin", {
+      metadata:{
+        services:"kit-controller: getSurvivalProductAdmin",
+        error: error.message
+      }
+    }))
+};
+
 module.exports.getSurvivalProductAdmin = (req, res) => {
   const {id} = req.params;
-
   SurvivalProduct.find({influencer: id})
     .then((product) => {
       res.status(200).json(product)

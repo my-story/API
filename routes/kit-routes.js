@@ -15,11 +15,20 @@ router.get('/admin/:id', kitController.getKitAdmin);
 //Get Tip for Admin
 router.get('/admin/tip/:id', kitController.getTipAdmin);
 
+//Get tip for edit
+router.get('/admin/tip/1/:id', kitController.getTipEdit);
+
 //get Technique Admin
 router.get('/admin/technique/:id', kitController.getTechniqueAdmin);
 
+//Get Technique for edit
+router.get('/admin/technique/1/:id', kitController.getTechniqueEdit);
+
 //Get ProductSurvival
 router.get('/admin/survival-product/:id', kitController.getSurvivalProductAdmin);
+
+//Get Product for edit
+router.get('/admin/survival-product/1/:id', kitController.getSurvivalProductEdit);
 
 //Get product for survival kit
 router.get('/product/:id', kitController.getProductSurvival);
