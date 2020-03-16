@@ -22,7 +22,7 @@ const podcastSchema = new Schema({
     type: String,
   },
   time:{
-      type: Number
+      type: String
   }
 })
 

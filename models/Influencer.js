@@ -14,7 +14,7 @@ const influencerSchema = new Schema({
   },
   expertise: [{
     type: String,
-    enum: ["Athlete","Musician","Tech","Artist"]
+    enum: ["Athlete","Musician","Tech","Artist", "Runner"]
   }],
   role: {
     type: String,
