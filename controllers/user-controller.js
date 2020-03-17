@@ -2,7 +2,25 @@ const User = require('../models/User')
 const passport = require('../config/passport');
 const winstonLogger = require('../config/error-logs/winston');
 
-//FALTA VERIFICAR SI TIPS, TECHNICAS O PRODUCTOS YA ESTA 
+//Add survival Kit id
+module.exports.addSurvivalKitId = (req,res) => {
+  User.findOneAndUpdate(
+    {_id: req.params.id},
+    {$push: {kits: req.params.kit}},
+    {new: true}
+  )
+  .then((user) => {
+    res.status(201).json(user)
+
+  })
+  .catch((error) => winstonLogger.info("Couldn't Add Survival kit id to user", {
+    metadata:{
+      services:"user-controller: addSurvivalKitId",
+      error: error.message
+    }
+  }));
+};
+
 
 //Favorite product to user
 module.exports.addProductSurvival = (req,res) => {
