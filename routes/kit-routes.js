@@ -9,7 +9,7 @@ router.get('/popular/:id', kitController.productBackedBy);
 //Get kit for review
 router.get('/survival/:id', kitController.getKit);
 
-//
+////
 router.get('/admin/:id', kitController.getKitAdmin);
 
 //Get Tip for Admin
