@@ -284,6 +284,7 @@ module.exports.getKitProfile = (req, res, next) => {
  let {id} = req.params;
  
   Kit.findById(id)
+  .populate("influencer")
   .populate("products")
   .populate("tips")
   .populate("techniques")
