@@ -33,6 +33,9 @@ router.get('/private', middlewares.isAuthenticated, (req, res, next) => {
   res.send(req.user);
 });
 
+//Unfavotire tip 
+router.post('/unfavorite/tip/:id/:tip', userController.unfavoriteTip);
+
 //Favorite Kit
 router.post('/add/kit/:id/:kit', userController.addSurvivalKitId);
 

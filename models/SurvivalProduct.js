@@ -15,7 +15,10 @@ const SurvivalProductSchema = new Schema({
     survivalKit: {
         type: Boolean,
         default: false,
-    }
+    },
+    category: {
+        
+    } 
 })
 
 

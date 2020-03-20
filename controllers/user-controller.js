@@ -2,6 +2,70 @@ const User = require('../models/User')
 const passport = require('../config/passport');
 const winstonLogger = require('../config/error-logs/winston');
 
+
+// Unfavorite productKit
+module.exports.unfavoriteProductKit = (req, res) => {
+  let {id} = req.params;
+
+  User.findByIdAndUpdate(
+    id,
+    {$pull: {products: req.params.product}},
+    {new: true}
+  )
+  .then((user) => {
+    res.status(201).json(user)
+
+  })
+  .catch((error) => winstonLogger.info("Couldn't unfavorite product from user", {
+    metadata:{
+      services:"user-controller: unfavoriteTechnunfavoriteProductKitique",
+      error: error.message
+    }
+  }));
+};
+
+// Unfavorite Technique
+module.exports.unfavoriteTechnique = (req, res) => {
+  let {id} = req.params;
+
+  User.findByIdAndUpdate(
+    id,
+    {$pull: {techniques: req.params.technique}},
+    {new: true}
+  )
+  .then((user) => {
+    res.status(201).json(user)
+
+  })
+  .catch((error) => winstonLogger.info("Couldn't unfavorite techniques from user", {
+    metadata:{
+      services:"user-controller: unfavoriteTechnique",
+      error: error.message
+    }
+  }));
+};
+
+// Unfavorite tip
+module.exports.unfavoriteTip = (req, res) => {
+  let {id} = req.params;
+
+  User.findByIdAndUpdate(
+    id,
+    {$pull: {tips: req.params.tip}},
+    {new: true}
+  )
+  .then((user) => {
+    res.status(201).json(user)
+
+  })
+  .catch((error) => winstonLogger.info("Couldn't unfavorite Tipkit from user", {
+    metadata:{
+      services:"user-controller: unfavoriteTip",
+      error: error.message
+    }
+  }));
+};
+
 //Add survival Kit id
 module.exports.addSurvivalKitId = (req,res) => {
   User.findOneAndUpdate(
