@@ -33,7 +33,13 @@ router.get('/private', middlewares.isAuthenticated, (req, res, next) => {
   res.send(req.user);
 });
 
-//Unfavotire tip 
+//Unfavorite Product kit 
+router.post('/unfavorite/product/:id/:product', userController.unfavoriteProductKit);
+
+//Unfavorite technique
+router.post('/unfavorite/technique/:id/:technique', userController.unfavoriteTechnique);
+
+//Unfavorite tip 
 router.post('/unfavorite/tip/:id/:tip', userController.unfavoriteTip);
 
 //Favorite Kit
