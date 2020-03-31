@@ -15,6 +15,9 @@ router.get('/admin/:id', kitController.getKitAdmin);
 //Get Tip for Admin
 router.get('/admin/tip/:id', kitController.getTipAdmin);
 
+//Get kit for PRofile
+router.get('/profile/:id', kitController.getKitProfile);
+
 //Get tip for edit
 router.get('/admin/tip/1/:id', kitController.getTipEdit);
 

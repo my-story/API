@@ -279,8 +279,28 @@ module.exports.createKit = (req,res,next) => {
   }))
 };
 
+//Get kit for profile
+module.exports.getKitProfile = (req, res, next) => {
+ let {id} = req.params;
+ 
+  Kit.findById(id)
+  .populate("influencer")
+  .populate("products")
+  .populate("tips")
+  .populate("techniques")
+  .populate("products.product")
+    .then(kit => res.status(200).json(kit))
+    .catch((error) => winstonLogger.error("Couldn't get Kit", {
+      metadata:{
+        services:"kit-controller: getKitProfile",
+        error: error.message
+      }
+    }))
+};
+
 //Get kit for review
 module.exports.getKit = (req, res, next) => {
+  console.log(req.params)
  let {id} = req.params;
  
   Kit.findOne({influencer: id})

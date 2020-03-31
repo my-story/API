@@ -33,6 +33,18 @@ router.get('/private', middlewares.isAuthenticated, (req, res, next) => {
   res.send(req.user);
 });
 
+//Unfavorite Product kit 
+router.post('/unfavorite/product/:id/:product', userController.unfavoriteProductKit);
+
+//Unfavorite technique
+router.post('/unfavorite/technique/:id/:technique', userController.unfavoriteTechnique);
+
+//Unfavorite tip 
+router.post('/unfavorite/tip/:id/:tip', userController.unfavoriteTip);
+
+//Favorite Kit
+router.post('/add/kit/:id/:kit', userController.addSurvivalKitId);
+
 //Favorite Techniques
 router.post('/add/technique/:id/:technique', userController.addTechniques);
 
