@@ -3,6 +3,9 @@ const router = express.Router();
 const middlewares = require('../middlewears/secure.mid');
 const kitController = require('../controllers/kit-controller');
 
+//Get All
+router.get('/', kitController.getAll);
+
 //Get infleuncers that recomend a product
 router.get('/popular/:id', kitController.productBackedBy);
 
