@@ -23,7 +23,11 @@ const podcastSchema = new Schema({
   },
   time:{
       type: String
-  }
+  },
+  category: [{
+    type: String,
+    enum: ["Sports","Music","Tech","Clothes"]
+  }]
 })
 
 const Podcast = mongoose.model('Podcast', podcastSchema);

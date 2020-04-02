@@ -4,7 +4,7 @@ const middlewares = require('../middlewears/secure.mid');
 const kitController = require('../controllers/kit-controller');
 
 //Get All
-router.get('/', kitController.getAll);
+router.get('/all', kitController.getAll);
 
 //Get infleuncers that recomend a product
 router.get('/popular/:id', kitController.productBackedBy);
@@ -48,9 +48,6 @@ router.get('/list/products', kitController.getUnassignedProducts);
 //Get List of tips for creating a kit
 router.get('/list/tips', kitController.getUnassignedTips);
 
-//Update Kit
-router.post('/update/kit/:id', middlewares.isAdmin, kitController.updateKit);
-
 //Create technique
 router.post('/create/technique', kitController.createTechnique);
 
@@ -71,6 +68,9 @@ router.post('/update/tip/:id', middlewares.isAdmin, kitController.updateTip);
 
 //Create Kit
 router.post('/create', kitController.createKit);
+
+//Update Kit
+router.post('/update/kit/:id', middlewares.isAdmin, kitController.updateKit);
 
 
 module.exports = router;
