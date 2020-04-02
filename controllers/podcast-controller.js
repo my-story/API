@@ -5,7 +5,7 @@ module.exports.getAll = (req,res,next)=> {
     Podcast.find()
     .populate("influencer")
     .then((podcasts) => res.status(200).json(podcasts))
-    .catch((error) => winstonLogger.info("Couldn't get all products", {
+    .catch((error) => winstonLogger.info("Couldn't get all podcasts", {
         metadata:{
         services:"podcast-controller: getAll",
         error: error.message
@@ -34,9 +34,10 @@ module.exports.create = (req,res,next)=> {
 };
 
 module.exports.getOne = (req, res, next) => {
+    
     Podcast.findById(req.params.id)
-    .then((podcast)=> res.json(podcast))
-    .catch((error) => winstonLogger.info("Couldn't get one product", {
+        .then((podcast)=> res.status(200).json(podcast))
+        .catch((error) => winstonLogger.info("Couldn't get one podcast", {
         metadata:{
         services:"podcast-controller: getOne",
         error: error.message
