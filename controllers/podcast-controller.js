@@ -13,8 +13,24 @@ module.exports.getAll = (req,res,next)=> {
     })) 
 };
 
-module.exports.create = (req,res,next)=> {
+module.exports.filter = (req, res, next) => {
+    const {search} = req.query
+    Podcast.find({
+      $or:[
+        {category:{$regex:search, $options:'i'}}
+      ]
+    })
+    .populate("influencer")
+    .then((podcasts)=> res.status(200).json(podcasts))
+    .catch((error) => winstonLogger.debug("Couldn't filter podcasts", {
+      metadata:{
+        services:"product-controller: filter",
+        error: error.message
+      }
+    }));
+};
 
+module.exports.create = (req,res,next)=> {
     Podcast.create({
         "influencer": req.body.podcast.influencer,
         "title": req.body.podcast.title,
@@ -36,6 +52,7 @@ module.exports.create = (req,res,next)=> {
 module.exports.getOne = (req, res, next) => {
     
     Podcast.findById(req.params.id)
+        .populate("influencer")
         .then((podcast)=> res.status(200).json(podcast))
         .catch((error) => winstonLogger.info("Couldn't get one podcast", {
         metadata:{

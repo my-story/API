@@ -300,10 +300,10 @@ module.exports.getKitProfile = (req, res, next) => {
 
 //Get kit for review
 module.exports.getKit = (req, res, next) => {
-  console.log(req.params)
- let {id} = req.params;
+ const {id} = req.params;
  
   Kit.findOne({influencer: id})
+  .populate("influencer")
   .populate("products")
   .populate("tips")
   .populate("techniques")
@@ -377,7 +377,7 @@ module.exports.getKitAdmin = (req, res, next) => {
  };
 
 module.exports.getAll = (req,res,next) => {
-  Kit.find({}, {title:1})
+  Kit.find()
     .populate("influencer")
     .then((kit) => res.status(200).json(kit))
     .catch((error) => console.log(error))

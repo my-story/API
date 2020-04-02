@@ -88,10 +88,9 @@ module.exports.filter = (req, res, next) => {
   const {search} = req.query
   Product.find({
     $or:[
-      {model:{$regex:search, $options:'i'}},
-      {description:{$regex:search, $options:'i'}},
+      // {model:{$regex:search, $options:'i'}},
+      // {description:{$regex:search, $options:'i'}},
       {category:{$regex:search, $options:'i'}}
-
     ]
   })
   .populate("influencer")
@@ -102,7 +101,7 @@ module.exports.filter = (req, res, next) => {
       error: error.message
     }
   }));
-}
+};
 
 module.exports.filterPrizeDecending = (req, res, next) => {
   Product.find().sort( {prize: -1} )
