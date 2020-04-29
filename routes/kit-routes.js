@@ -72,5 +72,7 @@ router.post('/create', kitController.createKit);
 //Update Kit
 router.post('/update/kit/:id', middlewares.isAdmin, kitController.updateKit);
 
+//Filter kit
+router.get("/filter", kitController.filter);
 
 module.exports = router;

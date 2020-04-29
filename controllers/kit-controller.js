@@ -5,6 +5,26 @@ const SurvivalProduct = require('../models/SurvivalProduct');
 const winstonLogger = require('../config/error-logs/winston');
 
 
+//Filter in page of Survival kits
+module.exports.filter = (req, res, next) => {
+  const {search} = req.query
+  Kit.find({
+    $or:[
+      // {model:{$regex:search, $options:'i'}},
+      // {description:{$regex:search, $options:'i'}},
+      {category:{$regex:search, $options:'i'}}
+    ]
+  })
+  .populate("influencer")
+  .then((kit)=> res.status(200).json(kit))
+  .catch((error) => winstonLogger.debug("Couldn't filter kit", {
+    metadata:{
+      services:"kit-controller: filter",
+      error: error.message
+    }
+  }));
+};
+
 //Get Admin Routes To update by influencer
 //Tip
 module.exports.getTipAdmin = (req, res) => {
