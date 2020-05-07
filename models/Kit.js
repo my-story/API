@@ -19,10 +19,6 @@ const SurvivalSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Technique',
   }],
-  role: {
-    type: String,
-    enum: ['Survival','Habit']
-  },
   category: String,
 })
 
