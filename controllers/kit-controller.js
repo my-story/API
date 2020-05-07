@@ -288,7 +288,6 @@ module.exports.createKit = (req,res,next) => {
 
   })
   .then((kit) => {
-    console.log(kit)
     res.status(200).json(kit)
   })
   .catch((error) => winstonLogger.error("Couldn't create Kit", {
