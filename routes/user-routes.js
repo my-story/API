@@ -33,6 +33,9 @@ router.get('/private', middlewares.isAuthenticated, (req, res, next) => {
   res.send(req.user);
 });
 
+//Unfavorite  kit 
+router.post('/unfavorite/kit/:id/:kit', userController.unfavoriteKit);
+
 //Unfavorite Product kit 
 router.post('/unfavorite/product/:id/:product', userController.unfavoriteProductKit);
 
