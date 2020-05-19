@@ -4,6 +4,26 @@ const winstonLogger = require('../config/error-logs/winston');
 
 
 // Unfavorite productKit
+module.exports.unfavoriteKit = (req, res) => {
+  let {id} = req.params;
+
+  User.findByIdAndUpdate(
+    id,
+    {$pull: {kits: req.params.kit}},
+    {new: true}
+  )
+  .then((user) => {
+    res.status(201).json(user)
+  })
+  .catch((error) => winstonLogger.info("Couldn't unfavorite kit from user", {
+    metadata:{
+      services:"user-controller: unfavoriteKit",
+      error: error.message
+    }
+  }));
+};
+
+// Unfavorite productKit
 module.exports.unfavoriteProductKit = (req, res) => {
   let {id} = req.params;
 

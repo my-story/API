@@ -6,6 +6,9 @@ const kitController = require('../controllers/kit-controller');
 //Get All
 router.get('/all', kitController.getAll);
 
+//Get Similar KiT
+router.get('/last', kitController.getLast);
+
 //Get infleuncers that recomend a product
 router.get('/popular/:id', kitController.productBackedBy);
 

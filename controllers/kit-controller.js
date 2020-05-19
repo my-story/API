@@ -395,6 +395,14 @@ module.exports.getKitAdmin = (req, res, next) => {
      }))
  };
 
+
+module.exports.getLast = (req,res,next) => {
+  Kit.find().sort({$natural: -1}).limit(0)
+    .populate("influencer")
+    .then((kit) => res.status(200).json(kit))
+    .catch((error) => console.log(error))
+}
+
 module.exports.getAll = (req,res,next) => {
   Kit.find()
     .populate("influencer")
