@@ -91,8 +91,8 @@ app.use('/', index);
 const userRoutes = require('./routes/user-routes');
 app.use('/api', userRoutes);
 
-const orderRoutes = require('./routes/order-routes');
-app.use('/order', orderRoutes);
+// const orderRoutes = require('./routes/order-routes');
+// app.use('/order', orderRoutes);
 
 const Kit = require('./routes/kit-routes');
 app.use('/kit', Kit);
@@ -112,11 +112,11 @@ app.use('/email', emailRoutes);
 // const stripe = require('./routes/stripe-routes')
 // app.use('/payment', stripe);
 
-const Mailer = require('./routes/nodemailer/nodemailer')
-app.use('/authorize', Mailer);
+// const Mailer = require('./routes/nodemailer/nodemailer')
+// app.use('/authorize', Mailer);
 
-const Shipping = require('./routes/shipping-routes')
-app.use('/shipping', Shipping);
+// const Shipping = require('./routes/shipping-routes')
+// app.use('/shipping', Shipping);
 
 const Podcast = require('./routes/podcast-routes')
 app.use('/podcast', Podcast);
