@@ -1,9 +1,7 @@
 const express = require('express');
 const router  = express.Router();
-
-const uploadCloud = require("../config/cloudinary");
-const middlewears = require("../middlewears/secure.mid")
-const productController = require('../controllers/product-controller')
+const middlewears = require("../middlewears/secure.mid");
+const productController = require('../controllers/product-controller');
 
 //Get all Products in Product Page
 router.get('/all', productController.getAll);
@@ -39,9 +37,6 @@ router.post("/delete/:id",middlewears.isAdmin, productController.delete);
 router.post("/edit/:id", middlewears.isAdmin, productController.edit);
 
 router.post("/update/total/:id", productController.updateTotal);
-
-
-
 
 
 module.exports = router;
