@@ -82,9 +82,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
-
-
 const index = require('./routes/index');
 app.use('/', index);
 
