@@ -109,8 +109,8 @@ app.use('/reviews', reviewRoutes);
 const emailRoutes = require('./routes/email-routes');
 app.use('/email', emailRoutes);
 
-const stripe = require('./routes/stripe-routes')
-app.use('/payment', stripe);
+// const stripe = require('./routes/stripe-routes')
+// app.use('/payment', stripe);
 
 const Mailer = require('./routes/nodemailer/nodemailer')
 app.use('/authorize', Mailer);
