@@ -5,7 +5,7 @@ module.exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.status(401).json({ message: "No te has logueado" });
+    res.status(401).json({ message: "Haven't logged in" });
   }
 }
 
