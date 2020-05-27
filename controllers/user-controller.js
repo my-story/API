@@ -263,4 +263,18 @@ module.exports.downvoteUndo = (req, res) => {
     }));
 }
 
+//CRUD
+module.exports.edit = (req, res) => {
+  User.findByIdAndUpdate( req.params.id, {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+  })
+    .then((user) => res.status(201).json(user))
+    .catch((error) => winstonLogger.info("Couldn't edit user", {
+      metadata:{
+        services:"user-controller: edit",
+        error: error.message
+      }
+    }));
+}
   

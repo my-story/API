@@ -67,5 +67,8 @@ router.post('/pull/upvote/:id',middlewares.isAuthenticated, userController.upvot
 
 router.post('/pull/downvote/:id', middlewares.isAuthenticated, userController.downvoteUndo);
 
+//CRUD
+//Edit
+router.post('/edit/:id', middlewares.isAuthenticated, userController.edit);
 
 module.exports = router;

@@ -8,6 +8,7 @@ const userSchema = new Schema( {
     lastName: String,
     username: String,
     password: String,
+    
     kits: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Kit"
