@@ -75,7 +75,7 @@ module.exports.create = (req,res) => {
     "images" : req.body.images,
   })
     .then((influencer) => res.status(201).json(influencer))
-    .catch((error) => winstonLogger.info("Couldn't create Influencer", {
+    .catch((error) => winstonLogger.error("Couldn't create Influencer", {
       metadata:{
         services:"influencer-controller: create",
         error: error.message
