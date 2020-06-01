@@ -266,8 +266,8 @@ module.exports.downvoteUndo = (req, res) => {
 //CRUD
 module.exports.edit = (req, res) => {
   User.findByIdAndUpdate( req.params.id, {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    firstName: req.body.user.firstName,
+    lastName: req.body.user.lastName,
   })
     .then((user) => res.status(201).json(user))
     .catch((error) => winstonLogger.info("Couldn't edit user", {
