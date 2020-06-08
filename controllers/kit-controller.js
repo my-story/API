@@ -239,7 +239,6 @@ module.exports.getUnassignedTechnique = (req, res, next) => {
 
 //Create Technique
 module.exports.createTechnique = (req, res, next) => {
-  console.log(req.body)
   Technique.create(req.body.technique)
     // influencer: req.body.technique.technique.influencer,
     // title: req.body.technique.title,
@@ -264,6 +263,8 @@ module.exports.updateTechnique = (req, res, next) => {
     title: req.body.title,
     subheading: req.body.subheading,
     recommendation: req.body.recommendation,
+    category: req.body.category,
+
   })
     .then((technique) => {
       res.status(201).json(technique)
@@ -321,7 +322,7 @@ module.exports.getKitProfile = (req, res, next) => {
 module.exports.getKit = (req, res, next) => {
  const {id} = req.params;
  
-  Kit.findOne({influencer: id})
+  Kit.findById(id)
   .populate("influencer")
   .populate("products")
   .populate("tips")
