@@ -4,7 +4,7 @@ const winstonLogger = require('../config/error-logs/winston');
 
 module.exports.getOne = (req, res) => {
 	let {id} = req.params
-  Review.findOne({influencer: id}) //.findById(req.params.restID)
+  Review.findOne({kit: id}) //.findById(req.params.restID)
 		.populate('influencer')
 		.populate('kit')
 		// .populate('products')
@@ -27,7 +27,6 @@ module.exports.getOneAdmin = (req,res) => {
 
 module.exports.create = (req, res) => {
   Review.create({
-		"title": req.body.title,
 		"influencer": req.body.influencer,
 		"description": req.body.one,
 		"kit": req.body.kit,
@@ -48,7 +47,6 @@ module.exports.create = (req, res) => {
 
 module.exports.edit = (req,res) => {
   Review.update({influencer: req.params.id} , {
-		"title": req.body.title,
 		"influencer": req.body.influencer,
 		"description": req.body.one,
 		"kit": req.body.kit,
