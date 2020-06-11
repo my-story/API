@@ -78,4 +78,7 @@ router.post('/update/kit/:id', middlewares.isAdmin, kitController.updateKit);
 //Filter kit
 router.get("/filter", kitController.filter);
 
+//Get influencer kits
+router.get("/influencer/:id", kitController.getKits);
+
 module.exports = router;
