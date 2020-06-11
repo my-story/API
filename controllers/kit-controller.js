@@ -411,3 +411,19 @@ module.exports.getAll = (req,res,next) => {
     .catch((error) => console.log(error))
 }
 
+module.exports.getKits = (req,res) => {
+
+  const id = req.params.id;
+  
+  Kit.find({influencer: id})
+    .populate("influencer")
+    .then(kits => res.status(201).json(kits))
+    .catch((error) => console.log(error))
+    // .catch((error) => winstonLogger.warn("Couldn't get Influencer profile", {
+    //   metadata:{
+    //     services:"influencer-controller: profile",
+    //     error: error.message
+    //   }
+    // }));
+};
+
