@@ -16,7 +16,6 @@ router.post('/login',
   },
   passport.authenticate('local'),
   (req, res,next) => {
-      console.log('logged in', req.user);
 
       var userInfo = {
           id: req.user._id,
@@ -70,5 +69,9 @@ router.post('/pull/downvote/:id', middlewares.isAuthenticated, userController.do
 //CRUD
 //Edit
 router.post('/edit/:id', middlewares.isAuthenticated, userController.edit);
+
+//Change Password
+router.post('/edit/password/:id', middlewares.isAuthenticated, userController.editPassword);
+
 
 module.exports = router;

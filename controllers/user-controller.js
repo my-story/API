@@ -278,3 +278,15 @@ module.exports.edit = (req, res) => {
     }));
 }
   
+module.exports.editPassword = (req, res) => {
+  User.findByIdAndUpdate( req.params.id, {
+    password: req.body.password
+  })
+    .then((user) => res.status(201).json(user))
+    .catch((error) => winstonLogger.info("Couldn't edit password user", {
+      metadata:{
+        services:"user-controller: editPassword",
+        error: error.message
+      }
+    }));
+}
