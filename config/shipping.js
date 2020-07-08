@@ -1,1 +1,0 @@
-let shippo = require('shippo')(process.env.SHIPPO_TEST);
