@@ -163,15 +163,10 @@ module.exports.addTechniques = (req, res) => {
 //Sign up
 module.exports.singUp = (req, res) => {
   const { username, password, firstName, lastName } = req.body;
+  console.log(req.body);
+
   User.findOne({ username: username }, (err, user) => {
-    if (err) {
-        winstonLogger.error("signup not working", {
-          metadata:{
-            services:"user-controller: singUp",
-            error: err.message
-          }
-        });
-    } else if (user) {
+   if (user) {
         res.json( {error: `Sorry, already a user with the username: ${username}`})
     } else {
      

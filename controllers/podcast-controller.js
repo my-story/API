@@ -5,7 +5,7 @@ module.exports.getAll = (req,res,next)=> {
     Podcast.find()
     .populate("influencer")
     .then((podcasts) => res.status(200).json(podcasts))
-    .catch((error) => winstonLogger.info("Couldn't get all podcasts", {
+    .catch((error) => winstonLogger.error("Couldn't get all podcasts", {
         metadata:{
         services:"podcast-controller: getAll",
         error: error.message
@@ -41,7 +41,7 @@ module.exports.create = (req,res,next)=> {
         "time": req.body.podcast.time
     })
     .then((podcast) => res.status(201).json(podcast))
-    .catch((error) => winstonLogger.info("Couldn't create Product", {
+    .catch((error) => winstonLogger.error("Couldn't create Product", {
         metadata:{
         services:"podcast-controller: createPodcast",
         error: error.message
@@ -50,11 +50,11 @@ module.exports.create = (req,res,next)=> {
 };
 
 module.exports.getOne = (req, res, next) => {
-    
+    console.log(req.path)
     Podcast.findById(req.params.id)
         .populate("influencer")
         .then((podcast)=> res.status(200).json(podcast))
-        .catch((error) => winstonLogger.info("Couldn't get one podcast", {
+        .catch((error) => winstonLogger.error("Couldn't get one podcast", {
         metadata:{
         services:"podcast-controller: getOne",
         error: error.message
@@ -73,7 +73,7 @@ module.exports.edit = (req, res, next) => {
         "time": req.body.time
         })
     .then((podcast) => res.status(201).json(podcast))
-    .catch((error) => winstonLogger.info("Couldn't edit podcast", {
+    .catch((error) => winstonLogger.error("Couldn't edit podcast", {
         metadata:{
             services:"podcast-controller: edit",
             error: error.message
