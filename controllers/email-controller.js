@@ -24,7 +24,7 @@ module.exports.addEmail = (req,res,next)=> {
 module.exports.addSubscriber = (req,res,next)=> {
 
   const email = req.body;
-  console.log(req.body)
+
 
   Email.findOne({ email: email}, (err, email) => {
     if (err){
