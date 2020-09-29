@@ -49,52 +49,56 @@ let mailOptions = {
   transporter.sendMail(mailOptions, function (error) {
     if (error) {
         console.log('error:', error);
+        res.status(400).json(err);
      
     } else {
         console.log('good');
+        res.status(201);
+
       
     }
 })
 
-
-
 })
 
 
-// router.post('/contact', (req, res, next) => {
-//   let name = req.body.name
-//   let email = req.body.email
-//   // let message = req.body.message
+router.post('/feedback', (req, res) => {
+    console.log("Este es el n=body", req.body.message)
   
-//   // let content = `name: ${name} \n email: ${email} \n message: ${content} `
-
-//   let mail = {
-//     from: name,
-//     to: email,  //Change to email address that you want to receive messages on
-//     subject: 'Thank you for contacting us!',
-//     text: `Thank you for buying!`
-//   };
-
-//   let mail2 = {
-//     from: name,
-//     to: "sebasgrossmann@gmail.com",
-//     subject: "A customer bought a Product!",
-//     text: "Go into the website to ship product"
-//   };
-
-//   transporter.sendMail(mail, (err, data) => {
-//     if (err) {
-//       res.json({
-//         msg: 'fail'
-//       })
-//     } else {
-//       transporter.sendMail(mail2, (err,data) => {x})
-//       res.json({
-//         msg: 'success'
-//       })
-//     }
-//   });
-// });
+    let mailerConfig = {    
+      host: 'smtpout.secureserver.net', 
+      secureConnection: true,
+      port: 587,
+      auth: {
+          user: "contact@reboundwithus.com",
+          pass: "Philantros100"
+      },
+      logger: true,
+      debug: true, // include SMTP traffic in the logs
+  };
+  let transporter = nodemailer.createTransport(mailerConfig);
+  
+  let mailOptions = {
+      from: mailerConfig.auth.user,
+      to: "reboundtalks@gmail.com",
+      subject: 'Feedback',
+      html: `${req.body.message}`
+  };
+  
+  
+    transporter.sendMail(mailOptions, function (error) {
+      if (error) {
+          console.log('error:', error);
+       
+      } else {
+          console.log('good');
+          res.status(201);
+  
+        
+      }
+  })
+  
+})
 
 module.exports = router;
 
