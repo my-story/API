@@ -23,7 +23,6 @@ const nodemailer = require('nodemailer');
 
 
 router.post('/contact', (req, res) => {
-  console.log(req.body.email);
 
   let mailerConfig = {    
     host: 'smtpout.secureserver.net', 
@@ -33,31 +32,28 @@ router.post('/contact', (req, res) => {
         user: "contact@reboundwithus.com",
         pass: "Philantros100"
     },
-    logger: true,
-    debug: true, // include SMTP traffic in the logs
 };
 let transporter = nodemailer.createTransport(mailerConfig);
 
 let mailOptions = {
     from: mailerConfig.auth.user,
     to: req.body.email,
-    subject: 'hellooooo',
-    html: `${req.body.name} saes ${req.body.message}`
+    subject: 'Contact Us',
+    html: `We appreciate that you’ve taken the time to write us ${req.body.name}. We’ll get back to you very soon. Your message was: ${req.body.message}`
 };
 
 
   transporter.sendMail(mailOptions, function (error) {
     if (error) {
-        console.log('error:', error);
-        res.status(400).json(err);
+        // console.log('error:', error);
+        res.status(400).json(error);
      
     } else {
         console.log('good');
-        res.status(201);
-
-      
+        res.status(201).send("sent");
     }
 })
+return transporter.sendMail(mailOptions);
 
 })
 
@@ -88,7 +84,7 @@ router.post('/feedback', (req, res) => {
   
     transporter.sendMail(mailOptions, function (error) {
       if (error) {
-          console.log('error:', error);
+          res.status(400);
        
       } else {
           console.log('good');
@@ -99,6 +95,7 @@ router.post('/feedback', (req, res) => {
   })
   
 })
+
 
 module.exports = router;
 
