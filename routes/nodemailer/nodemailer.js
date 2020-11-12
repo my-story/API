@@ -29,8 +29,8 @@ router.post('/contact', (req, res) => {
     secureConnection: true,
     port: 587,
     auth: {
-        user: "contact@reboundwithus.com",
-        pass: "Philantros100"
+        user: process.env.EMAIL,
+        pass: process.env.PASSW
     },
 };
 let transporter = nodemailer.createTransport(mailerConfig);
@@ -39,7 +39,7 @@ let mailOptions = {
     from: mailerConfig.auth.user,
     to: req.body.email,
     subject: 'Contact Us',
-    html: `We appreciate that you’ve taken the time to write us ${req.body.name}. We’ll get back to you very soon. Your message was: ${req.body.message}`
+    html: `<h4>We appreciate that you’ve taken the time to write us ${req.body.name}.</h4> <br><p> We’ll get back to you very soon. Your message was: <b> ${req.body.message}</b> </p>`
 };
 
 
