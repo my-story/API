@@ -80,3 +80,16 @@ module.exports.edit = (req, res, next) => {
         }
     }));
 };
+
+//Get last
+module.exports.getLast = (req, res, next) => {
+    Podcast.find().limit(1).sort({$natural:-1})
+    .populate("influencer")
+    .then((podcast) => res.status(201).json(podcast))
+    .catch((error) => winstonLogger.error("Couldn't get last podcast", {
+        metadata:{
+            services:"podcast-controller: getLast",
+            error: error.message
+        }
+    }));
+}
